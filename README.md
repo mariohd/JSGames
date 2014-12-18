@@ -3,7 +3,7 @@ JSGames
 
 This is a collection of games in JS and HTML5, made just for fun.
 
-Github.io project page[http://mariohd.github.io/JSGames/#]
+Github.io [project page](http://mariohd.github.io/JSGames/ "Title")
 
 My Intentions with this project(s)
 =======
