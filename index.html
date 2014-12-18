@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+<head>
+    <title>JSGames - JS + HTML5 = Fun</title>
+    <link href='http://fonts.googleapis.com/css?family=Days+One' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="header">
+        <hgroup>
+            <h1>JSGames</h1>
+            <h2>Little games made in JS just for fun!</h2>
+        </hgroup>
+    </header>
+
+    <section class="demo">
+
+        <dl class="list listOfGames">
+            <dt>Games</dt>
+            <dd><a href="#" id="miniRacerOpt">Mini Racer</a></dd>
+            <dd><a href="#" id="mazeEscapeOpt">Maze Escape</a></dd>
+        </dl>
+
+        <dl class="list miniRacer gameContentsMakisu" id="miniRacerOpts">
+            <dt>Mini Racer</dt>
+			<dd><a href="#" onclick="showDetail('#backgroundMiniRacerDetails');">Background</a></dd>
+            <dd><a href="#" onclick="showDetail('#yourCarMiniRacerDetails');">Your Car</a></dd>
+            <dd><a href="#" onclick="showDetail('#reverseCarsMiniRacerDetails');">Reverse Cars</a></dd>
+			<dd><a href="#" onclick="showDetail('#MiniRacerObjectDetails');">Mini Racer Object</a></dd>
+            <dd><a href="#" onclick="showDetail();">Live Demo</a></dd>
+
+        </dl>
+
+        <dl class="list mazeEscape gameContentsMakisu" id="mazeEscapeOpts">
+            <dt>Maze Escape</dt>
+            <dd><a href="#" onclick="showDetail('#backgroundMazeDetails');">Background</a></dd>
+            <dd><a href="#" onclick="showDetail('#playerMazeDetails')">Player</a></dd>
+      			<dd><a href="#" onclick="showDetail('#mazeMazeDetails')">Maze</a></dd>
+      			<dd><a href="#" onclick="showDetail('#mazeEscapeMazeDetails')">Maze Escape Object</a></dd>
+      			<dd><a href="#" onclick="showDetail()">Live Demo</a></dd>
+        </dl>
+
+    </section>
+
+	<section class="right">
+		<div id="backgroundMiniRacerDetails" class="details" >
+			<span class="title">Background</span>
+			<span class="textContent">In Mini Racer, the background was an image of the device that i was inspired. My objective is to put the canvas 'as screen' of the device, i've made this time just positioning the canvas hardcoded over screen part of the image.</span>
+			<span class="textContent"><img src="images/miniRacerBackground.jpg" alt="Mini Racer background" style=" margin-left: 40%; width: 25%" /></span>
+			<span class="textContent code"><pre>&ltimg src="minigame.png" style="position: absolute; z-index: -1; width: 280px;" align="center"&gt </pre></span>
+			<span class="textContent">Since this background is an image and the canvas has to be on top of it, i've set on the attribute z-index a value lower than the z-index of the canvas.</span>
+			<span class="textContent">The screens on this type of device are always some kind of green, to archive that i've painted the canva's background with color-like to match the original screen color.</span>
+			<span class="textContent code">
+				<pre>
+&ltcanvas id="miniRacerCanvas" width="100" height="150" tabindex="1" 
+	style="position: relative; left: 86px; top: 46px; border:1px solid #d3d3d3; background: #B8C7AD;"&gt
+	Your browser does not support the HTML5 canvas tag.
+&lt/canvas&gt
+				</pre>
+			</span>
+			<span class="textContent">If the browser is too old or don't support HTML5's canvas, an message will be displayed positioned where the canvas should be.</span>
+			<span class="textContent" style="float: right;" onclick="showDetail('#yourCarMiniRacerDetails');"><div style="font-size: 30px;">&#10143</div><div style="margin-top: -5px;" >Next</div></span>
+		</div>
+
+		<div id="yourCarMiniRacerDetails" class="details" >
+		  <span class="title">Your Car</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		</div>
+
+		<div id="reverseCarsMiniRacerDetails" class="details" >
+		  <span class="title">Reverse Cars</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		</div>
+
+		<div id="MiniRacerObjectDetails" class="details" >
+		  <span class="title">Mini Racer Object</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		  <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		</div>
+
+		<div id="backgroundMazeDetails" class="details" >
+			<span class="title">Background</span>
+			<span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+			<span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+			<span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+			<span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+			<span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+			<span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+		</div>
+
+    <div id="playerMazeDetails" class="details" >
+      <span class="title">Player</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+    </div>
+
+    <div id="mazeMazeDetails" class="details" >
+      <span class="title">Maze</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+    </div>
+
+    <div id="mazeEscapeMazeDetails" class="details" >
+      <span class="title">Maze Escape Object</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+      <span class="textContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras leo arcu, dapibus id arcu vitae, sodales sollicitudin nibh. Morbi eros lacus, accumsan id elit ac, condimentum placerat ligula. Donec fermentum justo mauris, sed viverra eros lacinia a. Vivamus dictum massa sed dui efficitur, vitae hendrerit magna aliquam. Fusce dapibus eros vitae fermentum consectetur. In ac feugiat ante, ac rhoncus tellus. Ut accumsan facilisis eros vitae rhoncus. Phasellus turpis ipsum, mattis non lobortis eget, dictum in orci. Suspendisse sit amet nunc velit.</span>
+    </div>
+	</section>
+
+    <div class="warning">
+        <div class="message">
+            <h1>CSS 3D Not Detected :(</h1>
+            <p>I couldn't detect your browser's CSS 3D capabilities. If I'm wrong, please <a href="https://github.com/soulwire/Makisu/issues" target="_blank">file an issue</a>, otherwise, try a <a href="http://www.google.com/chrome" target="_blank">sexier browser</a></p>
+        </div>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="js/makisu.js"></script>
+    <script>
+
+		function get_browser(){
+			var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+			if(/trident/i.test(M[1])){
+				tem=/\brv[ :]+(\d+)/g.exec(ua) || [];
+				return 'IE '+(tem[1]||'');
+				}
+			if(M[1]==='Chrome'){
+				tem=ua.match(/\bOPR\/(\d+)/)
+				if(tem!=null)   {return 'Opera '+tem[1];}
+				}
+			M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+			if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+			return M[0];
+		}
+
+		function showDetail(selector) {
+			if ($('.details').is(':visible')) {
+				$('.details:visible').fadeOut('fast', function () {
+					$(selector).fadeIn();
+				});
+			} else {
+				$(selector).fadeIn();
+			}
+		}
+
+		// The `enabled` flag will be `false` if CSS 3D isn't available
+        if ( $.fn.makisu.enabled ) {
+
+            var $mazeEscape = $( '.mazeEscape' );
+            var $listOfGames = $( '.listOfGames' );
+            var $miniRacer = $( '.miniRacer' );
+
+            // Create Makisus
+
+            $listOfGames.makisu({
+                selector: 'dd',
+                overlap: 0.85,
+                speed: 1.7
+            });
+
+            $miniRacer.makisu({
+                selector: 'dd',
+                overlap: 0.6,
+                speed: 0.85
+            });
+
+            $mazeEscape.makisu({
+                selector: 'dd',
+                overlap: 0.2,
+                speed: 0.5
+            });
+
+			$('#miniRacerOpt').click(function () {
+				var before = $('.gameContentsMakisu:visible');
+				before.fadeOut();
+				$('#miniRacerOpts').fadeIn();
+				$('#miniRacerOpts').makisu( 'toggle' );
+				before.makisu('close');
+				showDetail('');
+			});
+
+			$('#mazeEscapeOpt').click(function () {
+				var before = $('.gameContentsMakisu:visible');
+				before.fadeOut();
+				$('#mazeEscapeOpts').fadeIn();
+				$('#mazeEscapeOpts').makisu( 'toggle' );
+				before.makisu('close');
+				showDetail('');
+			});
+
+            // Open all
+
+            $( '.listOfGames' ).makisu( 'open' );
+
+            // Toggle on click
+
+            $( '.toggle' ).on( 'click', function() {
+                $( '.list' ).makisu( 'toggle' );
+            });
+
+            // Disable all links
+
+            $( '.demo a' ).click( function( event ) {
+                event.preventDefault();
+            });
+
+        } else {
+
+            $( '.warning' ).show();
+        }
+
+		if (get_browser().toUpperCase() === "FIREFOX") {
+			$('.list span').css('transform-style', 'flat');
+		}
+
+		if (get_browser() === 'MSIE') {
+			$('.list span').removeAttr('style');
+		}
+    </script>
+</body>
+</html>
