@@ -3,6 +3,8 @@ JSGames
 
 This is a collection of games in JS and HTML5, made just for fun.
 
+Github.io [project page](http://mariohd.github.io/JSGames/ "Title")
+
 My Intentions with this project(s)
 =======
 I've started this little games projects, inspired by some Computer Graphics classes. Our goal there, was to develop a game in Java using OpenGL (with JOGL framework).
