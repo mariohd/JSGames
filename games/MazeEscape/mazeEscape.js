@@ -134,7 +134,7 @@ var MazeEscape = ({
 	init: function () {
 		this.timer = new ClockCounter();
 		this.startTimer();
-		this.canvas = document.getElementById("ffCanvas");
+		this.canvas = document.getElementById("mazeEscapeCanvas");
 		this.context = this.canvas.getContext("2d");
 		this.player = new Player();
 		this.startRefreshScreen();
@@ -263,9 +263,9 @@ var MazeEscape = ({
 			this.running = false;
 			this.showResultMessage('Congrats!\nYour time is\n' + this.timer.timeCrono , 'victory');
 		}
-	
+
 	},
-	
+
 	showResultMessage: function (message, className) {
 		var result = document.getElementById('result')
 		result.innerText = message;
@@ -296,15 +296,15 @@ var MazeEscape = ({
 	}
 }).init();
 
-document.getElementById("ffCanvas").focus();
-document.getElementById("ffCanvas").onkeypress = function (key) {
+document.getElementById("mazeEscapeCanvas").focus();
+document.getElementById("mazeEscapeCanvas").onkeypress = function (key) {
 	MazeEscape.playerMoviment(key) ;
 };
 
-document.getElementById("ffCanvas").onkeydown = function (key) {
+document.getElementById("mazeEscapeCanvas").onkeydown = function (key) {
 	MazeEscape.player.walking = true;
 };
 
-document.getElementById("ffCanvas").onkeyup = function (key) {
+document.getElementById("mazeEscapeCanvas").onkeyup = function (key) {
 	MazeEscape.player.walking = false;
 };
