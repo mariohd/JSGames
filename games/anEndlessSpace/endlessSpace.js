@@ -36,10 +36,6 @@ SpaceBackground.prototype.build = function (context) {
 		}
 		context.drawImage(this.backgroundImage, 0, -this.currentHeight);
 		this.currentHeight -= this.speed;
-	} else {
-		context.fillStyle = "blue";
-		context.font = "bold 23px Arial";
-		context.fillText("Loading background...", context.canvasWidth/2.5, context.canvasHeight/2 );
 	}
 };
 
@@ -69,6 +65,10 @@ var endlessSpace = ({
 				new ClockCounter().startCronometer();
 				clearInterval(id);
 				self.refreshScreen();
+			} else {
+				context.fillStyle = "blue";
+				context.font = "bold 23px Arial";
+				context.fillText("Loading...", self.context.canvasWidth/2.5, self.context.canvasHeight/2 );
 			}
 		}, 15);
 	},
