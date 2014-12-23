@@ -1,32 +1,32 @@
-function spaceShip() {
-  this.sprite;
-  this.position = { width : 60, height: 0};
-  this.speed = 10;
-  this.init();
+function SpaceShip() {
+	this.sprite;
+	this.position = { width : 60, height: 0};
+	this.speed = 10;
+	this.init();
 };
 
-spaceShip.prototype.init = function () {
-  this.sprite = new Image();
-  this.sprite.src = 'ship/ship.png';
+SpaceShip.prototype.init = function () {
+	this.sprite = new Image();
+	this.sprite.src = 'ship/ship.png';
 };
 
-spaceShip.prototype.build = function (context) {
-  context.drawImage(this.sprite, this.position.width, this.position.height);
+SpaceShip.prototype.build = function (context) {
+	context.drawImage(this.sprite, this.position.width, this.position.height);
 };
 
 function SpaceBackground(imageURL, height, exibitionArea) {
-  this.backgroundImage = new Image();
-  this.initialHeight = height;
-  this.currentHeight = this.initialHeight;
-  this.currentWidth = this.initialHeight;
-  this.exibitionArea = exibitionArea;
-  this.speed = 1;
-  this.isReady = false;
-  var self = this;
-  this.backgroundImage.onload = function () {
-	self.isReady = true;
-  };
-  this.backgroundImage.src = imageURL;
+	this.backgroundImage = new Image();
+	this.initialHeight = height;
+	this.currentHeight = this.initialHeight;
+	this.currentWidth = this.initialHeight;
+	this.exibitionArea = exibitionArea;
+	this.speed = 1;
+	this.isReady = false;
+	var self = this;
+	this.backgroundImage.onload = function () {
+		self.isReady = true;
+		};
+	this.backgroundImage.src = imageURL;
 };
 
 SpaceBackground.prototype.build = function (context) {
@@ -40,37 +40,37 @@ SpaceBackground.prototype.build = function (context) {
 };
 
 var endlessSpace = ({
-  background: null,
-  canvas: null,
-  context: null,
+	background: null,
+	canvas: null,
+	context: null,
 
-  init: function () {
-    this.canvas = document.getElementById('endlessCanvas');
-    this.context = this.canvas.getContext("2d");
-	this.context.canvasWidth = this.canvas.scrollWidth;
-	this.context.canvasHeight = this.canvas.scrollHeight;
-    this.background = new SpaceBackground('background/space.jpg', 0, this.canvas.height);
-    this.onReady();
-    return this;
-  },
+	init: function () {
+		this.canvas = document.getElementById('endlessCanvas');
+		this.context = this.canvas.getContext("2d");
+		this.context.canvasWidth = this.canvas.scrollWidth;
+		this.context.canvasHeight = this.canvas.scrollHeight;
+		this.background = new SpaceBackground('background/space.jpg', 0, this.canvas.height);
+		this.onReady();
+		return this;
+	},
   
-  isReady: function () {
-	return this.background.isReady;
-  },
+	isReady: function () {
+		return this.background.isReady;
+	},
 
-  onReady: function () {
-	var self = this;
-	var id = setInterval(function () {
-			if (self.isReady()) {
-				new ClockCounter().startCronometer();
-				clearInterval(id);
-				self.refreshScreen();
-			} else {
-				self.context.fillStyle = "blue";
-				self.context.font = "bold 23px Arial";
-				self.context.fillText("Loading...", self.context.canvasWidth/2.5, self.context.canvasHeight/2 );
-			}
-		}, 15);
+	onReady: function () {
+		var self = this;
+		var id = setInterval(function () {
+				if (self.isReady()) {
+					new ClockCounter().startCronometer();
+					clearInterval(id);
+					self.refreshScreen();
+				} else {
+					self.context.fillStyle = "blue";
+					self.context.font = "bold 23px Arial";
+					self.context.fillText("Loading...", self.context.canvasWidth/2.5, self.context.canvasHeight/2 );
+				}
+			}, 15);
 	},
 	
 	refreshScreen: function () {
