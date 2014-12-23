@@ -20,18 +20,18 @@ function SpaceBackground(imageURL, height, exibitionArea) {
   this.currentHeight = this.initialHeight;
   this.currentWidth = this.initialHeight;
   this.exibitionArea = exibitionArea;
-  this.speed = .8;
-  this.ready = false;
+  this.speed = 1;
+  this.isReady = false;
   var self = this;
   this.backgroundImage.onload = function () {
-	self.ready = true;
+	self.isReady = true;
   };
   this.backgroundImage.src = imageURL;
 };
 
 SpaceBackground.prototype.build = function (context) {
-	if (this.ready) {
-		if (this.currentHeight == this.initialHeight) {
+	if (this.isReady) {
+		if (parseInt(this.currentHeight) == this.initialHeight) {
 			this.currentHeight = this.backgroundImage.height - this.exibitionArea;
 		}
 		context.drawImage(this.backgroundImage, 0, -this.currentHeight);
@@ -39,7 +39,7 @@ SpaceBackground.prototype.build = function (context) {
 	} else {
 		context.fillStyle = "blue";
 		context.font = "bold 23px Arial";
-		context.fillText("Loading Image...", context.canvasWidth/2.5, context.canvasHeight/2 );
+		context.fillText("Loading background...", context.canvasWidth/2.5, context.canvasHeight/2 );
 	}
 };
 
@@ -51,18 +51,33 @@ var endlessSpace = ({
   init: function () {
     this.canvas = document.getElementById('endlessCanvas');
     this.context = this.canvas.getContext("2d");
-	  this.context.canvasWidth = this.canvas.scrollWidth;
-	  this.context.canvasHeight = this.canvas.scrollHeight;
+	this.context.canvasWidth = this.canvas.scrollWidth;
+	this.context.canvasHeight = this.canvas.scrollHeight;
     this.background = new SpaceBackground('background/space.jpg', 0, this.canvas.height);
-    this.refresh();
+    this.onReady();
     return this;
   },
-
-  refresh: function () {
-    setInterval(function () {
-      endlessSpace.context.clearRect(0 ,0, endlessSpace.canvas.width, endlessSpace.canvas.height );
-      endlessSpace.background.build(endlessSpace.context);
-    }, 1000/60);
+  
+  isReady: function () {
+	return this.background.isReady;
   },
 
+  onReady: function () {
+	var self = this;
+	var id = setInterval(function () {
+			if (self.isReady()) {
+				new ClockCounter().startCronometer();
+				clearInterval(id);
+				self.refreshScreen();
+			}
+		}, 15);
+	},
+	
+	refreshScreen: function () {
+		var self = this;
+		setInterval(function () {
+			self.context.clearRect(0 ,0, self.canvas.width, self.canvas.height );
+			self.background.build(self.context);
+		}, parseInt(1000/60) - 1);
+	},
 }).init();
