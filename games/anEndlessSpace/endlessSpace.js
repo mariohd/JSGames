@@ -16,21 +16,31 @@ spaceShip.prototype.build = function (context) {
 
 function SpaceBackground(imageURL, height, exibitionArea) {
   this.backgroundImage = new Image();
-  this.backgroundImage.src = imageURL;
   this.initialHeight = height;
   this.currentHeight = this.initialHeight;
   this.currentWidth = this.initialHeight;
   this.exibitionArea = exibitionArea;
   this.speed = .8;
+  this.ready = false;
+  var self = this;
+  this.backgroundImage.onload = function () {
+	self.ready = true;
+  };
+  this.backgroundImage.src = imageURL;
 };
 
 SpaceBackground.prototype.build = function (context) {
-
-  if (this.currentHeight == this.initialHeight) {
-    this.currentHeight = this.backgroundImage.height - this.exibitionArea;
-  }
-  context.drawImage(this.backgroundImage, 0, -this.currentHeight);
-  this.currentHeight -= this.speed;
+	if (this.ready) {
+		if (this.currentHeight == this.initialHeight) {
+			this.currentHeight = this.backgroundImage.height - this.exibitionArea;
+		}
+		context.drawImage(this.backgroundImage, 0, -this.currentHeight);
+		this.currentHeight -= this.speed;
+	} else {
+		context.fillStyle = "blue";
+		context.font = "bold 23px Arial";
+		context.fillText("Loading Image...", context.canvasWidth/2.5, context.canvasHeight/2 );
+	}
 };
 
 var endlessSpace = ({
@@ -41,6 +51,8 @@ var endlessSpace = ({
   init: function () {
     this.canvas = document.getElementById('endlessCanvas');
     this.context = this.canvas.getContext("2d");
+	  this.context.canvasWidth = this.canvas.scrollWidth;
+	  this.context.canvasHeight = this.canvas.scrollHeight;
     this.background = new SpaceBackground('background/space.jpg', 0, this.canvas.height);
     this.refresh();
     return this;
