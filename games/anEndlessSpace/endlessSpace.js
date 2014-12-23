@@ -66,9 +66,9 @@ var endlessSpace = ({
 				clearInterval(id);
 				self.refreshScreen();
 			} else {
-				context.fillStyle = "blue";
-				context.font = "bold 23px Arial";
-				context.fillText("Loading...", self.context.canvasWidth/2.5, self.context.canvasHeight/2 );
+				self.context.fillStyle = "blue";
+				self.context.font = "bold 23px Arial";
+				self.context.fillText("Loading...", self.context.canvasWidth/2.5, self.context.canvasHeight/2 );
 			}
 		}, 15);
 	},
