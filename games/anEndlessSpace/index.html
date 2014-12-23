@@ -3,9 +3,7 @@
 <style>
 
   .time {
-    position: fixed;
-    left : 80%;
-    top: 10%;
+    margin-left: 1000px;
     color: red;
     z-index: 1;
     font-size: 25px;
@@ -31,13 +29,15 @@
 
 </style>
 <body>
+  <span id="timeCounter" class="time p2font"></span>
   <div id="canvas-container">
     <canvas id="endlessCanvas" width="1000" height="600" tabindex="1" style="border:1px solid #d3d3d3;">
       Your browser does not support the HTML5 canvas tag.
     </canvas>
   </div>
-  <span id="timeCounter" class="time p2font"></span>
+ 
 
   </body>
+  <script src="clockTimer.js"></script>
   <script src="endlessSpace.js"></script>
   </html>
