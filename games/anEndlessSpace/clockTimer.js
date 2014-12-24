@@ -23,7 +23,7 @@ ClockCounter.prototype.update = function () {
 	else {
 		this.seg = 60 + (time.getSeconds() - this.start);
 	}
-	this.timeCrono= ((this.min < 10) ? "0" : ":") + this.min;
+	this.timeCrono= ((this.min < 10) ? "0" : "") + this.min;
 	this.timeCrono+= ((this.seg < 10) ? ":0" : ":") + this.seg;
 	document.getElementById('timeCounter').innerText = this.timeCrono;
 };

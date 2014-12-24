@@ -3,7 +3,7 @@ function spaceShip() {
   this.maxPosition = { width : 930, height: 530 };
   this.minPosition = { width : 0, height: 0 };
   this.position = { width : (this.maxPosition.width - this.minPosition.width)/2 , height: (this.maxPosition.height - this.minPosition.height)};
-  this.speed = 10;
+  this.speed = 5;
   this.init();
 };
 
@@ -17,39 +17,33 @@ spaceShip.prototype.build = function (context) {
   context.drawImage(this.sprite, this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
 };
 
+spaceShip.prototype.shot = function () {
+};
+
 spaceShip.prototype.action = function (keys) {
-  if(keys[37] || keys[65]) {
+  if(keys[37] || keys[65]) { // left
 	   if (this.minPosition.width < this.position.width - this.speed) {
 		     this.position.width -= this.speed;
      }
   }
 
-  if(keys[38] || keys[87]) {
+  if(keys[38] || keys[87]) { // up
     if (this.minPosition.height < this.position.height - this.speed) {
       this.position.height -= this.speed;
     }
   }
 
-  if(keys[39] || keys[68]) {
+  if(keys[39] || keys[68]) { // right
     if (this.maxPosition.width > this.position.width + this.speed) {
       this.position.width += this.speed;
     }
   }
 
-  if(keys[40] || keys[83]) {
+  if(keys[40] || keys[83]) { // down
     if (this.maxPosition.height > this.position.height + this.speed) {
       this.position.height += this.speed;
     }
   }
-		/*
-
-		case 40:	// arrow down
-			if (this.maxPosition.height > this.position.height + this.speed)
-				this.position.height += this.speed;
-			break;
-	}
-  */
-
 };
 
 var endlessSpace = ({
@@ -60,6 +54,7 @@ var endlessSpace = ({
   timer: null,
   ship: null,
   refreshInterval: null,
+  refreshRate: 15,
   keys: [],
 
   init: function () {
@@ -96,7 +91,7 @@ var endlessSpace = ({
 				self.context.fillText(loadingText, self.context.canvasWidth/2, self.context.canvasHeight/2 );
 				self.context.restore();
 			}
-		},  parseInt(1000/60) - 1);
+		},  this.refreshRate);
 	},
 
 	refreshScreen: function () {
@@ -106,7 +101,7 @@ var endlessSpace = ({
 			self.stages[self.currentStage].build(self.context);
 			self.ship.build(self.context);
       self.ship.action(self.keys);
-		}, parseInt(1000/60) - 1);
+		}, this.refreshRate);
 	},
 
 	nextStage: function () {
@@ -123,12 +118,18 @@ var endlessSpace = ({
 var endlessCanvas = document.getElementById("endlessCanvas");
 
 endlessCanvas.focus();
+
 endlessCanvas.onblur = function () {
 	endlessCanvas.focus();
 };
 
 endlessCanvas.onkeydown = function (key) {
-  endlessSpace.keys[key.which] = key.type == 'keydown';
+  if (key.keyCode === 32 ) {
+    key.preventDefault();
+    endlessSpace.ship.shot();
+  } else {
+    endlessSpace.keys[key.which] = key.type == 'keydown';
+  }
 };
 
 endlessCanvas.onkeyup = function (key) {
