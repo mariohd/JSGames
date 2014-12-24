@@ -17,33 +17,39 @@ spaceShip.prototype.build = function (context) {
   context.drawImage(this.sprite, this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
 };
 
-spaceShip.prototype.action = function (key) {
-	switch(key.which) {
-		case 'a'.charCodeAt(0):
-		case 'A'.charCodeAt(0):
-		case 37:	// arrow left
-			if (this.minPosition.width < this.position.width - this.speed)
-				this.position.width -= this.speed;
-			break;
-		case 'w'.charCodeAt(0):
-		case 'W'.charCodeAt(0):
-		case 38:	//arrow up
-			if (this.minPosition.height < this.position.height - this.speed)
-				this.position.height -= this.speed;
-			break;
-		case 'd'.charCodeAt(0):
-		case 'D'.charCodeAt(0):
-		case 39: 	// arrow right
-			if (this.maxPosition.width > this.position.width + this.speed)
-				this.position.width += this.speed;
-			break;
-		case 's'.charCodeAt(0):
-		case 'S'.charCodeAt(0):
+spaceShip.prototype.action = function (keys) {
+  if(keys[37] || keys[65]) {
+	   if (this.minPosition.width < this.position.width - this.speed) {
+		     this.position.width -= this.speed;
+     }
+  }
+
+  if(keys[38] || keys[87]) {
+    if (this.minPosition.height < this.position.height - this.speed) {
+      this.position.height -= this.speed;
+    }
+  }
+
+  if(keys[39] || keys[68]) {
+    if (this.maxPosition.width > this.position.width + this.speed) {
+      this.position.width += this.speed;
+    }
+  }
+
+  if(keys[40] || keys[83]) {
+    if (this.maxPosition.height > this.position.height + this.speed) {
+      this.position.height += this.speed;
+    }
+  }
+		/*
+
 		case 40:	// arrow down
 			if (this.maxPosition.height > this.position.height + this.speed)
 				this.position.height += this.speed;
 			break;
 	}
+  */
+
 };
 
 var endlessSpace = ({
@@ -54,21 +60,22 @@ var endlessSpace = ({
   timer: null,
   ship: null,
   refreshInterval: null,
+  keys: [],
 
   init: function () {
     this.canvas = document.getElementById('endlessCanvas');
     this.context = this.canvas.getContext("2d");
 	this.context.canvasWidth = this.canvas.scrollWidth;
 	this.context.canvasHeight = this.canvas.scrollHeight;
-    this.stages = 
-		[new StageOne('background/stageOne.jpg', 0, this.canvas.height), 
+    this.stages =
+		[new StageOne('background/stageOne.jpg', 0, this.canvas.height),
 		 new StageTwo('background/stageTwo.jpg', 0, this.canvas.height)];
 	this.timer = new ClockCounter();
 	this.ship = new spaceShip();
     this.onReady();
     return this;
   },
-  
+
   isReady: function () {
 	return this.stages[this.currentStage].isReady;
   },
@@ -91,28 +98,25 @@ var endlessSpace = ({
 			}
 		},  parseInt(1000/60) - 1);
 	},
-	
+
 	refreshScreen: function () {
 		var self = this;
 		this.refreshInterval = setInterval(function () {
 			self.clearCanvas();
 			self.stages[self.currentStage].build(self.context);
 			self.ship.build(self.context);
+      self.ship.action(self.keys);
 		}, parseInt(1000/60) - 1);
 	},
-	
+
 	nextStage: function () {
 		clearInterval(this.refreshInterval);
 		this.currentStage += 1;
 		this.onReady();
 	},
-	
+
 	clearCanvas: function () {
 		this.context.clearRect(0 ,0, this.canvas.width, this.canvas.height );
-	},
-	
-	action: function (key) {
-		this.ship.action(key);
 	}
 }).init();
 
@@ -123,6 +127,10 @@ endlessCanvas.onblur = function () {
 	endlessCanvas.focus();
 };
 
-window.addEventListener('keydown', function (key) {
-	endlessSpace.action(key);
-}, true);
+endlessCanvas.onkeydown = function (key) {
+  endlessSpace.keys[key.which] = key.type == 'keydown';
+};
+
+endlessCanvas.onkeyup = function (key) {
+  endlessSpace.keys[key.which] = key.type == 'keydown';
+};
