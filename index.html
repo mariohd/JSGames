@@ -20,7 +20,7 @@
             <dt>Games</dt>
             <dd><a href="#" id="miniRacerOpt">Mini Racer</a></dd>
             <dd><a href="#" id="mazeEscapeOpt">Maze Escape</a></dd>
-            <dd><a href="#" id="endlessSpaceOpt">An Endless Space</a></dd>
+            <dd><a href="#" id="azureStarOpt">Azure Star</a></dd>
         </dl>
 
         <dl class="list miniRacer gameContentsMakisu" id="miniRacerOpts">
@@ -42,13 +42,13 @@
       			<dd><a onclick="window.open('games/MazeEscape/mazeEscape.html','_blank');" target="_blank">Live Demo</a></dd>
         </dl>
 
-        <dl class="list endlessSpace gameContentsMakisu" id="endlessSpaceOpts">
-          <dt>An Endless Space</dt>
-          <dd><a href="#" onclick="showDetail('#backgroundEndlessDetails');">Background</a></dd>
-          <dd><a href="#" onclick="showDetail('#playerEndlessDetails')">Player/Ship</a></dd>
-          <dd><a href="#" onclick="showDetail('#stagesEndlessDetails')">Stages</a></dd>
-          <dd><a href="#" onclick="showDetail('#EndlessSpaceEndlessDetails')">Endless Space</a></dd>
-          <dd><a onclick="window.open('games/anEndlessSpace/index.html','_blank');" target="_blank">Live Demo</a></dd>
+        <dl class="list azureStar gameContentsMakisu" id="azureStarOpts">
+          <dt>Azure Star</dt>
+          <dd><a href="#" onclick="showDetail('#backgroundAzureStar');">Background</a></dd>
+          <dd><a href="#" onclick="showDetail('#playerAzureStarDetails')">Player/Ship</a></dd>
+          <dd><a href="#" onclick="showDetail('#stagesAzureStarDetails')">Stages</a></dd>
+          <dd><a href="#" onclick="showDetail('#AzureStarDetails')">Azure Star</a></dd>
+          <dd><a onclick="window.open('games/azureStar/index.html','_blank');" target="_blank">Live Demo</a></dd>
         </dl>
 
     </section>
@@ -184,28 +184,21 @@
 		// The `enabled` flag will be `false` if CSS 3D isn't available
         if ( $.fn.makisu.enabled ) {
 
-            var $mazeEscape = $( '.mazeEscape' );
             var $listOfGames = $( '.listOfGames' );
-            var $miniRacer = $( '.miniRacer' );
+            var $games = $('.mazeEscape, .miniRacer, .azureStar');
 
-            // Create Makisus
+            $games.each(function () {
+              $(this).makisu({
+                selector: 'dd',
+                overlap: 0.85,
+                speed: 1.7
+              });
+            });
 
             $listOfGames.makisu({
                 selector: 'dd',
                 overlap: 0.85,
                 speed: 1.7
-            });
-
-            $miniRacer.makisu({
-                selector: 'dd',
-                overlap: 0.6,
-                speed: 0.85
-            });
-
-            $mazeEscape.makisu({
-                selector: 'dd',
-                overlap: 0.2,
-                speed: 0.5
             });
 
 			$('#miniRacerOpt').click(function () {
@@ -225,6 +218,15 @@
 				before.makisu('close');
 				showDetail('');
 			});
+
+      $('#azureStarOpt').click(function () {
+        var before = $('.gameContentsMakisu:visible');
+        before.fadeOut();
+        $('#azureStarOpts').fadeIn();
+        $('#azureStarOpts').makisu( 'toggle' );
+        before.makisu('close');
+        showDetail('');
+      });
 
             // Open all
 
