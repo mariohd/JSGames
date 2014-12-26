@@ -4,6 +4,7 @@ function spaceShip() {
   this.minPosition = { width : 0, height: 0 };
   this.position = { width : (this.maxPosition.width - this.minPosition.width)/2 , height: (this.maxPosition.height - this.minPosition.height)};
   this.speed = 5;
+  this.bullets = [];
   this.init();
 };
 
@@ -14,10 +15,18 @@ spaceShip.prototype.init = function () {
 };
 
 spaceShip.prototype.build = function (context) {
+  this.bullets.forEach(function (bullet) {
+    bullet.build(context);
+  });
   context.drawImage(this.sprite, this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
 };
 
 spaceShip.prototype.shot = function () {
+  this.bullets = this.bullets.filter(function (bullet) {
+    return bullet.height >  0;
+  });
+  var bullet = new Bullet(this.position.width + (this.sprite.width/6), this.position.height);
+  this.bullets.push(bullet);
 };
 
 spaceShip.prototype.action = function (keys) {
@@ -46,7 +55,20 @@ spaceShip.prototype.action = function (keys) {
   }
 };
 
-var endlessSpace = ({
+function Bullet(width, height) {
+  this.width = width;
+  this.height = height;
+  this.damage = 5;
+  this.sprite = new Image();
+  this.sprite.src = 'ship/bullet.png';
+};
+
+Bullet.prototype.build = function (context) {
+  this.height -= 10;
+  context.drawImage(this.sprite, this.width, this.height, this.sprite.width, this.sprite.height);
+};
+
+var azureStar = ({
   stages: [],
   currentStage: 0,
   canvas: null,
@@ -58,15 +80,19 @@ var endlessSpace = ({
   keys: [],
 
   init: function () {
-    this.canvas = document.getElementById('endlessCanvas');
+    this.loadingImage = new Image();
+    this.loadingImage.src = 'background/loading.jpg';
+    this.canvas = document.getElementById('azureCanvas');
     this.context = this.canvas.getContext("2d");
-	this.context.canvasWidth = this.canvas.scrollWidth;
-	this.context.canvasHeight = this.canvas.scrollHeight;
+	  this.context.canvasWidth = this.canvas.scrollWidth;
+	  this.context.canvasHeight = this.canvas.scrollHeight;
     this.stages =
-		[new StageOne('background/stageOne.jpg', 0, this.canvas.height),
-		 new StageTwo('background/stageTwo.jpg', 0, this.canvas.height)];
-	this.timer = new ClockCounter();
-	this.ship = new spaceShip();
+		[new Stage('background/stageOne.jpg', 0, this.canvas.height, 0.6),
+		 new Stage('background/stageTwo.jpg', 0, this.canvas.height, 0.6),
+     new Stage('background/stageThree.jpg', 0, this.canvas.height, 1),
+     new Stage('background/finalStage.jpg', 0, this.canvas.height, 1)];
+	  this.timer = new ClockCounter();
+	  this.ship = new spaceShip();
     this.onReady();
     return this;
   },
@@ -85,10 +111,11 @@ var endlessSpace = ({
 			} else {
 				self.clearCanvas();
 				self.context.save();
-				self.context.fillStyle = "black";
+				self.context.fillStyle = "#D30035";
 				self.context.font = "23px Guardians";
 				self.context.textAlign = 'center';
-				self.context.fillText(loadingText, self.context.canvasWidth/2, self.context.canvasHeight/2 );
+        self.context.drawImage(self.loadingImage, 0, 0);
+				self.context.fillText(loadingText, self.context.canvasWidth/ 8, self.context.canvasHeight/ 1.1);
 				self.context.restore();
 			}
 		},  this.refreshRate);
@@ -115,23 +142,23 @@ var endlessSpace = ({
 	}
 }).init();
 
-var endlessCanvas = document.getElementById("endlessCanvas");
+var azureCanvas = document.getElementById("azureCanvas");
 
-endlessCanvas.focus();
+azureCanvas.focus();
 
-endlessCanvas.onblur = function () {
-	endlessCanvas.focus();
+azureCanvas.onblur = function () {
+  azureCanvas.focus();
 };
 
-endlessCanvas.onkeydown = function (key) {
+azureCanvas.onkeydown = function (key) {
   if (key.keyCode === 32 ) {
     key.preventDefault();
-    endlessSpace.ship.shot();
+    azureStar.ship.shot();
   } else {
-    endlessSpace.keys[key.which] = key.type == 'keydown';
+    azureStar.keys[key.which] = key.type == 'keydown';
   }
 };
 
-endlessCanvas.onkeyup = function (key) {
-  endlessSpace.keys[key.which] = key.type == 'keydown';
+azureCanvas.onkeyup = function (key) {
+  azureStar.keys[key.which] = key.type == 'keydown';
 };
