@@ -73,6 +73,7 @@
 				if (miniRacer.line == this.line) {
 					miniRacer.running = false;
 					console.log("Your escore in MiniRacer is " + miniRacer.playerCar.score + ".");
+					alert("Your escore in MiniRacer is " + miniRacer.playerCar.score + ".");
 				}
 			}
 
@@ -203,8 +204,9 @@ var miniRacer = ({
 }).init();
 
 
-document.getElementById("miniRacerCanvas").focus();
+var canvas = document.getElementById("miniRacerCanvas");
+canvas.focus();
 
-document.getElementById('miniRacerCanvas').addEventListener('keypress', function(e){
+canvas.addEventListener('keypress', function(e){
 	miniRacer.changeLine(e);
 });
