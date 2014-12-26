@@ -78,6 +78,7 @@ var azureStar = ({
   refreshInterval: null,
   refreshRate: 15,
   keys: [],
+  gameReady: false,
 
   init: function () {
     this.loadingImage = new Image();
@@ -97,29 +98,40 @@ var azureStar = ({
     return this;
   },
 
-  isReady: function () {
-	return this.stages[this.currentStage].isReady;
+  isLoaded: function () {
+	   return this.stages[this.currentStage].isReady;
   },
 
   onReady: function () {
-	var self = this, loadingText = 'Loading...';
+	var self = this, loadingText = 'Loading...', gameName = 'Azure Star', begin = 'Press Enter to begin';
 	var id = setInterval(function () {
-			if (self.isReady()) {
-				clearInterval(id);
-				self.refreshScreen();
-				self.timer.startCronometer();
+      self.clearCanvas();
+      if (self.isLoaded()) {
+        if (self.gameReady) {
+          clearInterval(id);
+          self.refreshScreen();
+          self.timer.startCronometer();
+        } else {
+          self.context.drawImage(self.loadingImage, 0, 0);
+          self.drawText(begin, self.context.canvasWidth/ 2, self.context.canvasHeight/ 1.1, '23px Guardians');
+          self.drawText(gameName, self.context.canvasWidth/ 2, self.context.canvasHeight/ 5, '70px Guardians');
+        }
 			} else {
-				self.clearCanvas();
-				self.context.save();
-				self.context.fillStyle = "#D30035";
-				self.context.font = "23px Guardians";
-				self.context.textAlign = 'center';
         self.context.drawImage(self.loadingImage, 0, 0);
-				self.context.fillText(loadingText, self.context.canvasWidth/ 8, self.context.canvasHeight/ 1.1);
-				self.context.restore();
+				self.drawText(loadingText, self.context.canvasWidth/ 8, self.context.canvasHeight/ 1.1, '23px Guardians');
+        self.drawText(gameName, self.context.canvasWidth/ 2, self.context.canvasHeight/ 5, '70px Guardians');
 			}
 		},  this.refreshRate);
 	},
+
+  drawText: function (text, width, height, font) {
+    this.context.save();
+    this.context.fillStyle = "#D30035";
+    this.context.font = font;
+    this.context.textAlign = 'center';
+    this.context.fillText(text, width, height);
+    this.context.restore();
+  },
 
 	refreshScreen: function () {
 		var self = this;
@@ -133,7 +145,9 @@ var azureStar = ({
 
 	nextStage: function () {
 		clearInterval(this.refreshInterval);
-		this.currentStage += 1;
+    if (this.stages.length - 1 > this.currentStage) {
+      this.currentStage += 1;
+    }
 		this.onReady();
 	},
 
@@ -151,11 +165,18 @@ azureCanvas.onblur = function () {
 };
 
 azureCanvas.onkeydown = function (key) {
-  if (key.keyCode === 32 ) {
-    key.preventDefault();
-    azureStar.ship.shot();
-  } else {
-    azureStar.keys[key.which] = key.type == 'keydown';
+
+  switch (key.which) {
+    case 32:
+      key.preventDefault();
+      azureStar.ship.shot();
+      break;
+    case 13:
+      azureStar.gameReady = true;
+      break;
+    default:
+      azureStar.keys[key.which] = key.type == 'keydown';
+      break;
   }
 };
 
