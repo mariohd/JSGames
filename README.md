@@ -17,7 +17,7 @@ List of Games
 =======
 * MiniRacer
 * Maze Escape
-* An Endless Space (working on it!)
+* Azure Star (working on it!)
 
 Help and Learning
 =======
