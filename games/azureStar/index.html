@@ -3,17 +3,40 @@
 <style>
 
   .time {
-    margin-left: 1000px;
     color: red;
     z-index: 1;
     font-size: 25px;
     font-weight: 900;
     text-shadow: 2px 2px black;
+    float: left;
+    margin-left: 300px;
   }
 
-  @font-face {
-    font-family: "Player2";
-    src: url(PressStart2P.ttf) format("truetype");
+  .lifes {
+    color: red;
+    z-index: 1;
+    font-size: 25px;
+    font-weight: 900;
+    text-shadow: 2px 2px black;
+    margin-left: 15px;
+    float: left;
+
+  }
+
+  .lifeCounter {
+    float: left;
+    margin-left: 150px;
+  }
+
+  .scoreCounter {
+    color: red;
+    z-index: 1;
+    font-size: 25px;
+    font-weight: 900;
+    text-shadow: 2px 2px black;
+    float: left;
+    margin-left: 300px;
+
   }
 
   @font-face {
@@ -21,7 +44,7 @@
     src: url(Guardians.ttf) format("truetype");
   }
 
-  .p2font { font-family: "Player2"}
+  .guardians { font-family: "Guardians"}
 
   #canvas-container {
     width: 100%;
@@ -30,26 +53,30 @@
 
   canvas {
     display: inline;
-	background-color: white;
-	outline: 0;
+	  background-color: white;
+	  outline: 0;
   }
 
   body {
-	background-color: black;
+	  background-color: black;
   }
 
 </style>
 <body>
-  <span id="timeCounter" class="time p2font"></span>
+  <div>
+    <img  id="miniSpaceShip" class="lifeCounter">
+    <span id="lifeCounter" class="lifes guardians"></span>
+    <span id="scoreCounter" class="scoreCounter guardians"></span>
+    <span id="timeCounter" class="time guardians"></span>
+  </div>
   <div id="canvas-container">
     <canvas id="azureCanvas" width="1000" height="600" tabindex="1">
       Your browser does not support the HTML5 canvas tag.
     </canvas>
   </div>
-
-
   </body>
   <script src="clockTimer.js"></script>
+  <script src="ship.js"></script>
   <script src="stages.js"></script>
   <script src="azureStar.js"></script>
   </html>
