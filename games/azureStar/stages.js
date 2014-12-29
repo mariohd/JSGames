@@ -1,11 +1,10 @@
-function Stage(imageURL, height, exibitionArea, speed) {
+function Stage(imageURL, name,exibitionArea, speed) {
   this.backgroundImage = new Image();
-  this.initialHeight = height;
-  this.currentHeight = this.initialHeight;
-  this.currentWidth = this.initialHeight;
+  this.currentHeight;
   this.exibitionArea = exibitionArea;
   this.speed = speed;
   this.isReady = false;
+  this.name = name;
   var self = this;
   this.backgroundImage.onload = function () {
 	   self.isReady = true;
@@ -20,5 +19,17 @@ Stage.prototype.build = function (context) {
 		if (this.currentHeight >= this.speed) {
 			this.currentHeight -= this.speed;
 		}
+    if ( (this.backgroundImage.height - this.exibitionArea) - this.currentHeight < 120 ) {
+      this.showName(context);
+    }
 	}
+};
+
+Stage.prototype.showName = function (context) {
+  context.save();
+  context.fillStyle = "#D30035";
+  context.font = '40px Guardians';
+  context.textAlign = 'center';
+  context.fillText(this.name, context.canvasWidth/ 2, context.canvasHeight/ 5);
+  context.restore();
 };

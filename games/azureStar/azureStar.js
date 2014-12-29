@@ -88,10 +88,10 @@ var azureStar = ({
 	  this.context.canvasWidth = this.canvas.scrollWidth;
 	  this.context.canvasHeight = this.canvas.scrollHeight;
     this.stages =
-		[new Stage('background/stageOne.jpg', 0, this.canvas.height, 0.6),
-		 new Stage('background/stageTwo.jpg', 0, this.canvas.height, 0.6),
-     new Stage('background/stageThree.jpg', 0, this.canvas.height, 1),
-     new Stage('background/finalStage.jpg', 0, this.canvas.height, 1)];
+		[new Stage('background/witchBroomNebula.jpg', 'Witch Broom Nebula', this.canvas.height, 0.6),
+		 new Stage('background/eagleNebula.jpg', 'Eagle Nebula', this.canvas.height, 0.6),
+     new Stage('background/orionNebula.jpg', 'Orion Nebula', this.canvas.height, 1),
+     new Stage('background/azureStar.jpg', 'Azure Star', this.canvas.height, 1)];
 	  this.timer = new ClockCounter();
 	  this.ship = new spaceShip();
     this.onReady();
@@ -107,7 +107,7 @@ var azureStar = ({
 	var id = setInterval(function () {
       self.clearCanvas();
       if (self.isLoaded()) {
-        if (self.gameReady) {
+        if (self.gameReady || true) {
           clearInterval(id);
           self.refreshScreen();
           self.timer.startCronometer();
