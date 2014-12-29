@@ -107,7 +107,7 @@ var azureStar = ({
 	var id = setInterval(function () {
       self.clearCanvas();
       if (self.isLoaded()) {
-        if (self.gameReady || true) {
+        if (self.gameReady) {
           clearInterval(id);
           self.refreshScreen();
           self.timer.startCronometer();
