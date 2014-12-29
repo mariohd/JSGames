@@ -3,8 +3,8 @@ function ClockCounter() {
 	this.hor = 0;
 	this.min = 0;
 	this.seg = 0;
-	this.startTime = new Date();
-	this.start = this.startTime.getSeconds();
+	this.startTime;
+	this.start;
 	this.running = true;
 };
 
@@ -30,7 +30,9 @@ ClockCounter.prototype.update = function () {
 
 ClockCounter.prototype.startCronometer = function () {
 	var self = this;
-	self.update();
+	this.startTime = new Date();
+	this.start = this.startTime.getSeconds();
+	this.update();
 	var id = setInterval(function () {
 		if (self.running){
 			self.update();

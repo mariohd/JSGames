@@ -6,6 +6,15 @@ function spaceShip() {
   this.speed = 5;
   this.bullets = [];
   this.init();
+  this.initiateShooter();
+  this.shotControl = true;
+};
+
+spaceShip.prototype.initiateShooter = function () {
+  var self = this;
+  var intervalId = setInterval(function () {
+    self.shotControl = true;
+  }, 150);
 };
 
 spaceShip.prototype.init = function () {
@@ -52,6 +61,11 @@ spaceShip.prototype.action = function (keys) {
     if (this.maxPosition.height > this.position.height + this.speed) {
       this.position.height += this.speed;
     }
+  }
+
+  if(keys[32] && this.shotControl) { //space
+    this.shot();
+    this.shotControl = false;
   }
 };
 
@@ -167,10 +181,6 @@ azureCanvas.onblur = function () {
 azureCanvas.onkeydown = function (key) {
 
   switch (key.which) {
-    case 32:
-      key.preventDefault();
-      azureStar.ship.shot();
-      break;
     case 13:
       azureStar.gameReady = true;
       break;
