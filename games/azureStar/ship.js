@@ -74,7 +74,7 @@ spaceShip.prototype.startLife = function () {
   var lifeCounter = document.getElementById('lifeCounter');
   lifeCounter.innerText = 'x ' + this.continues;
   var image = document.getElementById('miniSpaceShip');
-  image.src = 'ship/ship.png';
+  image.src = this.sprite.src;
   image.height = this.sprite.height * .20;
   image.width = this.sprite.width * .20;
 };

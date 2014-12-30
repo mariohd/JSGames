@@ -25,6 +25,7 @@ var azureStar = ({
      new Stage('background/orionNebula.jpg', 'Orion Nebula', this.canvas.height, 1),
      new Stage('background/azureStar.jpg', 'Azure Star', this.canvas.height, 1)];
 	  this.timer = new ClockCounter();
+    this.enemies = [];
     this.onReady();
     return this;
   },
@@ -48,7 +49,7 @@ var azureStar = ({
           self.timer.startCronometer();
           self.ship.startLife();
           self.showPoints();
-
+          self.addEnemy();
         } else {
           self.context.drawImage(self.loadingImage, 0, 0);
           self.drawText(begin, self.context.canvasWidth/ 2, self.context.canvasHeight/ 1.1, '23px Guardians');
@@ -77,6 +78,9 @@ var azureStar = ({
 			self.clearCanvas();
 			self.stages[self.currentStage].build(self.context);
 			self.ship.build(self.context);
+      self.enemies.forEach(function (enemy) {
+        enemy.build(self.context);
+      });
       self.ship.action(self.keys);
 		}, this.refreshRate);
 	},
@@ -91,7 +95,20 @@ var azureStar = ({
 
 	clearCanvas: function () {
 		this.context.clearRect(0 ,0, this.canvas.width, this.canvas.height );
-	}
+	},
+
+  addEnemy: function () {
+    var self = this;
+    setInterval(function () {
+      var newEnemy = new enemy('enemies/enemy01.png');
+      newEnemy.movement();
+      self.enemies.push(newEnemy);
+      self.enemies = self.enemies.filter(function (enemy) {
+        return enemy.position.height < 930;
+      });
+
+    }, Math.random() * 5000 );
+  },
 }).init();
 
 var azureCanvas = document.getElementById("azureCanvas");
