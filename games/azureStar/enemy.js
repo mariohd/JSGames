@@ -56,6 +56,9 @@ function enemy(enemyImage) {
   this.goToLeft = Math.random().toFixed() == 0 ? false : true;
   this.goToRight = !this.goToLeft;
   this.movementFunction;
+  this.bullets = [];
+  this.shot();
+  this.box;
 };
 
 enemy.prototype.init = function(enemy) {
@@ -65,11 +68,26 @@ enemy.prototype.init = function(enemy) {
   this.movementFunction = movementModes[(Math.random() * 2).toFixed()];
 };
 
+enemy.prototype.shot = function () {
+  var self = this;
+  setInterval(function () {
+    self.bullets.push(new Bullet(self.position.width + self.sprite.width/8, self.position.height + self.sprite.height/5));
+  }, 500);
+};
+
 enemy.prototype.build = function (context) {
   this.movement();
+  this.bullets = this.bullets.filter(function (bullet) {
+    return bullet.height >  0;
+  });
+  this.bullets.forEach(function (bullet) {
+    bullet.build(context, +10);
+  });
   if (this.position.height % 100 == 0) {
     this.movementFunction = movementModes[(Math.random() * 2).toFixed()];
   }
+  this.box = new CollisionBox(this.position.width, this.position.height, this.sprite.width/4, this.sprite.height/4);
+  this.box.draw(context);
   context.drawImage(this.sprite, this.position.width, this.position.height, this.sprite.width/4, this.sprite.height/4);
 };
 

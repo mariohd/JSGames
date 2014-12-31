@@ -77,7 +77,7 @@ var azureStar = ({
 		this.refreshInterval = setInterval(function () {
 			self.clearCanvas();
 			self.stages[self.currentStage].build(self.context);
-			self.ship.build(self.context);
+			self.ship.build(self.context, self.enemies);
       self.enemies.forEach(function (enemy) {
         enemy.build(self.context);
       });
@@ -104,10 +104,10 @@ var azureStar = ({
       newEnemy.movement();
       self.enemies.push(newEnemy);
       self.enemies = self.enemies.filter(function (enemy) {
-        return enemy.position.height < 930;
+        return enemy.position.height < enemy.maxPosition.height;
       });
 
-    }, Math.random() * 5000 );
+    }, Math.random() * 4000 );
   },
 }).init();
 

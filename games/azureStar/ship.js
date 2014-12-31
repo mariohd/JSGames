@@ -9,6 +9,7 @@ function spaceShip() {
   this.initiateShooter();
   this.shotControl = true;
   this.continues = 3;
+  this.box;
 };
 
 spaceShip.prototype.initiateShooter = function () {
@@ -24,10 +25,21 @@ spaceShip.prototype.init = function () {
   this.sprite.src = 'ship/ship.png';
 };
 
-spaceShip.prototype.build = function (context) {
+spaceShip.prototype.build = function (context, enemies) {
   this.bullets.forEach(function (bullet) {
-    bullet.build(context);
+    bullet.build(context, -10);
   });
+  var self = this;
+  enemies.forEach(function (enemy, index) {
+    self.bullets.forEach(function (bullet) {
+      if (bullet.box.test(enemy.position.width, enemy.position.height)){
+        enemies.splice(index, 1);
+      }
+
+    });
+  });
+  this.box = new CollisionBox(this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
+  this.box.draw(context);
   context.drawImage(this.sprite, this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
 };
 
@@ -87,7 +99,9 @@ function Bullet(width, height) {
   this.sprite.src = 'ship/bullet.png';
 };
 
-Bullet.prototype.build = function (context) {
-  this.height -= 10;
+Bullet.prototype.build = function (context, add) {
+  this.box = new CollisionBox(this.width, this.height, this.sprite.width, this.sprite.height);
+  this.box.draw(context);
+  this.height += add;
   context.drawImage(this.sprite, this.width, this.height, this.sprite.width, this.sprite.height);
 };
