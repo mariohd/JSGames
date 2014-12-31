@@ -10,6 +10,7 @@ function spaceShip() {
   this.shotControl = true;
   this.continues = 3;
   this.score = 0;
+  this.over = false;
   this.box;
 };
 
@@ -27,31 +28,56 @@ spaceShip.prototype.init = function () {
 };
 
 spaceShip.prototype.build = function (context, enemies) {
-  this.bullets.forEach(function (bullet) {
-    bullet.build(context, -10);
-  });
-  var self = this;
-  enemies.forEach(function (enemy, index) {
-    self.bullets.forEach(function (bullet, b_index) {
-      if (enemy.box.collide(bullet.width, bullet.height)){
-        self.score += enemy.scoreValue;
-        self.updateScore();
-        enemies.splice(index, 1);
-        self.bullets.splice(b_index, 1);
-      }
+  if (! this.over) {
+    this.bullets.forEach(function (bullet) {
+      bullet.build(context, -10);
     });
-  });
-  this.box = new CollisionBox(this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
-  context.drawImage(this.sprite, this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
+    var self = this;
+    enemies.forEach(function (enemy, index) {
+      self.bullets.forEach(function (bullet, b_index) {
+        if (enemy.box.collide(bullet.width, bullet.height)){
+          self.score += enemy.scoreValue;
+          self.updateScore();
+          enemies.splice(index, 1);
+          self.bullets.splice(b_index, 1);
+        }
+      });
+    });
+    this.box = new CollisionBox(this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
+    context.drawImage(this.sprite, this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
+  } else {
+    context.save();
+    context.fillStyle = "#D30035";
+    context.font = '70px Guardians';
+    context.textAlign = 'center';
+    context.fillText("Game Over", (this.maxPosition.width - this.minPosition.width)/2 ,(this.maxPosition.height - this.minPosition.height)/2);
+    context.restore();
+  }
 };
 
 spaceShip.prototype.reduceLife = function () {
-  this.continues--;
+  if (this.continues > 0) {
+    this.continues--;
+  } else {
+    this.gameOver();
+  }
+};
+
+
+spaceShip.prototype.updateLifes = function () {
   var lifeCounter = document.getElementById('lifeCounter');
   lifeCounter.innerText = 'x ' + this.continues;
 };
 
+spaceShip.prototype.gameOver = function () {
+  this.over = true;
+};
+
 spaceShip.prototype.updateScore = function () {
+  if (this.score % 500 == 0) {
+    this.continues ++;
+    this.updateLifes();
+  }
   document.getElementById('scoreCounter').innerText = pad(this.score);
 };
 
@@ -112,7 +138,7 @@ function Bullet(width, height) {
 };
 
 Bullet.prototype.build = function (context, add) {
-  this.box = new CollisionBox(this.width, this.height, this.sprite.width, this.sprite.height);
-  this.height += add;
-  context.drawImage(this.sprite, this.width, this.height, this.sprite.width, this.sprite.height);
+    this.box = new CollisionBox(this.width, this.height, this.sprite.width, this.sprite.height);
+    this.height += add;
+    context.drawImage(this.sprite, this.width, this.height, this.sprite.width, this.sprite.height);
 };

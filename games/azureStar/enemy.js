@@ -43,7 +43,7 @@ function enemy(enemyImage) {
   this.minPosition = { width : 0, height: 0 };
   this.position = { width :  (this.maxPosition.width - this.minPosition.width)/2 , height: 0 - this.sprite.height};
   this.speed = 5;
-  this.scoreValue = 10;
+  this.scoreValue = 25;
   this.goToLeft = Math.random().toFixed() == 0 ? false : true;
   this.goToRight = !this.goToLeft;
   this.movementFunction;
