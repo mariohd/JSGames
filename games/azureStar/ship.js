@@ -58,6 +58,7 @@ spaceShip.prototype.build = function (context, enemies) {
 spaceShip.prototype.reduceLife = function () {
   if (this.continues > 0) {
     this.continues--;
+    this.updateLifes();
   } else {
     this.gameOver();
   }
