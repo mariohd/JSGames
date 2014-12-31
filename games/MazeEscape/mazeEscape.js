@@ -134,7 +134,7 @@ var MazeEscape = ({
 			this.smoothScroll(this.screenWidths[1]);
 		}
 
-		if (this.player.position.width > this.screenWidths[2]) {
+		if (this.player.position.width >= this.screenWidths[2]) {
 			this.smoothScroll(this.screenWidths[2]);
 		}
 
