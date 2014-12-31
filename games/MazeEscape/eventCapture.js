@@ -1,5 +1,12 @@
+var mediaElement = document.getElementById("song");
 document.getElementById("mazeEscapeCanvas").focus();
 document.getElementById("mazeEscapeCanvas").onkeypress = function (key) {
+	if (key.which == 122){
+		if (mediaElement.paused)
+			mediaElement.play();
+		else
+			mediaElement.pause();
+	}
 	MazeEscape.playerMoviment(key) ;
 };
 
