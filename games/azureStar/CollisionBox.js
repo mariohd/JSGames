@@ -4,7 +4,7 @@ function CollisionBox(widthPosition, heightPosition, widthSize, heightSize) {
   this.size = {width: widthSize, height: heightSize};
 };
 
-CollisionBox.prototype.test = function (width, height) {
+CollisionBox.prototype.collide = function (width, height) {
 
   if ((this.width <= width &&
        this.width + this.size.width >= width)
@@ -21,9 +21,4 @@ CollisionBox.prototype.draw = function (context) {
   context.beginPath();
   context.rect(this.width, this.height, this.size.width, this.size.height);
   context.stroke();
-};
-
-
-CollisionBox.prototype.collideWith = function (anotherBox) {
-
 };

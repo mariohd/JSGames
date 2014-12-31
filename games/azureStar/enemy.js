@@ -36,15 +36,6 @@ function (enemy) {
 }
 ];
 
-Number.prototype.roundTo = function(num) {
-  var resto = this%num;
-  if (resto <= (num/2)) {
-    return this-resto;
-  } else {
-    return this+num-resto;
-  }
-}
-
 function enemy(enemyImage) {
   this.sprite;
   this.init(enemyImage);
@@ -52,13 +43,13 @@ function enemy(enemyImage) {
   this.minPosition = { width : 0, height: 0 };
   this.position = { width :  (this.maxPosition.width - this.minPosition.width)/2 , height: 0 - this.sprite.height};
   this.speed = 5;
-  this.scoreValue = 3;
+  this.scoreValue = 10;
   this.goToLeft = Math.random().toFixed() == 0 ? false : true;
   this.goToRight = !this.goToLeft;
   this.movementFunction;
   this.bullets = [];
   this.shot();
-  this.box;
+  this.box = new CollisionBox(this.position.width, this.position.height, this.sprite.width/4, this.sprite.height/4);
 };
 
 enemy.prototype.init = function(enemy) {
@@ -75,7 +66,7 @@ enemy.prototype.shot = function () {
   }, 500);
 };
 
-enemy.prototype.build = function (context) {
+enemy.prototype.build = function (context, target) {
   this.movement();
   this.bullets = this.bullets.filter(function (bullet) {
     return bullet.height >  0;
@@ -86,8 +77,14 @@ enemy.prototype.build = function (context) {
   if (this.position.height % 100 == 0) {
     this.movementFunction = movementModes[(Math.random() * 2).toFixed()];
   }
+  var self = this;
+  this.bullets.forEach(function (bullet, index) {
+    if (target.box.collide(bullet.width, bullet.height)) {
+      target.reduceLife();
+      self.bullets.splice(index, 1);
+    }
+  });
   this.box = new CollisionBox(this.position.width, this.position.height, this.sprite.width/4, this.sprite.height/4);
-  this.box.draw(context);
   context.drawImage(this.sprite, this.position.width, this.position.height, this.sprite.width/4, this.sprite.height/4);
 };
 

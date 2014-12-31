@@ -9,6 +9,7 @@ function spaceShip() {
   this.initiateShooter();
   this.shotControl = true;
   this.continues = 3;
+  this.score = 0;
   this.box;
 };
 
@@ -31,16 +32,28 @@ spaceShip.prototype.build = function (context, enemies) {
   });
   var self = this;
   enemies.forEach(function (enemy, index) {
-    self.bullets.forEach(function (bullet) {
-      if (bullet.box.test(enemy.position.width, enemy.position.height)){
+    self.bullets.forEach(function (bullet, b_index) {
+      if (enemy.box.collide(bullet.width, bullet.height)){
+        self.score += enemy.scoreValue;
+        self.updateScore();
         enemies.splice(index, 1);
+        self.bullets.splice(b_index, 1);
       }
-
     });
   });
   this.box = new CollisionBox(this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
   this.box.draw(context);
   context.drawImage(this.sprite, this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
+};
+
+spaceShip.prototype.reduceLife = function () {
+  this.continues--;
+  var lifeCounter = document.getElementById('lifeCounter');
+  lifeCounter.innerText = 'x ' + this.continues;
+};
+
+spaceShip.prototype.updateScore = function () {
+  document.getElementById('scoreCounter').innerText = pad(this.score);
 };
 
 spaceShip.prototype.shot = function () {

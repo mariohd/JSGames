@@ -9,7 +9,6 @@ var azureStar = ({
   refreshRate: 15,
   keys: [],
   gameReady: false,
-  scoreCounter: 0,
 
   init: function () {
     this.loadingImage = new Image();
@@ -31,7 +30,7 @@ var azureStar = ({
   },
 
   showPoints: function() {
-    document.getElementById('scoreCounter').innerText = this.scoreCounter;
+    document.getElementById('scoreCounter').innerText = pad(this.ship.score);
   },
 
   isLoaded: function () {
@@ -79,7 +78,7 @@ var azureStar = ({
 			self.stages[self.currentStage].build(self.context);
 			self.ship.build(self.context, self.enemies);
       self.enemies.forEach(function (enemy) {
-        enemy.build(self.context);
+        enemy.build(self.context, self.ship);
       });
       self.ship.action(self.keys);
 		}, this.refreshRate);
