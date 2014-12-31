@@ -42,7 +42,6 @@ spaceShip.prototype.build = function (context, enemies) {
     });
   });
   this.box = new CollisionBox(this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
-  this.box.draw(context);
   context.drawImage(this.sprite, this.position.width, this.position.height, this.sprite.width/2.5, this.sprite.height/2.5);
 };
 
@@ -114,7 +113,6 @@ function Bullet(width, height) {
 
 Bullet.prototype.build = function (context, add) {
   this.box = new CollisionBox(this.width, this.height, this.sprite.width, this.sprite.height);
-  this.box.draw(context);
   this.height += add;
   context.drawImage(this.sprite, this.width, this.height, this.sprite.width, this.sprite.height);
 };
