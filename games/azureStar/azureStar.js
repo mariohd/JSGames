@@ -13,17 +13,18 @@ var azureStar = ({
   init: function () {
     this.loadingImage = new Image();
     this.loadingImage.src = 'images/stages/loading.jpg';
-    this.ship = new spaceShip();
+    this.ship = new SpaceShip();
     this.canvas = document.getElementById('azureCanvas');
     this.context = this.canvas.getContext("2d");
-	  this.context.canvasWidth = this.canvas.scrollWidth;
-	  this.context.canvasHeight = this.canvas.scrollHeight;
-    this.stages =
-		[new Stage('images/stages/witchBroomNebula.jpg', 'Witch Broom Nebula', this.canvas.height, 0.6),
-		 new Stage('images/stages/eagleNebula.jpg', 'Eagle Nebula', this.canvas.height, 0.6),
-     new Stage('images/stages/orionNebula.jpg', 'Orion Nebula', this.canvas.height, 1),
-     new Stage('images/stages/azureStar.jpg', 'Azure Star', this.canvas.height, 1)];
-	  this.timer = new ClockCounter();
+    this.context.canvasWidth = this.canvas.scrollWidth;
+    this.context.canvasHeight = this.canvas.scrollHeight;
+    this.stages = [
+      new Stage('images/stages/witchBroomNebula.jpg', 'Witch Broom Nebula', this.canvas.height, 0.6),
+      new Stage('images/stages/eagleNebula.jpg', 'Eagle Nebula', this.canvas.height, 0.6),
+      new Stage('images/stages/orionNebula.jpg', 'Orion Nebula', this.canvas.height, 1),
+      new Stage('images/stages/azureStar.jpg', 'Azure Star', this.canvas.height, 1)
+    ];
+    this.timer = new ClockCounter();
     this.enemies = [];
     this.onReady();
     return this;
@@ -34,12 +35,16 @@ var azureStar = ({
   },
 
   isLoaded: function () {
-	   return this.stages[this.currentStage].isReady;
+    return this.stages[this.currentStage].isReady;
   },
 
   onReady: function () {
-	var self = this, loadingText = 'Loading...', gameName = 'Azure Star', begin = 'Press Enter to begin';
-	var id = setInterval(function () {
+    var self = this,
+    loadingText = 'Loading...',
+    gameName = 'Azure Star',
+    begin = 'Press Enter to begin';
+
+    id = setInterval(function () {
       self.clearCanvas();
       if (self.isLoaded()) {
         if (self.gameReady) {
@@ -49,18 +54,20 @@ var azureStar = ({
           self.ship.startLife();
           self.showPoints();
           self.addEnemy();
-        } else {
+        }
+        else {
           self.context.drawImage(self.loadingImage, 0, 0);
           self.drawText(begin, self.context.canvasWidth/ 2, self.context.canvasHeight/ 1.1, '23px Guardians');
           self.drawText(gameName, self.context.canvasWidth/ 2, self.context.canvasHeight/ 5, '70px Guardians');
         }
-			} else {
+      }
+      else {
         self.context.drawImage(self.loadingImage, 0, 0);
-				self.drawText(loadingText, self.context.canvasWidth/ 8, self.context.canvasHeight/ 1.1, '23px Guardians');
+        self.drawText(loadingText, self.context.canvasWidth/ 8, self.context.canvasHeight/ 1.1, '23px Guardians');
         self.drawText(gameName, self.context.canvasWidth/ 2, self.context.canvasHeight/ 5, '70px Guardians');
-			}
-		},  this.refreshRate);
-	},
+      }
+    },  this.refreshRate);
+  },
 
   drawText: function (text, width, height, font) {
     this.context.save();
@@ -71,42 +78,39 @@ var azureStar = ({
     this.context.restore();
   },
 
-	refreshScreen: function () {
-		var self = this;
-		this.refreshInterval = setInterval(function () {
-			self.clearCanvas();
-			self.stages[self.currentStage].build(self.context);
-			self.ship.build(self.context, self.enemies);
+  refreshScreen: function () {
+    var self = this;
+    this.refreshInterval = setInterval(function () {
+      self.clearCanvas();
+      self.stages[self.currentStage].build(self.context);
+      self.ship.build(self.context, self.enemies);
       self.enemies.forEach(function (enemy) {
         enemy.build(self.context, self.ship);
       });
       self.ship.action(self.keys);
-		}, this.refreshRate);
-	},
+    }, this.refreshRate);
+  },
 
-	nextStage: function () {
-		clearInterval(this.refreshInterval);
+  nextStage: function () {
+    clearInterval(this.refreshInterval);
     if (this.stages.length - 1 > this.currentStage) {
       this.currentStage += 1;
     }
-		this.onReady();
-	},
+    this.onReady();
+  },
 
-	clearCanvas: function () {
-		this.context.clearRect(0 ,0, this.canvas.width, this.canvas.height );
-	},
+  clearCanvas: function () {
+    this.context.clearRect(0 ,0, this.canvas.width, this.canvas.height );
+  },
 
   addEnemy: function () {
     var self = this;
     setInterval(function () {
-      var newEnemy = new enemy('images/enemies/enemy01.png');
-      newEnemy.movement();
-      self.enemies.push(newEnemy);
+      self.enemies.push(new Enemy('images/enemies/enemy01.png'));
       self.enemies = self.enemies.filter(function (enemy) {
-        return enemy.position.height < enemy.maxPosition.height;
+        return enemy.y < enemy.maxPosition.height;
       });
-
-    }, Math.random() * 4000 );
+    }, 1000);
   },
 }).init();
 
@@ -119,15 +123,14 @@ azureCanvas.onblur = function () {
 };
 
 azureCanvas.onkeydown = function (key) {
-
   switch (key.which) {
     case 13:
       azureStar.gameReady = true;
       break;
-    default:
-      azureStar.keys[key.which] = key.type == 'keydown';
-      break;
-  }
+      default:
+        azureStar.keys[key.which] = key.type == 'keydown';
+        break;
+      }
 };
 
 azureCanvas.onkeyup = function (key) {

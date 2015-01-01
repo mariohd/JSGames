@@ -1,24 +1,17 @@
-function CollisionBox(widthPosition, heightPosition, widthSize, heightSize) {
-  this.width = widthPosition;
-  this.height = heightPosition;
-  this.size = {width: widthSize, height: heightSize};
+var CollisionBox = function(box) {
+  this.x = box.x;
+  this.y = box.y;
+  this.width = box.width;
+  this.height = box.height;
 };
 
-CollisionBox.prototype.collide = function (width, height) {
-
-  if ((this.width <= width &&
-       this.width + this.size.width >= width)
-       &&
-      (this.height <= height &&
-       this.height + this.size.height >= height)) {
-    return true;
-  } else {
-    return false;
-  }
+CollisionBox.prototype.collide = function(box) {
+  return   (this.x <= box.x && this.x + this.width >= box.width)
+        && (this.y <= box.y && this.y + this.height >= box.height);
 };
 
-CollisionBox.prototype.draw = function (context) {
+CollisionBox.prototype.draw = function(context) {
   context.beginPath();
-  context.rect(this.width, this.height, this.size.width, this.size.height);
+  context.rect(this.x, this.y, this.width, this.height);
   context.stroke();
 };
