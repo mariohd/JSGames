@@ -1,3 +1,10 @@
+function extend(parent, f) {
+  var copy = Object.create(parent.prototype);
+  f.prototype = copy;
+  f.prototype.constructor = f;
+  return f;
+}
+
 function pad(num) {
   var s = "000000000" + num;
   return s.substr(s.length-6);
