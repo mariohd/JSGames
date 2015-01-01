@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<style>
+canvas {
+  background-image: url("maze/ground.png");
+  background-repeat: repeat;
+}
+
+.time {
+  position: fixed;
+  left : 80%;
+  top: 10%;
+  color: red;
+  z-index: 1;
+  font-size: 25px;
+  font-weight: 900;
+  text-shadow: 2px 2px black;
+}
+
+.victory {
+  position: fixed;
+  left : 20%;
+  top: 20%;
+  color: gold;
+  z-index: 1;
+  font-size: 80px;
+  font-weight: 900;
+  text-shadow: 3px 4px black;
+  text-align: center;
+  line-height: 130%;
+}
+
+
+@font-face {
+  font-family: "Player2";
+  src: url(PressStart2P.ttf) format("truetype");
+}
+
+.p2font { font-family: "Player2"}
+</style>
+<body>
+
+<canvas id="mazeEscapeCanvas" width="3700" height="670" tabindex="1" style="border:1px solid #d3d3d3;">
+  Your browser does not support the HTML5 canvas tag.
+</canvas>
+<span id="timeCounter" class="time p2font"></span>
+<span id="result" class="menssage p2font"></span>
+<audio id="song" autoplay loop>
+  <source src="mazeEscape.ogg" type="audio/ogg">
+Your browser does not support the audio element.
+</audio>
+
+</body>
+<script src="maze_generator.js"></script>
+<script src="clockCounter.js"></script>
+<script src="wall.js"></script>
+<script src="player.js"></script>
+<script src="mazeEscape.js"></script>
+<script src="eventCapture.js"></script>
+</html>
