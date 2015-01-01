@@ -24,7 +24,7 @@ spaceShip.prototype.initiateShooter = function () {
 spaceShip.prototype.init = function () {
   this.sprite = new Image();
   this.sprite.classList.add('spaceship');
-  this.sprite.src = 'ship/ship.png';
+  this.sprite.src = 'images/ship/ship.png';
 };
 
 spaceShip.prototype.build = function (context, enemies) {
@@ -135,7 +135,7 @@ function Bullet(width, height) {
   this.height = height;
   this.damage = 5;
   this.sprite = new Image();
-  this.sprite.src = 'ship/bullet.png';
+  this.sprite.src = 'images/ship/bullet.png';
 };
 
 Bullet.prototype.build = function (context, add) {

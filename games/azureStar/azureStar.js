@@ -12,17 +12,17 @@ var azureStar = ({
 
   init: function () {
     this.loadingImage = new Image();
-    this.loadingImage.src = 'background/loading.jpg';
+    this.loadingImage.src = 'images/stages/loading.jpg';
     this.ship = new spaceShip();
     this.canvas = document.getElementById('azureCanvas');
     this.context = this.canvas.getContext("2d");
 	  this.context.canvasWidth = this.canvas.scrollWidth;
 	  this.context.canvasHeight = this.canvas.scrollHeight;
     this.stages =
-		[new Stage('background/witchBroomNebula.jpg', 'Witch Broom Nebula', this.canvas.height, 0.6),
-		 new Stage('background/eagleNebula.jpg', 'Eagle Nebula', this.canvas.height, 0.6),
-     new Stage('background/orionNebula.jpg', 'Orion Nebula', this.canvas.height, 1),
-     new Stage('background/azureStar.jpg', 'Azure Star', this.canvas.height, 1)];
+		[new Stage('images/stages/witchBroomNebula.jpg', 'Witch Broom Nebula', this.canvas.height, 0.6),
+		 new Stage('images/stages/eagleNebula.jpg', 'Eagle Nebula', this.canvas.height, 0.6),
+     new Stage('images/stages/orionNebula.jpg', 'Orion Nebula', this.canvas.height, 1),
+     new Stage('images/stages/azureStar.jpg', 'Azure Star', this.canvas.height, 1)];
 	  this.timer = new ClockCounter();
     this.enemies = [];
     this.onReady();
@@ -99,7 +99,7 @@ var azureStar = ({
   addEnemy: function () {
     var self = this;
     setInterval(function () {
-      var newEnemy = new enemy('enemies/enemy01.png');
+      var newEnemy = new enemy('images/enemies/enemy01.png');
       newEnemy.movement();
       self.enemies.push(newEnemy);
       self.enemies = self.enemies.filter(function (enemy) {
