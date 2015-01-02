@@ -21,3 +21,14 @@ Sprite.prototype.render = function(context, scale) {
   scale = scale || 1;
   context.drawImage(this.img, this.x, this.y, this.width * scale, this.height * scale);
 };
+
+Sprite.prototype.collide = function(sprite) {
+  return   (this.x <= sprite.x && this.x + this.width >= sprite.width)
+        && (this.y <= sprite.y && this.y + this.height >= sprite.height);
+};
+
+Sprite.prototype.drawCollisionBox = function(context) {
+  context.beginPath();
+  context.rect(this.x, this.y, this.width, this.height);
+  context.stroke();
+};
