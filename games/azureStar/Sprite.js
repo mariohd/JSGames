@@ -1,25 +1,24 @@
-var Sprite = function(url, position, onload) {
+var Sprite = function(spec) {
   var self = this;
 
-  this.x = position.x;
-  this.y = position.y;
-
+  this.x = spec.position.x;
+  this.y = spec.position.y;
+  this.scale = spec.scale || 1;
   this.img = new Image();
   this.img.addEventListener('load', function() {
-      self.width = this.width;
-      self.height = this.height;
+      self.width = this.width * self.scale;
+      self.height = this.height * self.scale;
   });
 
-  if(onload) {
+  if(spec.onload) {
     this.img.addEventListener('load', onload);
   }
 
-  this.img.src = url;
+  this.img.src = spec.url;
 };
 
-Sprite.prototype.render = function(context, scale) {
-  scale = scale || 1;
-  context.drawImage(this.img, this.x, this.y, this.width * scale, this.height * scale);
+Sprite.prototype.render = function(context) {
+  context.drawImage(this.img, this.x, this.y, this.width, this.height);
 };
 
 Sprite.prototype.collide = function(sprite) {

@@ -1,10 +1,11 @@
 var Bullet = extend(Sprite, function(point) {
-  Sprite.call(this, 'images/ship/bullet.png', point);
+  Sprite.call(this, {
+    url: 'images/ship/bullet.png',
+    position: point 
+  });
   this.damage = 5;
 });
 
-Bullet.prototype.build = function (context, add) {
-  this.y += add;
-  this.box = new CollisionBox(this);
-  this.render(context);
-};
+Bullet.prototype.move = function(step) {
+  this.y += step;
+}

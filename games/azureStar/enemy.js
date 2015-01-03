@@ -41,9 +41,13 @@ var movementModes = [
 var Enemy = extend(Sprite, function(image) {
   this.maxPosition = { width : 930, height: 530 };
   this.minPosition = { width : 0, height: 0 };
-  Sprite.call(this, image, {
-    x: (this.maxPosition.width - this.minPosition.width)/2,
-    y: 10
+  Sprite.call(this, {
+    url: image,
+    position: {
+      x: (this.maxPosition.width - this.minPosition.width)/2,
+      y: 10
+    },
+    scale: 0.2
   });
 
   this.speed = 5;
@@ -52,12 +56,6 @@ var Enemy = extend(Sprite, function(image) {
   this.goToRight = !this.goToLeft;
   this.bullets = [];
   this.shot();
-  this.box = new CollisionBox({
-    x: this.x,
-    y: this.y,
-    width: this.width/4,
-    height: this.height/4
-  });
   this.movementFunction = movementModes[0];
 });
 
@@ -86,16 +84,10 @@ Enemy.prototype.build = function (context, target) {
     this.movementFunction = movementModes[(Math.random() * 2).toFixed()];
   }
   this.bullets.forEach(function (bullet, index) {
-    if (target.box.collide(bullet)) {
+    if (target.collide(bullet)) {
       target.reduceLife();
       self.bullets.splice(index, 1);
     }
-  });
-  this.box = new CollisionBox({
-    x: this.x,
-    y: this.y,
-    width: this.width/4,
-    height: this.height/4
   });
 
   this.render(context, 0.2);

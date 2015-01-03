@@ -1,7 +1,13 @@
+function measureTime(f) {
+    var start = performance.now();
+    f();
+    return performance.now() - start;
+}
+
 function extend(parent, f) {
-  var copy = Object.create(parent.prototype);
-  f.prototype = copy;
+  f.prototype = Object.create(parent.prototype);
   f.prototype.constructor = f;
+  f.prototype.parent = parent.prototype;
   return f;
 }
 
