@@ -30,10 +30,10 @@ SpaceShip.prototype.update = function(enemies) {
       return bullet;
     })
     .filter(function(bullet) {
-      return bullet.y >  0;
+      return bullet.y >  0 && !bullet.hit();
     });
 
-  this.bullets.forEach(function(bullet){
+  this.bullets.forEach(function(bullet) {
     enemies.forEach(function(enemy){
       if(bullet.collide(enemy)) {
         bullet.hit(true);

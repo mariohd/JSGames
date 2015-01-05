@@ -4,7 +4,7 @@ var Enemy = extend(Sprite, function(boundaries, spec) {
     position: spec.position || { x: boundaries.width / 2, y: 10 },
     scale: 0.2
   });
-  this.hit = false;
+  this.isHit = false;
   this.boundaries = boundaries;
   this.speed = spec.speed || 5;
   this.scoreValue = spec.score || 25;
@@ -51,7 +51,7 @@ Enemy.prototype.move = function () {
 
 Enemy.prototype.hit = function(didHit) {
   if(typeof didHit !== 'undefined') {
-    this.hit = didHit;
+    this.isHit = didHit;
   }
-  return this.hit;
+  return this.isHit;
 };

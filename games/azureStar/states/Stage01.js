@@ -76,10 +76,10 @@ var Stage01 = extend(Stage, function(game) {
         return enemy;
       })
       .filter(function(enemy) {
-        return enemy.y < boundaries.height;
+        return enemy.y < boundaries.height && !enemy.isHit;
       });
 
-    ship.update();
+    ship.update(enemies);
   };
 
   this.render = function(context) {
