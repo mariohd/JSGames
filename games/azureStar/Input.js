@@ -104,12 +104,10 @@ var Input = function() {
 
   this.keydown = function (event) {
     keys[event.which] = true;
-    event.preventDefault();
   };
 
   this.keyup = function (event) {
     keys[event.which] = false;
-    event.preventDefault();
   };
 
   this.pressed = function(key) {
