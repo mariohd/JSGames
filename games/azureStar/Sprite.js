@@ -22,8 +22,16 @@ Sprite.prototype.render = function(context) {
 };
 
 Sprite.prototype.collide = function(sprite) {
-  return   (this.x <= sprite.x && this.x + this.width >= sprite.width)
-        && (this.y <= sprite.y && this.y + this.height >= sprite.height);
+  var self = this;
+  function isInsideMe(point) {
+    return (point.x >= self.x && point.x <= self.x + self.width) &&
+           (point.y >= self.y && point.y <= self.y + self.height);
+  }
+
+  return isInsideMe({ x: sprite.x, y: sprite.y }) ||
+         isInsideMe({ x: sprite.x, y: sprite.y + sprite.height }) ||
+         isInsideMe({ x: sprite.x + sprite.width, y: sprite.y + sprite.height }) ||
+         isInsideMe({ x: sprite.x + sprite.width, y: sprite.y });
 };
 
 Sprite.prototype.drawCollisionBox = function(context) {
