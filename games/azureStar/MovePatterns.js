@@ -4,7 +4,7 @@ var MovePatterns = function() {
   };
 
   this.leftToRight = function(boundaries) {
-    this.y += this.speed/8;
+    this.y += Math.floor(this.speed/8);
 
     if(typeof this.goToLeft == 'undefined') {
       this.goToLeft = Math.random().toFixed() == 0;
@@ -24,8 +24,8 @@ var MovePatterns = function() {
     if(!this.angle) {
       this.angle = 0;
     }
-    this.y += this.speed * (1 + Math.sin(this.angle));
-    this.x += this.speed * (1 + Math.cos(this.angle));
+    this.y += Math.floor(this.speed * (1 + Math.sin(this.angle)));
+    this.x += Math.floor(this.speed * (1 + Math.cos(this.angle)));
     this.angle += Math.PI / 32;
   };
 
@@ -33,8 +33,8 @@ var MovePatterns = function() {
     if(!this.angle) {
       this.angle = 0;
     }
-    this.y += this.speed * (Math.sin(this.angle));
-    this.x += this.speed * (Math.cos(this.angle));
+    this.y += Math.floor(this.speed * (Math.sin(this.angle)));
+    this.x += Math.floor(this.speed * (Math.cos(this.angle)));
     this.angle += (2 * Math.PI) / 360;
   };
 
@@ -46,7 +46,7 @@ var MovePatterns = function() {
       this.radius = 256;
     }
 
-    this.y += this.speed * (Math.sin(this.angle));
+    this.y += Math.floor(this.speed * (Math.sin(this.angle)));
     this.x += Math.floor(this.speed * (Math.cos(this.angle)));
     this.angle += (2 * Math.PI) / this.radius;
   };
