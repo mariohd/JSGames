@@ -6,8 +6,6 @@ var azureStar = ({
     };
   },
   input: new Input(),
-  fps: 60,
-  sleep: 1000 / this.fps,
 
   init: function () {
     function createGameCanvas(game, inputHandler) {
@@ -27,11 +25,11 @@ var azureStar = ({
     }
 
     var self = this,
-        canvas = createGameCanvas(this, this.input),
-        context = canvas.getContext("2d");
+        canvas = createGameCanvas(this, this.input);
 
+    this.context = canvas.getContext("2d");
     this.state = new LoadingState(this);
-    this.loop(context);
+    this.loop();
 
     window.addEventListener('resize', function(e) {
       setTimeout(function() {
@@ -43,23 +41,20 @@ var azureStar = ({
     return this;
   },
 
-  loop: function (context) {
-    var self = this,
-        interval = setInterval(function() {
-          if(self.state.isComplete()) {
-            self.state = self.state.nextStage();
-          }
-          self.state.readInput(self.input);
-          self.state.update();
+  loop: function() {
+    var self = this;
 
-          self.sleep = (1000 / self.fps) - measureTime(function(){
-            context.clearRect(0 ,0, context.canvas.width, context.canvas.height);
-            self.state.render(context);
-          });
+    (function gameLoop() {
+      if(self.state.isComplete()) {
+        self.state = self.state.nextStage();
+      }
+      self.state.readInput(self.input);
+      self.state.update();
 
-          clearInterval(interval);
-          self.loop(context);
-        }, this.sleep);
+      self.context.clearRect(0 ,0, self.context.canvas.width, self.context.canvas.height);
+      self.state.render(self.context);
+      requestAnimationFrame(gameLoop);
+    })();
   },
 
   gameOver: function(context) {
