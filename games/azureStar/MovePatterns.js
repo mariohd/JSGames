@@ -35,7 +35,20 @@ var MovePatterns = function() {
     }
     this.y += this.speed * (Math.sin(this.angle));
     this.x += this.speed * (Math.cos(this.angle));
-    this.angle += Math.PI / (boundaries.height % 192);
+    this.angle += (2 * Math.PI) / 360;
+  };
+
+  this.bouncingCircle = function(boundaries) {
+    if(!this.angle) {
+      this.angle = 0;
+    }
+    if(!this.radius || this.radius === 1) {
+      this.radius = 256;
+    }
+
+    this.y += this.speed * (Math.sin(this.angle));
+    this.x += Math.floor(this.speed * (Math.cos(this.angle)));
+    this.angle += (2 * Math.PI) / this.radius;
   };
 
   function randomInt(min, max) {
