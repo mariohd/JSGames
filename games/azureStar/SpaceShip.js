@@ -16,14 +16,14 @@ var SpaceShip = extend(Sprite, function(boundaries) {
   this.score = 0;
 });
 
-SpaceShip.prototype.initiateShooter = function () {
+SpaceShip.prototype.initiateShooter = function() {
   var self = this;
   setInterval(function () {
     self.shootControl = true;
   }, 200);
 };
 
-SpaceShip.prototype.update = function (context, enemies) {
+SpaceShip.prototype.update = function(enemies) {
   this.bullets =
     this.bullets.map(function(bullet) {
       bullet.move(-10);
@@ -32,6 +32,15 @@ SpaceShip.prototype.update = function (context, enemies) {
     .filter(function(bullet) {
       return bullet.y >  0;
     });
+
+  this.bullets.forEach(function(bullet){
+    enemies.forEach(function(enemy){
+      if(bullet.collide(enemy)) {
+        bullet.hit(true);
+        enemy.hit(true);
+      }
+    });
+  });
 };
 
 SpaceShip.prototype.hit = function() {
