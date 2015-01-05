@@ -1,8 +1,8 @@
 var azureStar = ({
   boundaries: function() {
     return {
-    width: (document.documentElement.clientWidth || document.body.clientWidth || window.innerWidth || 930) - 30,
-    height: (document.documentElement.clientHeight || document.body.clientHeight || window.innerHeight || 530) - 30
+      width: (document.documentElement.clientWidth || document.body.clientWidth || window.innerWidth || 930) - 30,
+      height: (document.documentElement.clientHeight || document.body.clientHeight || window.innerHeight || 530) - 30
     };
   },
   input: new Input(),
@@ -21,8 +21,8 @@ var azureStar = ({
         var boundaries = game.boundaries();
         canvas.width = boundaries.width;
         canvas.height = boundaries.height;
+        game.state.resize(boundaries);
       });
-      window.dispatchEvent(new Event('after-resize'));
       return canvas;
     }
 
@@ -39,6 +39,7 @@ var azureStar = ({
       }, 500);
     });
 
+    window.dispatchEvent(new Event('after-resize'));
     return this;
   },
 
