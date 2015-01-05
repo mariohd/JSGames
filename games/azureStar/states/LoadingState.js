@@ -55,4 +55,6 @@ var LoadingState = function(game) {
   this.nextStage = function () {
     return new Stage01(game);
   };
+
+  this.resize = function() {};
 };
