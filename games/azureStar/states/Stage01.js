@@ -91,16 +91,16 @@ var Stage01 = extend(Stage, function(game) {
   };
 
   this.readInput = function(input) {
-    if(input.pressed('left_arrow')) {
+    if(input.pressed('left_arrow', 'a')) {
       ship.moveLeft();
     }
-    if(input.pressed('right_arrow')) {
+    if(input.pressed('right_arrow', 'd')) {
       ship.moveRight();
     }
-    if(input.pressed('up_arrow')) {
+    if(input.pressed('up_arrow', 'w')) {
       ship.moveUp();
     }
-    if(input.pressed('down_arrow')) {
+    if(input.pressed('down_arrow', 's')) {
       ship.moveDown();
     }
     if(input.pressed('space')){

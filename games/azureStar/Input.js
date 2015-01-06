@@ -110,7 +110,9 @@ var Input = function() {
     keys[event.which] = false;
   };
 
-  this.pressed = function(key) {
-    return keys[aliases[key]] || false;
+  this.pressed = function() {
+    return [].slice.call(arguments).reduce(function(pressed, key) {
+      return keys[aliases[key]] || pressed;
+    }, false);
   }
 }
