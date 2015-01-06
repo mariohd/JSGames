@@ -14,6 +14,7 @@ var azureStar = ({
       canvas.addEventListener('blur', canvas.focus);
       canvas.addEventListener('keydown', inputHandler.keydown);
       canvas.addEventListener('keyup', inputHandler.keyup);
+      canvas.focus();
 
       window.addEventListener('after-resize', function() {
         var boundaries = game.boundaries();
