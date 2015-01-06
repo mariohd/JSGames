@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      @font-face {
+        font-family: "Guardians";
+        src: url(fonts/Guardians.ttf) format("truetype");
+      }
+
+      body {
+        background-color: black;
+      }
+
+      canvas {
+        display: inline;
+        background-color: white;
+        outline: 0;
+      }
+
+      .time {
+        color: red;
+        z-index: 1;
+        font-size: 25px;
+        font-weight: 900;
+        text-shadow: 2px 2px black;
+        float: left;
+        margin-left: 300px;
+      }
+
+      .lifes {
+        color: red;
+        z-index: 1;
+        font-size: 25px;
+        font-weight: 900;
+        text-shadow: 2px 2px black;
+        margin-left: 15px;
+        float: left;
+      }
+
+      .lifeCounter {
+        float: left;
+        margin-left: 150px;
+      }
+
+      .scoreCounter {
+        color: red;
+        z-index: 1;
+        font-size: 25px;
+        font-weight: 900;
+        text-shadow: 2px 2px black;
+        float: left;
+        margin-left: 300px;
+      }
+
+      .guardians { font-family: "Guardians"}
+
+      #canvas-container {
+        width: 100%;
+        text-align:center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="canvas-container">
+      <canvas id="game-canvas" tabindex="1">
+        Your browser does not support the HTML5 canvas tag.
+      </canvas>
+    </div>
+    <script src="commons.js"></script>
+    <script src="Sprite.js"></script>
+    <script src="ClockCounter.js"></script>
+    <script src="SpaceShip.js"></script>
+    <script src="Bullet.js"></script>
+    <script src="MovePatterns.js"></script>
+    <script src="Enemy.js"></script>
+    <script src="Stage.js"></script>
+    <script src="Input.js"></script>
+    <script src="states/LoadingState.js"></script>
+    <script src="states/Stage01.js"></script>
+    <script src="Game.js"></script>
+  </body>
+</html>
