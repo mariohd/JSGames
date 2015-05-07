@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
 <style>
-canvas {
+canvas#mazeEscapeCanvas {
   background-image: url("maze/ground.png");
   background-repeat: repeat;
 }
-
 .time {
   position: fixed;
   left : 80%;
@@ -40,6 +39,9 @@ canvas {
 </style>
 <body>
 
+<canvas id="mask" width="3700" height="670" tabindex="1" style="display:none; border:1px solid #d3d3d3;">
+  Your browser does not support the HTML5 canvas tag.
+</canvas>
 <canvas id="mazeEscapeCanvas" width="3700" height="670" tabindex="1" style="border:1px solid #d3d3d3;">
   Your browser does not support the HTML5 canvas tag.
 </canvas>
@@ -51,6 +53,7 @@ Your browser does not support the audio element.
 </audio>
 
 </body>
+<script src="mask.js"></script>
 <script src="maze_generator.js"></script>
 <script src="clockCounter.js"></script>
 <script src="wall.js"></script>

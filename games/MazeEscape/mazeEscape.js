@@ -60,6 +60,7 @@ var MazeEscape = ({
 			MazeEscape.context.clearRect(0 ,0, MazeEscape.canvas.width, MazeEscape.canvas.height );
 			MazeEscape.drawMaze();
 			MazeEscape.player.draw(MazeEscape.context, MazeEscape.canvas);
+			MazeEscape.context.drawImage(maskCanvas.mask, 0, 0);
 		}, 15);
 	},
 
@@ -121,6 +122,7 @@ var MazeEscape = ({
 								}
 						break;
 			}
+			maskCanvas.move(this.player.position);
 		} else {
 			this.player.position.height = 0;
 		}
