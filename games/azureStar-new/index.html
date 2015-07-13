@@ -1,0 +1,33 @@
+<html>
+	<style>
+
+		@font-face {
+			font-family: "Guardians";
+			src: url(fonts/Guardians.ttf) format("truetype");
+		}
+
+		.guardians {
+			font-family: Guardians;
+		}
+
+	</style>
+	<body>
+		<div class="guardians">.</div>
+		<canvas id="game-canvas" width="1000" height="600" tabindex="1">
+			Your browser does not support HTML5 Canvas. 
+		</canvas>
+		Song Volume
+		<input type="range" id="song-volume" value="50">
+	</body>
+	<script src="game.js"></script>
+	<script src="animacao.js"></script>
+	<script src="stages.js"></script>
+	<script src="player.js"></script>
+	<script src="spritesheet.js"></script>
+	<script src="teclado.js"></script>
+	<script src="upgrade.js"></script>
+	<script src="tiro.js"></script>
+	<script src="enemy.js"></script>
+	<script src="explosao.js"></script>
+	<script src="colisor.js"></script>
+</html>
