@@ -88,6 +88,7 @@ window.onload = function () {
 	}
 
 	function iniciar() {
+		started = true;
 		animacao.novoSprite(stage1);
 		animacao.novoSprite(player1);
 		colisor.novoSprite(player1);
@@ -107,7 +108,8 @@ window.onload = function () {
 	canvas.onkeydown = function (key) {
 		switch (key.which) {
 			case ENTER:
-				iniciar();
+				if (!started)
+					iniciar();
 				break;
 		}
 	};
