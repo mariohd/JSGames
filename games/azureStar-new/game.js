@@ -1,5 +1,5 @@
 
-var imagens, sons, started = false;
+var imagens, sons, started = false, pontuacao = 0;
 window.onload = function () {
 	var canvas = document.getElementById("game-canvas");
 	var context = canvas.getContext("2d");

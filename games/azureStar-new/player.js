@@ -93,25 +93,30 @@ Player.prototype = {
 
   	colidiuCom: function(outro) {
       if (outro instanceof Enemy) {
-         this.animacao.excluirSprite(this);
-         this.animacao.excluirSprite(outro);
-         this.colisor.excluirSprite(this);
-         this.colisor.excluirSprite(outro);
-         
-         var exp1 = new Explosao(this.context, imagens.explosao,
-                                 this.position.x, this.position.y);
-         var exp2 = new Explosao(this.context, imagens.explosao,
-                                 outro.position.x, outro.position.y);
-         
-         this.animacao.novoSprite(exp1);
-         this.animacao.novoSprite(exp2);
+      	 this.destruir();
+         outro.destruir();
 
-         this.morto = true;
       }
       if (outro instanceof Upgrade) {
       	this.upgrade();
       }
    },
+
+	destruir: function () {
+		this.morto = true;
+        this.animacao.excluirSprite(this);
+        this.colisor.excluirSprite(this);
+		var exp1 = new Explosao(this.context, imagens.explosao,
+                                 this.position.x, this.position.y);
+        this.animacao.novoSprite(exp1);
+        exp1.fimDaExplosao = function() {
+	      	alert("voce fez " + pontuacao + " pontos!");
+	    }
+	},
+
+   pontuar: function (pts) {
+   	pontuacao += pts;
+   }
 
 };
 

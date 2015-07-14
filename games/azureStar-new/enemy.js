@@ -123,6 +123,16 @@ Enemy.prototype = {
     return (this.imagem.width/this.sprite.numColunas)/this.escala;
   },
 
+  destruir: function () {
+    this.morto = true;
+    this.animacao.excluirSprite(this);
+    this.colisor.excluirSprite(this);
+    var exp1 = new Explosao(this.context, imagens.explosao,
+                                 this.position.x, this.position.y);
+    this.animacao.novoSprite(exp1);
+    this.droparUpgrade();
+  },
+
 }; 
 
 

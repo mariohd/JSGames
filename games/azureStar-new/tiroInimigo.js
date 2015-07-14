@@ -50,14 +50,7 @@ TiroInimigo.prototype = {
 
    colidiuCom: function(outro) {
       if (outro instanceof Player) {
-         this.animacao.excluirSprite(this);
-         this.animacao.excluirSprite(outro);
-         this.colisor.excluirSprite(this);
-         this.colisor.excluirSprite(outro);
-         var exp = new Explosao(this.context, this.imgExplosao,
-                                 outro.position.x, outro.position.y);
-         this.animacao.novoSprite(exp);
-         outro.morto = true;
+         outro.destruir();
       }
    }
 }

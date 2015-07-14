@@ -52,14 +52,8 @@ Tiro.prototype = {
 
    colidiuCom: function(outro) {
       if (outro instanceof Enemy) {
-         this.animacao.excluirSprite(this);
-         this.animacao.excluirSprite(outro);
-         this.colisor.excluirSprite(this);
-         this.colisor.excluirSprite(outro);
-         var exp = new Explosao(this.context, this.imgExplosao,
-                                 outro.position.x, outro.position.y);
-         outro.droparUpgrade();
-         this.animacao.novoSprite(exp);
+         this.nave.pontuar(100);
+         outro.destruir();
       }
    }
 }

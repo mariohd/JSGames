@@ -46,6 +46,7 @@ Upgrade.prototype = {
 	},
 	colidiuCom: function (outro) {
 		if (outro instanceof Player) {
+			outro.pontuar(200);
 			this.animacao.excluirSprite(this);
 			this.colisor.excluirSprite(this);
 		}
