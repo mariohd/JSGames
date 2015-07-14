@@ -1,10 +1,8 @@
-function Upgrade(context, nave, position){
+function Upgrade(context, imagem, position){
 	this.context = context;
-	this.nave = nave;
 	this.position = position;
 	this.velocidade = 100;
-	this.imagem = new Image();
-	this.imagem.src = 'img/upgrade_sprite_2.png';
+	this.imagem = imagem;
 	this.sprite = new Spritesheet(this.context, this.imagem, 1, 48);
 	this.sprite.intervalo = 80;
 	this.escala = 3.5;

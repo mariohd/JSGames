@@ -48,11 +48,11 @@ function Enemy(context, imagem, escala) {
   this.goToLeft = Math.random().toFixed() == 0 ? false : true;
   this.goToRight = !this.goToLeft;
   this.movementFunction = MOVEMENT_MODES[(Math.random() * 2).toFixed()];
-  this.imgExplosao = new Image();
-  this.imgExplosao.src = 'img/explosion.png';
+  this.imgExplosao = imagens.explosao;
   this.escala = escala;
+  this.ultimoTempo;
+  this.intervaloDeTiro = 500 + (Math.random() * 1000);
 } 
-
 
 Enemy.prototype = {
   atualizar: function () {
@@ -62,6 +62,16 @@ Enemy.prototype = {
       this.colisor.excluirSprite(this);
     }
 
+    var agora = new Date().getTime(); 
+
+    if (! this.ultimoTempo) this.ultimoTempo = agora; 
+    if (agora - this.ultimoTempo < this.intervaloDeTiro) return;
+
+    var t = new TiroInimigo(this.context, this);
+    this.animacao.novoSprite(t);
+    this.colisor.novoSprite(t);
+
+    this.ultimoTempo = agora;
   },
   desenhar: function () {
     this.sprite.desenhar(this.position, this.escala);
@@ -91,39 +101,27 @@ Enemy.prototype = {
         }    
     }
       return rets;
-    },
+  },
 
-   colidiuCom: function(outro) {
-      if (outro instanceof Enemy) {
-         this.animacao.excluirSprite(this);
-         this.animacao.excluirSprite(outro);
-         this.colisor.excluirSprite(this);
-         this.colisor.excluirSprite(outro);
-         
-         var exp1 = new Explosao(this.context, imagens.explosao,
-                                 this.position.x, this.position.y);
-         var exp2 = new Explosao(this.context, imagens.explosao,
-                                 outro.position.x, outro.position.y);
-         
-         this.animacao.novoSprite(exp1);
-         this.animacao.novoSprite(exp2);
-      }
+  colidiuCom: function(outro) {
+  },
 
-   },
-
-   droparUpgrade: function () {
+  droparUpgrade: function () {
     if ( (Math.random() + chances) > 1 ) {
       chances = 0;
-      var u = new Upgrade(this.context, this, this.position );
+      var u = new Upgrade(this.context, imagens.upgrade, this.position );
       this.animacao.novoSprite(u);
       this.colisor.novoSprite(u);
     } else {
       if (chances < 0.5) {
-        chances += 0.05;
+        chances += 0.005;
       }
     } 
-   }
+  },
 
+  largura: function () {
+    return (this.imagem.width/this.sprite.numColunas)/this.escala;
+  },
 
 }; 
 

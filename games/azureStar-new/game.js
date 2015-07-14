@@ -14,7 +14,10 @@ window.onload = function () {
 		player: 'ship_sprite.png', 
 		enemy1: 'enemy_sprite.png',
 		stage1: 'background/eagleNebula.jpg',
-		explosao: 'explosion.png'
+		explosao: 'explosion.png',
+		tiro: 'bullet.png',
+		tiroInimigo: 'enemy_bullet.png',
+		upgrade: 'upgrade_sprite_2.png'
 	   };
 	   
 	   for (var i in imagens) {
