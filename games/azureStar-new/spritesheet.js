@@ -8,39 +8,51 @@ function Spritesheet(context, imagem, linhas, colunas) {
    this.coluna = 0; 
    this.fimDoCiclo = null;
    this.multiLine = false;
+   this.comecoFim = true;
+   this.inverter = false;
 } 
 Spritesheet.prototype = { 
    proximoQuadro: function() {
-      var agora = new Date().getTime(); 
 
-      // Se ainda não tem último tempo medido 
-      if (! this.ultimoTempo) this.ultimoTempo = agora; 
+      if (this.comecoFim) {
+         var agora = new Date().getTime(); 
 
-      // Já é hora de mudar de coluna? 
-      if (agora - this.ultimoTempo < this.intervalo) return;
+         // Se ainda não tem último tempo medido 
+         if (! this.ultimoTempo) this.ultimoTempo = agora; 
 
-      if (this.coluna < this.numColunas - 1) {
-         this.coluna++; 
-      }
-      else {
-         this.coluna = 0;
-         if (this.multiLine) {
-            this.linha++;
+         // Já é hora de mudar de coluna? 
+         if (agora - this.ultimoTempo < this.intervalo) return;
+
+         if (this.coluna < this.numColunas - 1) {
+            this.coluna++; 
          }
-         // Avisar que acabou um ciclo!
-      }
+         else {
+            if (this.inverter) {
+               this.comecoFim = false;
+            } else {
+               this.coluna = 0;
+               if (this.multiLine) {
+                  this.linha++;
+               }
+            }
+         }
 
-      if (this.linha >= this.numLinhas - 1 && this.coluna >= this.numColunas - 1) {
-         if (this.fimDoCiclo) this.fimDoCiclo();
-      }
+         if (this.linha >= this.numLinhas - 1 && this.coluna >= this.numColunas - 1) {
+            if (this.fimDoCiclo) this.fimDoCiclo();
+         }
 
-      // Guardar hora da última mudança
-      this.ultimoTempo = agora;
+         // Guardar hora da última mudança
+         this.ultimoTempo = agora;
+      } else {
+         if (this.coluna > 0) {
+            this.coluna--; 
+         } else {
+            if (this.fimDoCiclo2) this.fimDoCiclo2();
+            this.comecoFim = true;
+         }
+      }
    },
    desenhar: function(position, escala) {
-      if (this.imagem === undefined) {
-         debugger;
-      }
       var largura = this.imagem.width / this.numColunas; 
       var altura = this.imagem.height / this.numLinhas; 
 

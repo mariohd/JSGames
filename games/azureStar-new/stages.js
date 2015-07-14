@@ -3,17 +3,22 @@ function Stage(context, imagem, colisor) {
   this.imagem = imagem;
   this.context = context;
   this.currentHeight = this.imagem.height - this.context.canvas.height;
-  this.intervalo = 2000;
+  this.intervalo = 1000;
   this.ultimoTempo = null;
   this.colisor = colisor;
+  this.gerouChefe = false;
 };
 
 Stage.prototype = { 
   atualizar: function () {
     if (this.currentHeight >= this.speed) {
       this.currentHeight -= this.speed;
+      this.gerarInimigos();
+    } else {
+      if (!this.gerouChefe) {
+        this.gerarChefe();
+      }
     }
-    this.gerarInimigos();
 
   },
   desenhar: function () {
@@ -30,5 +35,11 @@ Stage.prototype = {
     this.animacao.novoSprite(enemy);
     this.colisor.novoSprite(enemy);
     this.ultimoTempo = agora;
+  },
+
+  gerarChefe: function () {
+    var chefe = new Chefe(this.context, imagens.boss1, 1.6);
+    this.animacao.novoSprite(chefe);
+    this.gerouChefe = true;
   }
 }
