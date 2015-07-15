@@ -38,16 +38,16 @@ Upgrade.prototype = {
   	},
 
 	atualizar: function () {
-		this.position.y += this.velocidade * this.animacao.decorrido / 1000;
+		this.position.y += this.velocidade * animacao.decorrido / 1000;
 		if (this.position.y > 700) {
-		 this.animacao.excluirSprite(this);
+		 animacao.excluirSprite(this);
 		}
 		this.sprite.proximoQuadro();
 	},
 	colidiuCom: function (outro) {
 		if (outro instanceof Player) {
 			outro.pontuar(200);
-			this.animacao.excluirSprite(this);
+			animacao.excluirSprite(this);
 			this.colisor.excluirSprite(this);
 		}
 	}

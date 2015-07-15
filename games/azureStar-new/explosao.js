@@ -11,7 +11,7 @@ function Explosao(context, imagem, x, y) {
    var explosao = this;
    this.fimDaExplosao = null;
    this.spritesheet.fimDoCiclo = function() {
-      explosao.animacao.excluirSprite(explosao);
+      animacao.excluirSprite(explosao);
       if (explosao.fimDaExplosao) explosao.fimDaExplosao();
    }
 

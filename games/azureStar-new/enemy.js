@@ -58,7 +58,7 @@ Enemy.prototype = {
   atualizar: function () {
     this.movementFunction.call(this);
     if (this.position.y > (this.maxPosition.y + this.imagem.y/this.escala)) {
-      this.animacao.excluirSprite(this);
+      animacao.excluirSprite(this);
       this.colisor.excluirSprite(this);
     }
 
@@ -68,7 +68,7 @@ Enemy.prototype = {
     if (agora - this.ultimoTempo < this.intervaloDeTiro) return;
 
     var t = new TiroInimigo(this.context, this);
-    this.animacao.novoSprite(t);
+    animacao.novoSprite(t);
     this.colisor.novoSprite(t);
 
     this.ultimoTempo = agora;
@@ -110,7 +110,7 @@ Enemy.prototype = {
     if ( (Math.random() + chances) > 1 ) {
       chances = 0;
       var u = new Upgrade(this.context, imagens.upgrade, this.position );
-      this.animacao.novoSprite(u);
+      animacao.novoSprite(u);
       this.colisor.novoSprite(u);
     } else {
       if (chances < 0.5) {
@@ -125,11 +125,11 @@ Enemy.prototype = {
 
   destruir: function () {
     this.morto = true;
-    this.animacao.excluirSprite(this);
+    animacao.excluirSprite(this);
     this.colisor.excluirSprite(this);
     var exp1 = new Explosao(this.context, imagens.explosao,
                                  this.position.x, this.position.y);
-    this.animacao.novoSprite(exp1);
+    animacao.novoSprite(exp1);
     this.droparUpgrade();
   },
 

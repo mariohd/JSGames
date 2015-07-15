@@ -32,14 +32,20 @@ Stage.prototype = {
     if (agora - this.ultimoTempo < this.intervalo) return;
 
     var enemy = new Enemy(this.context, imagens.enemy1, 4);
-    this.animacao.novoSprite(enemy);
+    animacao.novoSprite(enemy);
     this.colisor.novoSprite(enemy);
     this.ultimoTempo = agora;
   },
 
   gerarChefe: function () {
     var chefe = new Chefe(this.context, imagens.boss1, 1.6);
-    this.animacao.novoSprite(chefe);
+    animacao.novoSprite(chefe);
     this.gerouChefe = true;
+  },
+
+  initialConfig: function () {
+    this.currentHeight = this.imagem.height - this.context.canvas.height;
+    this.ultimoTempo = null;
+    this.gerouChefe = false;
   }
 }

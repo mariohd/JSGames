@@ -11,6 +11,7 @@ function Player(context, teclado, imagem) {
 	this.escala = 2.5;
 	this.upgraded = false;
 	this.morto = false;
+	this.vidas = 0;
 };
 
 Player.prototype = {
@@ -44,14 +45,14 @@ Player.prototype = {
 	atirar: function () {
 		if (! this.morto ) {
 			var t = new Tiro(this.context, this);
-			this.animacao.novoSprite(t);
+			animacao.novoSprite(t);
 			this.colisor.novoSprite(t);
 			if (this.upgraded) {
 				var lateralD = new Tiro(this.context, this, this.position.x, this.position.y + this.imagem.height/this.escala/2 - t.imagem.height/t.escala/2 - 15);
 				var lateralE = new Tiro(this.context, this, this.position.x + this.largura() - 11, this.position.y + this.imagem.height/this.escala/2 - t.imagem.height/t.escala/2 - 15);
-				this.animacao.novoSprite(lateralD);
+				animacao.novoSprite(lateralD);
 				this.colisor.novoSprite(lateralD);
-				this.animacao.novoSprite(lateralE);
+				animacao.novoSprite(lateralE);
 				this.colisor.novoSprite(lateralE);
 			}
 		}
@@ -104,18 +105,45 @@ Player.prototype = {
 
 	destruir: function () {
 		this.morto = true;
-        this.animacao.excluirSprite(this);
+        animacao.excluirSprite(this);
         this.colisor.excluirSprite(this);
 		var exp1 = new Explosao(this.context, imagens.explosao,
                                  this.position.x, this.position.y);
-        this.animacao.novoSprite(exp1);
+        animacao.novoSprite(exp1);
         exp1.fimDaExplosao = function() {
-	      	alert("voce fez " + pontuacao + " pontos!");
+			player1.morto = true;
+		    if (player1.vidas) {
+				player1.position = { x : player1.maxPosition.x/2 , y: player1.maxPosition.y };
+				player1.vidas--;
+				player1.upgraded = false;
+				player1.morto = false;
+				animacao.novoSprite(player1);
+				colisor.novoSprite(player1);
+		    } else {
+	            animacao.desligar();
+	            context.save()
+            	context.textAlign = 'center';
+				context.fillStyle = "#D30035";
+			    context.strokeStyle = 'black';
+				context.font = '70px Guardians';
+				context.fillText("GAME OVER", canvas.width/2, canvas.height/2.5);
+				context.strokeText("GAME OVER", canvas.width/2, canvas.height/2.5);
+				context.fillText(pontuacao + " pontos", canvas.width/2, canvas.height/1.5);
+				context.strokeText(pontuacao + " pontos", canvas.width/2, canvas.height/1.5);
+				context.restore();
+		    }
 	    }
 	},
 
    pontuar: function (pts) {
    	pontuacao += pts;
+   },
+
+   initialConfig: function () {
+   	this.vidas = 3;
+	this.position = { x : this.maxPosition.x/2 , y: this.maxPosition.y };
+	this.upgraded = false;
+	this.morto = false;
    }
 
 };

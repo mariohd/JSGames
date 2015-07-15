@@ -16,9 +16,9 @@ function Tiro(context, nave, x, y) {
 }
 Tiro.prototype = {
    atualizar: function() {
-      this.y -= this.velocidade * this.animacao.decorrido / 1000;
+      this.y -= this.velocidade * animacao.decorrido / 1000;
       if (this.y < -this.altura) {
-         this.animacao.excluirSprite(this);
+         animacao.excluirSprite(this);
          this.colisor.excluirSprite(this);
       }
    },
@@ -54,7 +54,7 @@ Tiro.prototype = {
       if (outro instanceof Enemy) {
          this.nave.pontuar(100);
          outro.destruir();
-         this.animacao.excluirSprite(this);
+         animacao.excluirSprite(this);
          this.colisor.excluirSprite(this);
       }
    }

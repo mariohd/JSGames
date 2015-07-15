@@ -20,7 +20,7 @@ function Teclado(elemento) {
    this.funcoesDisparo = [];
 
    var teclado = this;
-   elemento.focus();
+   //elemento.focus();
    elemento.addEventListener('keydown', function(evento) {
       var tecla = evento.keyCode; 
       teclado.pressionadas[tecla] = true;

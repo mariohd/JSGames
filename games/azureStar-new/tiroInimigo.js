@@ -16,10 +16,10 @@ function TiroInimigo(context, nave, x, y) {
 }
 TiroInimigo.prototype = {
    atualizar: function() {
-      this.y += this.velocidade * this.animacao.decorrido / 1000;
+      this.y += this.velocidade * animacao.decorrido / 1000;
       if (this.y > 600) {
-         this.animacao.excluirSprite(this);
-         this.colisor.excluirSprite(this);
+         animacao.excluirSprite(this);
+         colisor.excluirSprite(this);
       }
    },
 
@@ -51,6 +51,8 @@ TiroInimigo.prototype = {
    colidiuCom: function(outro) {
       if (outro instanceof Player) {
          outro.destruir();
+         animacao.excluirSprite(this);
+         colisor.excluirSprite(this);
       }
    }
 }

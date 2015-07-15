@@ -11,7 +11,7 @@ function Animacao(context) {
 Animacao.prototype = {
    novoSprite: function(sprite) {
       this.sprites.push(sprite);
-      sprite.animacao = this;
+      //sprite.animacao = this;
    },
    ligar: function() {
       this.ultimoCiclo = 0;
