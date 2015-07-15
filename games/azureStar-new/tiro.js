@@ -54,6 +54,8 @@ Tiro.prototype = {
       if (outro instanceof Enemy) {
          this.nave.pontuar(100);
          outro.destruir();
+         this.animacao.excluirSprite(this);
+         this.colisor.excluirSprite(this);
       }
    }
 }
