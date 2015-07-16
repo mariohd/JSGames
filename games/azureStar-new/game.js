@@ -5,6 +5,7 @@ var context = canvas.getContext("2d");
 var animacao, colisor, stage1, teclado, player1;
 var totalMidia = 0, carregadas = 0;
 var volumeBar = document.getElementById('song-volume');
+var liberado = false;
 
 function carregarAssets() {
    imagens = {
@@ -12,7 +13,7 @@ function carregarAssets() {
    	espaco: 'loading.jpg',
 	player: 'ship_sprite.png', 
 	enemy1: 'enemy_sprite.png',
-	stage1: 'background/eagleNebula.jpg',
+	stage1: 'background/orionNebula.jpg',
 	explosao: 'explosion.png',
 	tiro: 'bullet.png',
 	tiroInimigo: 'enemy_bullet.png',
@@ -128,7 +129,7 @@ document.onkeydown = function (key) {
 			if (!started)
 				iniciar();
 			else {
-				if ( player1.morto) {
+				if ( player1.morto && liberado) {
 					animacao.sprites = [];
 					colisor.sprites = [];
 					pontuacao = 0;
@@ -140,6 +141,7 @@ document.onkeydown = function (key) {
 					updateVidas();
 					animacao.ligar();
 					updatePontuacao();
+					liberado = false;
 				}
 			}
 			break;
