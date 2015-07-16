@@ -36,7 +36,6 @@ var MOVEMENT_MODES = [
   }
 ];
 
-var chances = 0;
 function Enemy(context, imagem, escala) {
   this.context = context;
   this.imagem = imagem;
@@ -52,6 +51,11 @@ function Enemy(context, imagem, escala) {
   this.escala = escala;
   this.ultimoTempo;
   this.intervaloDeTiro = 500 + (Math.random() * 1000);
+  this.drops = [];
+  this.drops[5] = {object: Escudo, image: imagens.escudo };
+  this.drops[10] = { object: Cannons, image: imagens.cannons };
+  this.drops[15] = {object: Vida, image: imagens.vida };
+  this.drops[20] = 0;
 } 
 
 Enemy.prototype = {
@@ -107,16 +111,12 @@ Enemy.prototype = {
   },
 
   droparUpgrade: function () {
-    if ( (Math.random() + chances) > 1 ) {
-      chances = 0;
-      var u = new Upgrade(this.context, imagens.upgrade, this.position );
+    var resultado = chanceRandomica(1, 20);
+    if (this.drops[resultado]) {
+      var u = new this.drops[resultado].object(this.context, this.drops[resultado].image, this.position );
       animacao.novoSprite(u);
-      this.colisor.novoSprite(u);
-    } else {
-      if (chances < 0.5) {
-        chances += 0.005;
-      }
-    } 
+      colisor.novoSprite(u);
+    }
   },
 
   largura: function () {

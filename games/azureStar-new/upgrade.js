@@ -1,12 +1,4 @@
-function Upgrade(context, imagem, position){
-	this.context = context;
-	this.position = position;
-	this.velocidade = 100;
-	this.imagem = imagem;
-	this.sprite = new Spritesheet(this.context, this.imagem, 1, 48);
-	this.sprite.intervalo = 80;
-	this.escala = 3.5;
-}
+function Upgrade(){}
 
 Upgrade.prototype = {
 	desenhar: function () {
@@ -46,9 +38,10 @@ Upgrade.prototype = {
 	},
 	colidiuCom: function (outro) {
 		if (outro instanceof Player) {
+			this.acao();
 			outro.pontuar(200);
 			animacao.excluirSprite(this);
-			this.colisor.excluirSprite(this);
+			colisor.excluirSprite(this);
 		}
 	}
 };

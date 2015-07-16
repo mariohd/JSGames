@@ -6,6 +6,7 @@ var animacao, colisor, stage1, teclado, player1;
 var totalMidia = 0, carregadas = 0;
 var volumeBar = document.getElementById('song-volume');
 var liberado = false;
+var loadingComplete = false;
 
 function carregarAssets() {
    imagens = {
@@ -17,7 +18,9 @@ function carregarAssets() {
 	explosao: 'explosion.png',
 	tiro: 'bullet.png',
 	tiroInimigo: 'enemy_bullet.png',
-	upgrade: 'upgrade_sprite_2.png'
+	cannons: 'upgrade_sprite_2.png',
+	vida: 'ship.png',
+	escudo: 'shield_sprite.png'
    };
    
    for (var i in imagens) {
@@ -58,6 +61,7 @@ function carregando() {
 	carregadas++;
 	if (carregadas == totalMidia) {
 		drawText("Aperte Enter para iniciar", {x: context.canvas.width/ 2, y: context.canvas.height/1.1}, '23px Guardians');
+		loadingComplete = true;
 		iniciarObjetos();
 
     } else {
@@ -120,6 +124,7 @@ function gameOver() {
 }
 
 document.onkeydown = function (key) {
+	if (!loadingComplete) return;
 	switch (key.which) {
 		case ENTER:
 			if (!started)
@@ -168,5 +173,9 @@ function updateVidas () {
 function pad(num) {
   var s = "0000000" + num;
   return s.substr(s.length-7);
+}
+
+function chanceRandomica(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 

@@ -65,8 +65,6 @@ Player.prototype = {
 	upgrade: function () {
 		if (!this.upgraded) {
 			this.upgraded = !this.upgraded;
-			sons.upgrade.volume = .5;
-			sons.upgrade.play();
 		}
 	},
 	retangulosColisao: function() {
@@ -96,17 +94,13 @@ Player.prototype = {
       if (outro instanceof Enemy) {
       	 this.destruir();
          outro.destruir();
-
-      }
-      if (outro instanceof Upgrade) {
-      	this.upgrade();
       }
    },
 
 	destruir: function () {
 		player1.morto = true;
         animacao.excluirSprite(this);
-        this.colisor.excluirSprite(this);
+        colisor.excluirSprite(this);
 		var exp1 = new Explosao(this.context, imagens.explosao,
                                  this.position.x, this.position.y);
         animacao.novoSprite(exp1);
