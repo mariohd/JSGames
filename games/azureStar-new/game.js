@@ -108,7 +108,7 @@ sons.menu.volume = volumeBar.value/100;
 sons.menu.loop = true;
 sons.menu.play();
 
-canvas.onkeydown = function (key) {
+document.onkeydown = function (key) {
 	switch (key.which) {
 		case ENTER:
 			if (!started)
