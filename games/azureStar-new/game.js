@@ -10,7 +10,7 @@ var liberado = false;
 function carregarAssets() {
    imagens = {
    	boss1: 'boss1-min.png',
-   	espaco: 'loading.jpg',
+   	espaco: 'background/loading.jpg',
 	player: 'ship_sprite.png', 
 	enemy1: 'enemy_sprite.png',
 	stage1: 'background/orionNebula.jpg',
