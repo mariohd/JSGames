@@ -1,4 +1,5 @@
 <html>
+<meta charset="UTF-8">
 <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
 
 	<style>
@@ -12,6 +13,9 @@
 			font-family: Guardians;
 			font-size: 25px;
 			font-weight: 900;
+			color: red;	
+	    	text-shadow: 2px 2px black;
+
 		}
 
 		body {
@@ -19,11 +23,12 @@
 		    background: -o-linear-gradient(top, lightgray , white); /* For Opera 11.1 to 12.0 */
 		    background: -moz-linear-gradient(top, lightgray , white); /* For Firefox 3.6 to 15 */
 		    background: linear-gradient(to bottom, lightgray , white); /* Standard syntax (must be last) */
+		    text-align: center;
 		}
 
 		#canvas-container {
 			width: 1000px;
-			text-align:center;
+			text-align: center;
 			clear: both;
 			margin: 0 auto 0 auto;
 		}
@@ -35,7 +40,6 @@
 		}
 
 		.time {
-			color: red;
 			z-index: 1;
 			float: left;
 			width: 33%;
@@ -43,7 +47,6 @@
 		}
 
 		.lifes {
-			color: red;
 			z-index: 1;
 			float: left;
 			width: 33%;
@@ -51,7 +54,6 @@
 		}
 
 		.scoreCounter {
-			color: red;
 			z-index: 1;
 			float: left;
 			width: 34%;
@@ -86,9 +88,11 @@
 				<input type="range" id="song-volume" value="30">
 			</div>
 		</div>
+		<span class="guardians"><h2>Comandos</h2></span>
 		<img src="img/comandos.png">
+		<span class="guardians"><h2>Creditos</h2></span>
 		<footer>
-			Menu-Track Name: "Dragon Warrior"<br>
+			Loading-Track Name: "Dragon Warrior"<br>
 			Composed by: Marcus Dellicompagni <br>
 			Website: www.PoundSound.co.uk <br>
 		</footer>

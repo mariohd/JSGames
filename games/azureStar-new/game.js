@@ -53,29 +53,30 @@ function carregarAssets() {
 function carregando() {
 	context.save();
 	context.drawImage(imagens.espaco, 0, 0, canvas.width, canvas.height);
-    drawText("Azure Star", {x: context.canvas.width/ 2, y: context.canvas.height/ 5}, '70px Guardians');
+    drawText("Azure Star", {x: context.canvas.width/ 2, y: context.canvas.height/ 4}, '70px Guardians');
 
 	carregadas++;
 	if (carregadas == totalMidia) {
 		drawText("Aperte Enter para iniciar", {x: context.canvas.width/ 2, y: context.canvas.height/1.1}, '23px Guardians');
 		iniciarObjetos();
+
     } else {
 		var tamanhoTotal = context.canvas.width * .9;
 		var tamanho = carregadas / totalMidia * tamanhoTotal;
 		context.fillStyle = 'rgba(94, 211, 69, 0.5)';
 		context.fillRect((context.canvas.width - tamanhoTotal)/2, context.canvas.height/1.2, tamanho, 50);
-
-		context.restore();
 	}
-
+	context.restore();
 };
 
 function drawText(string, location, font) {
 	context.font = font;
 	context.fillStyle = "#D30035";
-    context.strokeStyle = 'black';
     context.textAlign = 'center';
-    context.strokeText(string, location.x, location.y);
+    context.shadowColor = 'black';
+    context.shadowOffsetX = 3;
+	context.shadowOffsetY = 3;
+	context.shadowBlur = 3;
     context.fillText(string, location.x, location.y);
 };
 
@@ -110,17 +111,12 @@ sons.menu.loop = true;
 sons.menu.play();
 
 function gameOver() {
-	animacao.desligar();
     context.save()
-	context.textAlign = 'center';
-	context.fillStyle = "#D30035";
-    context.strokeStyle = 'black';
-	context.font = '70px Guardians';
-	context.fillText("GAME OVER", canvas.width/2, canvas.height/2.5);
-	context.strokeText("GAME OVER", canvas.width/2, canvas.height/2.5);
-	context.fillText(pontuacao + " pontos", canvas.width/2, canvas.height/1.5);
-	context.strokeText(pontuacao + " pontos", canvas.width/2, canvas.height/1.5);
+	drawText("GAME OVER", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
+	drawText(pontuacao + " pontos", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");
+	drawText("Pressione enter para reiniciar", { x: canvas.width/2, y: canvas.height/1.3}, "23px Guardians");
 	context.restore();
+	animacao.desligar();
 }
 
 document.onkeydown = function (key) {
