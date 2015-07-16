@@ -8,7 +8,7 @@ var volumeBar = document.getElementById('song-volume');
 
 function carregarAssets() {
    imagens = {
-   	boss1: 'boss1-min (2).png',
+   	boss1: 'boss1-min.png',
    	espaco: 'loading.jpg',
 	player: 'ship_sprite.png', 
 	enemy1: 'enemy_sprite.png',
