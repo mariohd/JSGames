@@ -104,6 +104,7 @@ Player.prototype = {
    },
 
 	destruir: function () {
+		player1.morto = true;
         animacao.excluirSprite(this);
         this.colisor.excluirSprite(this);
 		var exp1 = new Explosao(this.context, imagens.explosao,
