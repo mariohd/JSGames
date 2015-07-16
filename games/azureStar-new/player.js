@@ -11,7 +11,7 @@ function Player(context, teclado, imagem) {
 	this.escala = 2.5;
 	this.upgraded = false;
 	this.morto = false;
-	this.vidas = 0;
+	this.vidas = 3;
 };
 
 Player.prototype = {
@@ -121,6 +121,7 @@ Player.prototype = {
 		    } else {
 		    	gameOver();
 		    }
+        	updateVidas();
 	    }
 	},
 

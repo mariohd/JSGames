@@ -8,7 +8,7 @@ var volumeBar = document.getElementById('song-volume');
 
 function carregarAssets() {
    imagens = {
-   	boss1: 'boss1-min.png',
+   	boss1: 'boss1-min (2).png',
    	espaco: 'loading.jpg',
 	player: 'ship_sprite.png', 
 	enemy1: 'enemy_sprite.png',
@@ -137,6 +137,7 @@ document.onkeydown = function (key) {
 					animacao.novoSprite(stage1);
 					animacao.novoSprite(player1);
 					colisor.novoSprite(player1);
+					updateVidas();
 					animacao.ligar();
 					updatePontuacao();
 				}
@@ -160,6 +161,10 @@ volumeBar.addEventListener('input', function () {
 
 function updatePontuacao () {
 	document.getElementById('scoreCounter').innerText = pad(pontuacao);
+}
+
+function updateVidas () {
+	document.getElementById('counter').innerText = player1.vidas;
 }
 
 function pad(num) {

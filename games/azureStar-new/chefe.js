@@ -24,7 +24,7 @@ Chefe.prototype = {
 	atualizar: function () {
 		if (this.position.y < 0 ) {
 			this.position.y += this.velocidade;
-		} else {
+		} /*else {
 			if (this.descendo) {
 				if (this.limitesDeY(this.position.y + this.velocidade)) {
 					this.position.y += this.velocidade;
@@ -60,7 +60,7 @@ Chefe.prototype = {
 					this.descendo = false;
 				}
 			}
-		}
+		}*/
 	},
 	desenhar: function () {
 		this.sprite.desenhar(this.position, this.escala);

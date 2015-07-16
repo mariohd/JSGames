@@ -1,5 +1,5 @@
 <html>
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
 
 	<style>
 
@@ -72,7 +72,9 @@
 	<body>
 		<div id="canvas-container">	
 			<div class="hud">
-	    		<span id="lifeCounter" class="lifes guardians">3 x</span>
+	    		<span id="lifeCounter" class="lifes guardians">
+	    			<img src="img/ship.png" width="32" height="32"> x <span id="counter">3</span>
+	    		</span>
 			    <span id="scoreCounter" class="scoreCounter guardians">0000000</span>
 			    <span id="timeCounter" class="time guardians">00:00</span>
 			</div>
@@ -80,11 +82,11 @@
 				Your browser does not support HTML5 Canvas. 
 			</canvas>
 			<div class="volume">
-				<img src="som.png" height="32" width="32">
+				<img src="img/som.png" height="32" width="32">
 				<input type="range" id="song-volume" value="0">
 			</div>
 		</div>
-		<img src="comandos.png">
+		<img src="img/comandos.png">
 	</body>
 	<script src="game.js"></script>
 	<script src="animacao.js"></script>
