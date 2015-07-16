@@ -19,7 +19,7 @@ function carregarAssets() {
 	tiro: 'bullet.png',
 	tiroInimigo: 'enemy_bullet.png',
 	cannons: 'upgrade_sprite_2.png',
-	vida: 'ship.png',
+	vida: 'mush.png',
 	escudo: 'shield_sprite.png'
    };
    
@@ -38,7 +38,7 @@ function carregarAssets() {
 	tiro: 'tiro.mp3', 
 	upgrade: 'upgrade.mp3',
 	explosao: 'explosao.mp3',
-	life: 'life.mp3',
+	life: 'life.wav',
 	drop: 'drop.mp3',
    };
    

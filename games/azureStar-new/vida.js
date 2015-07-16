@@ -3,7 +3,7 @@ function Vida(context, imagem, position) {
 	this.imagem = imagem;
 	this.sprite = new Spritesheet(this.context, this.imagem, 1, 1);
 	this.position = position;
-	this.escala = 4;
+	this.escala = 5.8;
 	this.sprite.intervalo = 80;	
 	this.velocidade = 100;
 }
