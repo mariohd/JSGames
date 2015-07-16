@@ -108,13 +108,27 @@ sons.menu.volume = volumeBar.value/100;
 sons.menu.loop = true;
 sons.menu.play();
 
+function gameOver() {
+	animacao.desligar();
+    context.save()
+	context.textAlign = 'center';
+	context.fillStyle = "#D30035";
+    context.strokeStyle = 'black';
+	context.font = '70px Guardians';
+	context.fillText("GAME OVER", canvas.width/2, canvas.height/2.5);
+	context.strokeText("GAME OVER", canvas.width/2, canvas.height/2.5);
+	context.fillText(pontuacao + " pontos", canvas.width/2, canvas.height/1.5);
+	context.strokeText(pontuacao + " pontos", canvas.width/2, canvas.height/1.5);
+	context.restore();
+}
+
 document.onkeydown = function (key) {
 	switch (key.which) {
 		case ENTER:
 			if (!started)
 				iniciar();
 			else {
-				if ( player1.morto ) {
+				if ( player1.morto) {
 					animacao.sprites = [];
 					colisor.sprites = [];
 					pontuacao = 0;
@@ -124,9 +138,16 @@ document.onkeydown = function (key) {
 					animacao.novoSprite(player1);
 					colisor.novoSprite(player1);
 					animacao.ligar();
+					updatePontuacao();
 				}
 			}
 			break;
+		case ESPACO:
+		case SETA_ESQUERDA:
+		case SETA_DIREITA:
+		case SETA_ACIMA:
+		case SETA_ABAIXO:
+			key.preventDefault();
 	}
 };
 
@@ -135,5 +156,14 @@ volumeBar.addEventListener('input', function () {
 		sons.menu.volume = volumeBar.value/100;
 	else
 		sons.in_game.volume = volumeBar.value/400;
-	}, false);
+}, false);
+
+function updatePontuacao () {
+	document.getElementById('scoreCounter').innerText = pad(pontuacao);
+}
+
+function pad(num) {
+  var s = "0000000" + num;
+  return s.substr(s.length-7);
+}
 

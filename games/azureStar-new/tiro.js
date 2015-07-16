@@ -19,7 +19,7 @@ Tiro.prototype = {
       this.y -= this.velocidade * animacao.decorrido / 1000;
       if (this.y < -this.altura) {
          animacao.excluirSprite(this);
-         this.colisor.excluirSprite(this);
+         colisor.excluirSprite(this);
       }
    },
 

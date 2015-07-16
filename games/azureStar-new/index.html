@@ -1,4 +1,6 @@
 <html>
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
 	<style>
 
 		@font-face {
@@ -8,16 +10,81 @@
 
 		.guardians {
 			font-family: Guardians;
+			font-size: 25px;
+			font-weight: 900;
+		}
+
+		body {
+		    background: -webkit-linear-gradient(top, lightgray , white); /* For Safari 5.1 to 6.0 */
+		    background: -o-linear-gradient(top, lightgray , white); /* For Opera 11.1 to 12.0 */
+		    background: -moz-linear-gradient(top, lightgray , white); /* For Firefox 3.6 to 15 */
+		    background: linear-gradient(to bottom, lightgray , white); /* Standard syntax (must be last) */
+		}
+
+		#canvas-container {
+			width: 1000px;
+			text-align:center;
+			clear: both;
+			margin: 0 auto 0 auto;
+		}
+
+		canvas {
+			display: inline;
+			background-color: white;
+			outline: 0;
+		}
+
+		.time {
+			color: red;
+			z-index: 1;
+			float: left;
+			width: 33%;
+			text-align: right;
+		}
+
+		.lifes {
+			color: red;
+			z-index: 1;
+			float: left;
+			width: 33%;
+			text-align: left;
+		}
+
+		.scoreCounter {
+			color: red;
+			z-index: 1;
+			float: left;
+			width: 34%;
+		}
+
+		.volume {
+			position: relative;
+			top: -3em;
+			left: 25em;
+		}
+
+		.volume > img, input {
+			vertical-align: middle;
+			display: inline-block;
 		}
 
 	</style>
 	<body>
-		<div class="guardians">.</div>
-		<canvas id="game-canvas" width="1000" height="600" tabindex="1">
-			Your browser does not support HTML5 Canvas. 
-		</canvas>
-		Song Volume
-		<input type="range" id="song-volume" value="0">
+		<div id="canvas-container">	
+			<div class="hud">
+	    		<span id="lifeCounter" class="lifes guardians">3 x</span>
+			    <span id="scoreCounter" class="scoreCounter guardians">0000000</span>
+			    <span id="timeCounter" class="time guardians">00:00</span>
+			</div>
+			<canvas id="game-canvas" width="1000" height="600" tabindex="1">
+				Your browser does not support HTML5 Canvas. 
+			</canvas>
+			<div class="volume">
+				<img src="som.png" height="32" width="32">
+				<input type="range" id="song-volume" value="0">
+			</div>
+		</div>
+		<img src="comandos.png">
 	</body>
 	<script src="game.js"></script>
 	<script src="animacao.js"></script>

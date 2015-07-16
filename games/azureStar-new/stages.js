@@ -38,7 +38,7 @@ Stage.prototype = {
   },
 
   gerarChefe: function () {
-    var chefe = new Chefe(this.context, imagens.boss1, 1.6);
+    var chefe = new Chefe(this.context, imagens.boss1, 1);
     animacao.novoSprite(chefe);
     this.gerouChefe = true;
   },

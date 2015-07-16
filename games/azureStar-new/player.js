@@ -104,14 +104,13 @@ Player.prototype = {
    },
 
 	destruir: function () {
-		this.morto = true;
         animacao.excluirSprite(this);
         this.colisor.excluirSprite(this);
 		var exp1 = new Explosao(this.context, imagens.explosao,
                                  this.position.x, this.position.y);
         animacao.novoSprite(exp1);
         exp1.fimDaExplosao = function() {
-			player1.morto = true;
+        	player1.morto = true;
 		    if (player1.vidas) {
 				player1.position = { x : player1.maxPosition.x/2 , y: player1.maxPosition.y };
 				player1.vidas--;
@@ -120,23 +119,14 @@ Player.prototype = {
 				animacao.novoSprite(player1);
 				colisor.novoSprite(player1);
 		    } else {
-	            animacao.desligar();
-	            context.save()
-            	context.textAlign = 'center';
-				context.fillStyle = "#D30035";
-			    context.strokeStyle = 'black';
-				context.font = '70px Guardians';
-				context.fillText("GAME OVER", canvas.width/2, canvas.height/2.5);
-				context.strokeText("GAME OVER", canvas.width/2, canvas.height/2.5);
-				context.fillText(pontuacao + " pontos", canvas.width/2, canvas.height/1.5);
-				context.strokeText(pontuacao + " pontos", canvas.width/2, canvas.height/1.5);
-				context.restore();
+		    	gameOver();
 		    }
 	    }
 	},
 
    pontuar: function (pts) {
    	pontuacao += pts;
+   	updatePontuacao();
    },
 
    initialConfig: function () {
