@@ -14,7 +14,6 @@ function Player(context, teclado, imagem) {
 	this.vidas = 3;
 	this.ultimaMorte = +new Date();
 	this.escudo = false;
-  	this.escudoHP = 2;
 };
 
 Player.prototype = {
@@ -102,20 +101,6 @@ Player.prototype = {
 
 	destruir: function () {
 		if ( this.imortal() ) return;
-		if ( this.escudo  && this.escudoHP > 0) {
-			sons.escudoAtingido.volume = .2;
-			sons.escudoAtingido.currentTime = 0.0;
-			sons.escudoAtingido.play();
-			this.escudoHP--;
-			if (this.escudoHP == 0) {
-				this.escudo = false;
-				this.escudoHP = 2;
-				sons.escudoAtingido.volume = 0.2;
-				sons.escudoAtingido.currentTime = 0.0;
-				sons.fimEscudo.play();
-			}
-			return;
-		}
 		this.matarJogador();
 	},
 
@@ -123,6 +108,7 @@ Player.prototype = {
 		player1.morto = true;
         animacao.excluirSprite(this);
         colisor.excluirSprite(this);
+        if (barrier) barrier.destruir();
 		var exp1 = new Explosao(this.context, imagens.explosao,
                                  this.position.x, this.position.y);
         animacao.novoSprite(exp1);
@@ -134,8 +120,6 @@ Player.prototype = {
 				player1.vidas--;
 				player1.upgraded = false;
 				player1.morto = false;
-				player1.escudo = false;
-				player1.shieldHP = 2;
 				animacao.novoSprite(player1);
 				colisor.novoSprite(player1);
 		    } else {
@@ -144,12 +128,6 @@ Player.prototype = {
 		    }
         	updateVidas();
 	    }
-	},
-
-	acionarEscudo: function () {
-		if (this.escudo) return;
-		this.escudo = true;
-  		this.shieldHP = 2;
 	},
 
 	pontuar: function (pts) {

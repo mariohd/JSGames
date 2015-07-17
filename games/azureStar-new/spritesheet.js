@@ -32,7 +32,10 @@ Spritesheet.prototype = {
             } else {
                this.coluna = 0;
                if (this.multiLine) {
-                  this.linha++;
+                  if (this.linha < this.numLinhas - 1)
+                     this.linha++;
+                  else 
+                     this.linha = 0;
                }
             }
          }

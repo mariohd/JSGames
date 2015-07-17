@@ -2,7 +2,7 @@
 var imagens, sons, started = false, pontuacao = 0;
 var canvas = document.getElementById("game-canvas");
 var context = canvas.getContext("2d");
-var animacao, colisor, stage1, teclado, player1, clock ;
+var animacao, colisor, stage1, teclado, player1, clock, barrier;
 var totalMidia = 0, carregadas = 0;
 var volumeBar = document.getElementById('song-volume');
 var liberado = false;
@@ -20,7 +20,8 @@ function carregarAssets() {
 	tiroInimigo: 'enemy_bullet.png',
 	cannons: 'upgrade_sprite_2.png',
 	vida: 'mush.png',
-	escudo: 'shield_sprite.png'
+	escudo: 'shield_sprite.png',
+	barreira: 'has_shield.png'
    };
    
    for (var i in imagens) {
