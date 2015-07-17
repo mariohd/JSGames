@@ -12,6 +12,7 @@ function Player(context, teclado, imagem) {
 	this.upgraded = false;
 	this.morto = false;
 	this.vidas = 3;
+	this.ultimaMorte = +new Date();
 };
 
 Player.prototype = {
@@ -46,14 +47,14 @@ Player.prototype = {
 		if (! this.morto ) {
 			var t = new Tiro(this.context, this);
 			animacao.novoSprite(t);
-			this.colisor.novoSprite(t);
+			colisor.novoSprite(t);
 			if (this.upgraded) {
 				var lateralD = new Tiro(this.context, this, this.position.x, this.position.y + this.imagem.height/this.escala/2 - t.imagem.height/t.escala/2 - 15);
 				var lateralE = new Tiro(this.context, this, this.position.x + this.largura() - 11, this.position.y + this.imagem.height/this.escala/2 - t.imagem.height/t.escala/2 - 15);
 				animacao.novoSprite(lateralD);
-				this.colisor.novoSprite(lateralD);
+				colisor.novoSprite(lateralD);
 				animacao.novoSprite(lateralE);
-				this.colisor.novoSprite(lateralE);
+				colisor.novoSprite(lateralE);
 			}
 		}
 	},
@@ -76,7 +77,7 @@ Player.prototype = {
 
       ];
       
-      if ( this.colisor.desenharQuadrados() ) {
+      if ( colisor.desenharQuadrados() ) {
 	      var ctx = this.context;
 	      
 	      for (var i in rets) {
@@ -98,6 +99,7 @@ Player.prototype = {
    },
 
 	destruir: function () {
+		if ( this.imortal() ) return;
 		player1.morto = true;
         animacao.excluirSprite(this);
         colisor.excluirSprite(this);
@@ -107,6 +109,7 @@ Player.prototype = {
         exp1.fimDaExplosao = function() {
         	player1.morto = true;
 		    if (player1.vidas) {
+		    	player1.ultimaMorte = new Date().getTime();
 				player1.position = { x : player1.maxPosition.x/2 , y: player1.maxPosition.y };
 				player1.vidas--;
 				player1.upgraded = false;
@@ -131,6 +134,10 @@ Player.prototype = {
 	this.position = { x : this.maxPosition.x/2 , y: this.maxPosition.y };
 	this.upgraded = false;
 	this.morto = false;
+   },
+
+   imortal: function () {
+   	return +new Date() - this.ultimaMorte < 1000;
    }
 
 };

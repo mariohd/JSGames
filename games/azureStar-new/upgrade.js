@@ -14,7 +14,7 @@ Upgrade.prototype = {
       
       // Desenhando os retângulos para visualização
       
-      if ( this.colisor.desenharQuadrados() ) {
+      if ( colisor.desenharQuadrados() ) {
 	      var ctx = this.context;
 	      
 	      for (var i in rets) {

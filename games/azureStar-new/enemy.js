@@ -63,7 +63,7 @@ Enemy.prototype = {
     this.movementFunction.call(this);
     if (this.position.y > (this.maxPosition.y + this.imagem.y/this.escala)) {
       animacao.excluirSprite(this);
-      this.colisor.excluirSprite(this);
+      colisor.excluirSprite(this);
     }
 
     var agora = new Date().getTime(); 
@@ -73,7 +73,7 @@ Enemy.prototype = {
 
     var t = new TiroInimigo(this.context, this);
     animacao.novoSprite(t);
-    this.colisor.novoSprite(t);
+    colisor.novoSprite(t);
 
     this.ultimoTempo = agora;
   },
@@ -93,7 +93,7 @@ Enemy.prototype = {
       ];
       
       // Desenhando os retângulos para visualização
-      if ( this.colisor.desenharQuadrados() ) {
+      if ( colisor.desenharQuadrados() ) {
         var ctx = this.context;
         
         for (var i in rets) {
@@ -126,7 +126,7 @@ Enemy.prototype = {
   destruir: function () {
     this.morto = true;
     animacao.excluirSprite(this);
-    this.colisor.excluirSprite(this);
+    colisor.excluirSprite(this);
     var exp1 = new Explosao(this.context, imagens.explosao,
                                  this.position.x, this.position.y);
     animacao.novoSprite(exp1);

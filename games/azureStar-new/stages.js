@@ -5,7 +5,7 @@ function Stage(context, imagem, colisor) {
   this.currentHeight = this.imagem.height - this.context.canvas.height;
   this.intervalo = 1000;
   this.ultimoTempo = null;
-  this.colisor = colisor;
+  colisor = colisor;
   this.gerouChefe = false;
 };
 
@@ -33,7 +33,7 @@ Stage.prototype = {
 
     var enemy = new Enemy(this.context, imagens.enemy1, 4);
     animacao.novoSprite(enemy);
-    this.colisor.novoSprite(enemy);
+    colisor.novoSprite(enemy);
     this.ultimoTempo = agora;
   },
 

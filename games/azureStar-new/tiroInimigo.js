@@ -33,7 +33,7 @@ TiroInimigo.prototype = {
          {x: this.x, y: this.y, largura: this.imagem.width/this.escala, altura: -this.imagem.height/this.escala},
       ];
       
-      if ( this.colisor.desenharQuadrados() ) {
+      if ( colisor.desenharQuadrados() ) {
          var ctx = this.context;
          
          for (var i in rets) {

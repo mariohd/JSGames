@@ -35,7 +35,7 @@ Tiro.prototype = {
       ];
       
       // Desenhando os retângulos para visualização
-      if ( this.colisor.desenharQuadrados() ) {
+      if ( colisor.desenharQuadrados() ) {
          var ctx = this.context;
          
          for (var i in rets) {
@@ -55,7 +55,7 @@ Tiro.prototype = {
          this.nave.pontuar(100);
          outro.destruir();
          animacao.excluirSprite(this);
-         this.colisor.excluirSprite(this);
+         colisor.excluirSprite(this);
       }
    }
 }
