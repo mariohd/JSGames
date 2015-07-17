@@ -141,7 +141,6 @@ Player.prototype = {
 		this.upgraded = false;
 		this.morto = false;
 		this.escudo = false;
-		ths.shieldHP = 2;
 	},
 
 	imortal: function () {
