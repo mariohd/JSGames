@@ -2,7 +2,7 @@
 var imagens, sons, started = false, pontuacao = 0;
 var canvas = document.getElementById("game-canvas");
 var context = canvas.getContext("2d");
-var animacao, colisor, stage1, teclado, player1;
+var animacao, colisor, stage1, teclado, player1, clock ;
 var totalMidia = 0, carregadas = 0;
 var volumeBar = document.getElementById('song-volume');
 var liberado = false;
@@ -40,6 +40,10 @@ function carregarAssets() {
 	explosao: 'explosao.mp3',
 	life: 'life.wav',
 	drop: 'drop.mp3',
+	gameOver: 'game-over.mp3',
+	fimEscudo: 'end_shield.mp3',
+	escudo: 'shield.mp3',
+	escudoAtingido: 'shield_hit.mp3'
    };
    
    for (var i in sons) {
@@ -90,7 +94,7 @@ function iniciarObjetos() {
 	stage1 = new Stage(context, imagens.stage1, colisor);
 	teclado = new Teclado(document);
 	player1 = new Player(context, teclado, imagens.player);
-
+    clock = new ClockCounter();
 	teclado.disparou(ESPACO, function() {
 		player1.atirar();
 	});
@@ -106,6 +110,7 @@ function iniciar() {
 	sons.in_game.volume = volumeBar.value/400;
 	sons.in_game.loop = true;
 	sons.in_game.play();
+	clock.startCronometer();
 
 	animacao.ligar();
 };
@@ -115,12 +120,16 @@ sons.menu.loop = true;
 sons.menu.play();
 
 function gameOver() {
+	animacao.desligar();
+	sons.gameOver.volume = .7;
+	sons.escudo.currentTime = 0.0;	
+	sons.gameOver.play();
     context.save()
 	drawText("GAME OVER", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
 	drawText(pontuacao + " pontos", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");
 	drawText("Pressione enter para reiniciar", { x: canvas.width/2, y: canvas.height/1.3}, "23px Guardians");
 	context.restore();
-	animacao.desligar();
+	clock.running = false;
 }
 
 document.onkeydown = function (key) {
@@ -143,6 +152,7 @@ document.onkeydown = function (key) {
 					animacao.ligar();
 					updatePontuacao();
 					liberado = false;
+					clock.startCronometer();
 				}
 			}
 			break;

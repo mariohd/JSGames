@@ -11,11 +11,14 @@ function Escudo(context, imagem, position) {
 Escudo.prototype = Object.create(Upgrade.prototype);
 
 Escudo.prototype.tocarSom = function () {
-	//sons.escudo.volume = .4;
-	//sons.escudo.play();
-	//sons.escudo.currentTime = 0.0;
+	sons.escudo.volume = .4;
+	sons.escudo.play();
+	sons.escudo.currentTime = 0.0;
 };
 
 Escudo.prototype.acao = function () {
-	this.tocarSom(); 
+	if (!player1.escudo) {
+		this.tocarSom(); 
+		player1.acionarEscudo();
+	}
 }

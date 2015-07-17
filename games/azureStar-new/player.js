@@ -13,6 +13,8 @@ function Player(context, teclado, imagem) {
 	this.morto = false;
 	this.vidas = 3;
 	this.ultimaMorte = +new Date();
+	this.escudo = false;
+  	this.escudoHP = 2;
 };
 
 Player.prototype = {
@@ -93,13 +95,31 @@ Player.prototype = {
 
   	colidiuCom: function(outro) {
       if (outro instanceof Enemy) {
-      	 this.destruir();
+      	 this.matarJogador();
          outro.destruir();
       }
    },
 
 	destruir: function () {
 		if ( this.imortal() ) return;
+		if ( this.escudo  && this.escudoHP > 0) {
+			sons.escudoAtingido.volume = .2;
+			sons.escudoAtingido.currentTime = 0.0;
+			sons.escudoAtingido.play();
+			this.escudoHP--;
+			if (this.escudoHP == 0) {
+				this.escudo = false;
+				this.escudoHP = 2;
+				sons.escudoAtingido.volume = 0.2;
+				sons.escudoAtingido.currentTime = 0.0;
+				sons.fimEscudo.play();
+			}
+			return;
+		}
+		this.matarJogador();
+	},
+
+	matarJogador: function () {
 		player1.morto = true;
         animacao.excluirSprite(this);
         colisor.excluirSprite(this);
@@ -114,6 +134,8 @@ Player.prototype = {
 				player1.vidas--;
 				player1.upgraded = false;
 				player1.morto = false;
+				player1.escudo = false;
+				player1.shieldHP = 2;
 				animacao.novoSprite(player1);
 				colisor.novoSprite(player1);
 		    } else {
@@ -124,21 +146,31 @@ Player.prototype = {
 	    }
 	},
 
-   pontuar: function (pts) {
-   	pontuacao += pts;
-   	updatePontuacao();
-   },
+	acionarEscudo: function () {
+				debugger;
 
-   initialConfig: function () {
-   	this.vidas = 3;
-	this.position = { x : this.maxPosition.x/2 , y: this.maxPosition.y };
-	this.upgraded = false;
-	this.morto = false;
-   },
+		if (this.escudo) return;
+		this.escudo = true;
+  		this.shieldHP = 2;
+	},
 
-   imortal: function () {
-   	return +new Date() - this.ultimaMorte < 1000;
-   }
+	pontuar: function (pts) {
+		pontuacao += pts;
+		updatePontuacao();
+	},
+
+	initialConfig: function () {
+		this.vidas = 3;
+		this.position = { x : this.maxPosition.x/2 , y: this.maxPosition.y };
+		this.upgraded = false;
+		this.morto = false;
+		this.escudo = false;
+		ths.shieldHP = 2;
+	},
+
+	imortal: function () {
+		return +new Date() - this.ultimaMorte < 1000;
+	}
 
 };
 
