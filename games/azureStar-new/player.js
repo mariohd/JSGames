@@ -94,8 +94,8 @@ Player.prototype = {
 
   	colidiuCom: function(outro) {
       if (outro instanceof Enemy) {
-      	 this.matarJogador();
-         outro.destruir();
+		this.destruir();
+		outro.destruir();
       }
    },
 
