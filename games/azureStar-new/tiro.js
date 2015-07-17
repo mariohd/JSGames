@@ -57,5 +57,10 @@ Tiro.prototype = {
          animacao.excluirSprite(this);
          colisor.excluirSprite(this);
       }
+      if (outro instanceof Chefe) {
+         outro.damage();
+         animacao.excluirSprite(this);
+         colisor.excluirSprite(this);
+      }
    }
 }

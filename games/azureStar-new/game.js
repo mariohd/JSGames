@@ -44,7 +44,8 @@ function carregarAssets() {
 	gameOver: 'game-over.mp3',
 	fimEscudo: 'end_shield.mp3',
 	escudo: 'shield.mp3',
-	escudoAtingido: 'shield_hit.mp3'
+	escudoAtingido: 'shield_hit.mp3',
+	vitoria: 'victory.mp3'
    };
    
    for (var i in sons) {
@@ -133,6 +134,22 @@ function gameOver() {
 	clock.running = false;
 }
 
+function vitoria() {
+	animacao.desligar();
+	sons.in_game.pause();
+	sons.vitoria.loop = true;
+	sons.vitoria.currentTime = 0.0;	
+	sons.vitoria.play();
+    context.save()
+	drawText("Parabens!", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
+	drawText(pontuacao + " pontos", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");
+	drawText("Pressione enter para reiniciar", { x: canvas.width/2, y: canvas.height/1.3}, "23px Guardians");
+	context.restore();
+	clock.running = false;
+	venceu = true;
+	liberado = true;
+}
+
 document.onkeydown = function (key) {
 	if (!loadingComplete) return;
 	switch (key.which) {
@@ -140,7 +157,7 @@ document.onkeydown = function (key) {
 			if (!started)
 				iniciar();
 			else {
-				if ( player1.morto && liberado) {
+				if ( (venceu || player1.morto) && liberado) {
 					animacao.sprites = [];
 					colisor.sprites = [];
 					pontuacao = 0;

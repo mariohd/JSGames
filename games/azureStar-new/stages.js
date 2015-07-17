@@ -11,14 +11,14 @@ function Stage(context, imagem, colisor) {
 
 Stage.prototype = { 
   atualizar: function () {
-    if (this.currentHeight >= this.speed) {
+    /*if (this.currentHeight >= this.speed) {
       this.currentHeight -= this.speed;
       this.gerarInimigos();
-    } else {
+    } else { */
       if (!this.gerouChefe) {
         this.gerarChefe();
       }
-    }
+   // }
 
   },
   desenhar: function () {
@@ -40,6 +40,7 @@ Stage.prototype = {
   gerarChefe: function () {
     var chefe = new Chefe(this.context, imagens.boss1, 1.6);
     animacao.novoSprite(chefe);
+    colisor.novoSprite(chefe);
     this.gerouChefe = true;
   },
 

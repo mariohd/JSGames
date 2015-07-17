@@ -14,6 +14,7 @@ function Chefe(context, imagem, escala) {
   	this.irParaDireita = true;
   	this.irParaEsquerda = false;
   	this.descendo = true;
+  	this.life = 20;
 	var self = this;
 	this.sprite.fimDoCiclo2 = function () {
 
@@ -74,4 +75,47 @@ Chefe.prototype = {
 	limitesDeY: function (y) {
 		return this.minPosition.y < y && y < this.maxPosition.y; 
 	},
+
+	retangulosColisao: function() {
+      var rets = 
+      [ 
+		{x: this.position.x + 100, y: this.position.y + 10, largura: (this.imagem.width/this.sprite.numColunas)/this.escala - 200, altura: (((this.imagem.height)/this.escala) - 20) + .2 * (this.sprite.numColunas - this.sprite.coluna)} , //centro
+		{x: this.position.x + 75, y: this.position.y + 180, largura: 25, altura: 40 + .8 * (this.sprite.numColunas - this.sprite.coluna) }, // boca esquerda
+		{x: this.position.x + 165, y: this.position.y + 180, largura: 25, altura: 40 + .8 * (this.sprite.numColunas - this.sprite.coluna) }, //boca direta
+ 		{x: this.position.x + 65, y: this.position.y + 30, largura: 35, altura: 130 }, //lateral superior da esquerda
+ 		{x: this.position.x + 165, y: this.position.y + 30, largura: 35, altura: 130 }, //lateral superior da direita
+ 		{x: (this.position.x) + (2 * (this.sprite.coluna)), y: this.position.y + 60, largura: 70, altura: 20 }, // asa esquerda top
+ 		{x: (this.position.x) + (1 * (this.sprite.coluna)), y: this.position.y + 90, largura: 30, altura: 20 }, // asa esquerda mid
+ 		{x: (this.position.x) + 30 + (1 * (this.sprite.coluna)), y: this.position.y + 120, largura: 20, altura: 30 }, // asa esquerda bottom
+		{x: (this.position.x) + 200 - (2 * (this.sprite.coluna)), y: this.position.y + 60, largura: 70, altura: 20 }, // asa direita top
+ 		{x: (this.position.x) + 230 - (1 * (this.sprite.coluna)), y: this.position.y + 90, largura: 30, altura: 20 }, // asa direita mid
+ 		{x: (this.position.x) + 210 - (1 * (this.sprite.coluna)), y: this.position.y + 120, largura: 20, altura: 30 } // asa direita bottom
+      ];
+      
+      if ( colisor.desenharQuadrados() ) {
+	      var ctx = this.context;
+	      
+	      for (var i in rets) {
+	         ctx.save();
+	         ctx.strokeStyle = 'yellow';
+	         ctx.strokeRect(rets[i].x, rets[i].y, rets[i].largura, 
+	                        rets[i].altura);
+	         ctx.restore();
+	      }    
+	  }
+      return rets;
+  	},
+
+  	colidiuCom: function (outro) {
+  		if (outro instanceof Player) {
+  			outro.destruir();
+  		}
+  	},
+
+  	damage: function () {
+  		this.life--;
+  		if (this.life <= 0 ){
+  			vitoria();
+  		}
+  	}
 };
