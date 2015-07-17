@@ -140,6 +140,10 @@ function vitoria() {
 	sons.vitoria.loop = true;
 	sons.vitoria.currentTime = 0.0;	
 	sons.vitoria.play();
+	pontuacao += player1.vidas * 500;
+	pontuacao += player1.escudo? 500 : 0;
+	pontuacao += player1.upgraded? 500 : 0;
+	pontuacao += clock.totalSec * 10;
     context.save()
 	drawText("Parabens!", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
 	drawText(pontuacao + " pontos", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");

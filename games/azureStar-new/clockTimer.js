@@ -4,6 +4,7 @@ function ClockCounter() {
 	this.min = 0;
 	this.seg = 0;
 	this.startTime;
+	this.totalSec = 0;
 	this.start;
 	this.running = false;
 };
@@ -37,6 +38,7 @@ ClockCounter.prototype.startCronometer = function () {
 	var id = setInterval(function () {
 		if (self.running){
 			self.update();
+			self.totalSec++;
 		} else {
 			clearInterval(id);
 		}
