@@ -11,14 +11,14 @@ function Stage(context, imagem, colisor) {
 
 Stage.prototype = { 
   atualizar: function () {
-    /*if (this.currentHeight >= this.speed) {
+    if (this.currentHeight >= this.speed) {
       this.currentHeight -= this.speed;
       this.gerarInimigos();
-    } else { */
+    } else { 
       if (!this.gerouChefe) {
         this.gerarChefe();
       }
-   // }
+    }
 
   },
   desenhar: function () {
