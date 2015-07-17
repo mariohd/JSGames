@@ -147,8 +147,6 @@ Player.prototype = {
 	},
 
 	acionarEscudo: function () {
-				debugger;
-
 		if (this.escudo) return;
 		this.escudo = true;
   		this.shieldHP = 2;
