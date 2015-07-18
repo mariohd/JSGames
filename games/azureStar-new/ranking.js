@@ -1,25 +1,22 @@
 function RankingOnline() {
 	Parse.initialize("L2h9j8kembYZqb5zFNrlw3yV2R7dgxVgeb0s5jq4", "ZjngB69wiAeqYygsEukF45ahWfa5tF9XtcLWcZBj");
-
-	this.Score = Parse.Object.extend("Score");
-	this.score = new this.Score();
-
-	this.Conexao = Parse.Object.extend('Conexao');
-	this.conexao = new this.Conexao();
 	this.ipAddress = "desconhecido";
 }
 
 RankingOnline.prototype = {
 
 	enviar: function (nome) {
-		this.score.save({pontuacao: pontuacao, jogador: nome}).then(function(object) {
+		var Score = Parse.Object.extend("Score");
+		var score = new Score();
+		score.save({pontuacao: pontuacao, jogador: nome}).then(function(object) {
 			swal("Parabéns " + nome + "!", "Sua pontuação foi registrada em nosso ranking.", "success"); 
 		});
 		this.listar();
 	}, 
 
 	listar: function () {
-		var query = new Parse.Query(this.Score);
+		var Score = Parse.Object.extend("Score");
+		var query = new Parse.Query(Score);
 		query.descending("pontuacao");
 		query.find({
 		  success: function(results) {
@@ -44,7 +41,9 @@ RankingOnline.prototype = {
 	},
 
 	connected: function () {
-		this.conexao.save({ip: this.ipAddress}); 
+		var Conexao = Parse.Object.extend('Conexao');
+		var conexao = new Conexao();
+		conexao.save({ip: this.ipAddress}); 
 	},
 
 	ip:  function (json	){

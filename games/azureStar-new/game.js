@@ -7,6 +7,7 @@ var animacao, colisor, stage1, teclado, player1, clock, barrier, tabelaRanking,
 var totalMidia = 0, carregadas = 0;
 var volumeBar = document.getElementById('song-volume');
 var liberado = false, digitando = false;
+var venceu = false;
 var loadingComplete = false;
 var ip;
 
