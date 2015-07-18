@@ -1,6 +1,7 @@
 function RankingOnline() {
 	Parse.initialize("L2h9j8kembYZqb5zFNrlw3yV2R7dgxVgeb0s5jq4", "ZjngB69wiAeqYygsEukF45ahWfa5tF9XtcLWcZBj");
-	this.ipAddress = "desconhecido";
+	this.ipAddress = "unknown";
+	this.country = "World";
 }
 
 RankingOnline.prototype = {
@@ -8,7 +9,7 @@ RankingOnline.prototype = {
 	enviar: function (nome) {
 		var Score = Parse.Object.extend("Score");
 		var score = new Score();
-		score.save({pontuacao: pontuacao, jogador: nome}).then(function(object) {
+		score.save({pontuacao: pontuacao, jogador: nome, pais: this.country}).then(function(object) {
 			swal("Thanks " + nome + "!", "Your score was saved in our ranking!", "success"); 
 		});
 		this.listar();
@@ -48,6 +49,7 @@ RankingOnline.prototype = {
 	},
 
 	ip:  function (json	){
-		this.ipAddress = json.ip;
+		this.ipAddress = json.ip || this.ip;
+		this.country = json.country || this.country;
 	}
 };
