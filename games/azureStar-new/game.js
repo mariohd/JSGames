@@ -72,7 +72,7 @@ function carregando() {
 
 	carregadas++;
 	if (carregadas == totalMidia) {
-		drawText("Aperte Enter para iniciar", {x: context.canvas.width/ 2, y: context.canvas.height/1.1}, '23px Guardians');
+		drawText("Press enter to begin", {x: context.canvas.width/ 2, y: context.canvas.height/1.1}, '23px Guardians');
 		loadingComplete = true;
 		iniciarObjetos();
 
@@ -134,8 +134,8 @@ function gameOver() {
 	atualizarPontuacao();
     context.save()
 	drawText("GAME OVER", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
-	drawText(pontuacao + " pontos", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");
-	drawText("Pressione enter para reiniciar", { x: canvas.width/2, y: canvas.height/1.3}, "23px Guardians");
+	drawText(pontuacao + " points", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");
+	drawText("Press enter to restart", { x: canvas.width/2, y: canvas.height/1.3}, "23px Guardians");
 	context.restore();
 	liberado = true;
 	clock.running = false;
@@ -151,9 +151,9 @@ function vitoria() {
 	sons.vitoria.play();
 	atualizarPontuacao();
     context.save()
-	drawText("Parabens!", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
-	drawText(pontuacao + " pontos", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");
-	drawText("Pressione enter para reiniciar", { x: canvas.width/2, y: canvas.height/1.3}, "23px Guardians");
+	drawText("Congratulations!", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
+	drawText(pontuacao + " points", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");
+	drawText("Press enter to restart", { x: canvas.width/2, y: canvas.height/1.3}, "23px Guardians");
 	context.restore();
 	clock.running = false;
 	venceu = true;
@@ -207,20 +207,20 @@ document.onkeydown = function (key) {
 function preencherRanking() {
 	digitando = true;
 	swal({   title: "Ranking",   
-		text: "Você fez " + pontuacao + " pontos! \nRegistre sua pontuação online, identifique-se:",   
+		text: "You did " + pontuacao + " points! \nInform your name to record your score:",   
 		type: "input",   
 		showCancelButton: true,   
 		closeOnConfirm: false,   
 		animation: "slide-from-top",   
-		inputPlaceholder: "Nome",
+		inputPlaceholder: "Name",
 	    closeOnCancel: false },
 		function(inputValue) {   
 			if (inputValue === false) {
-				swal("Cancelado", "Sua pontuação não foi salva!", "error");
+				swal("Cancelled", "You score wasn`t saved!", "error");
 				return false;
 			}
 			if (inputValue === "") {     
-				swal.showInputError("Para submeter é preciso informar o nome!");     
+				swal.showInputError("To submit your score, you must provide a name!");     
 				return false;
 			}   
 			digitando = false;
@@ -235,6 +235,7 @@ function adicionarNoRanking(jogador) {
 	row.insertCell(1).innerText = jogador.nome;
 	row.insertCell(2).innerText = jogador.pontos;
 	row.insertCell(3).innerText = jogador.data;
+	row.insertCell(4).innerText = jogador.pais;
 };
 
 volumeBar.addEventListener('input', function () {

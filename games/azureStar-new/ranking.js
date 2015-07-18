@@ -9,7 +9,7 @@ RankingOnline.prototype = {
 		var Score = Parse.Object.extend("Score");
 		var score = new Score();
 		score.save({pontuacao: pontuacao, jogador: nome}).then(function(object) {
-			swal("Parabéns " + nome + "!", "Sua pontuação foi registrada em nosso ranking.", "success"); 
+			swal("Thanks " + nome + "!", "Your score was saved in our ranking!", "success"); 
 		});
 		this.listar();
 	}, 
@@ -30,7 +30,8 @@ RankingOnline.prototype = {
 		      	posicao: i + 1,
 		      	nome: object.get('jogador'),
 		      	pontos: object.get('pontuacao'),
-		      	data: object.createdAt.toLocaleDateString('pt-BR') + " " + object.createdAt.toLocaleTimeString('pt-BR')
+		      	data: object.createdAt.toLocaleDateString('pt-BR'),
+		      	pais: object.get('pais')
 		      });
 		    }
 		  },
