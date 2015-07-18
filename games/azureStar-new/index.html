@@ -3,8 +3,39 @@
 <head>
 	<title>Azure Star v1.2</title>
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+	<script src="https://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
+	<script src="sweetalert/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="sweetalert/sweetalert.css">
 </head>
 	<style>
+
+		table {
+			margin: 0 auto 0 auto;
+			font-family: Guardians;
+			color: #D30035;	
+    		text-align: center;
+	    	text-shadow: 1px 1px black;
+    	    border-collapse: collapse; 
+
+		}
+
+		table th, td {	
+			width: 240px;
+		}
+
+		table th {
+    		font-size: 20px;
+    	}
+
+    	table td {
+    		font-size: 15px;
+			word-wrap: break-word;
+			padding: 5px;
+    	}
+
+    	table tr {
+    		border-bottom: 1px solid silver;
+    	}
 
 		@font-face {
 			font-family: "Guardians";
@@ -15,9 +46,8 @@
 			font-family: Guardians;
 			font-size: 25px;
 			font-weight: 900;
-			color: red;	
+			color: #D30035;	
 	    	text-shadow: 2px 2px black;
-
 		}
 
 		body {
@@ -65,6 +95,8 @@
 			position: relative;
 			top: -3em;
 			left: 25em;
+			margin: 0 auto;
+			width: 20%;
 		}
 
 		.volume > img, input {
@@ -90,6 +122,20 @@
 				<input type="range" id="song-volume" value="30">
 			</div>
 		</div>
+		<span class="guardians"><h2>Ranking</h2></span>
+		<table id="azureRanking">
+			<thead>
+				<th>pos.</th>
+				<th>Jogador</th>
+				<th>Pts.</th>
+				<th>Data</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="4">Carregando ... </td>
+				</tr>
+			</tbody>
+		</table>
 		<span class="guardians"><h2>Comandos</h2></span>
 		<img src="img/comandos.png">
 		<span class="guardians"><h2>Creditos</h2></span>
@@ -99,6 +145,7 @@
 			Website: www.PoundSound.co.uk <br>
 		</footer>
 	</body>
+	<script src="ranking.js"></script>
 	<script src="game.js"></script>
 	<script src="animacao.js"></script>
 	<script src="stages.js"></script>
@@ -116,4 +163,6 @@
 	<script src="cannons.js"></script>
 	<script src="escudo.js"></script>
 	<script src="clockTimer.js"></script>
+	<script type="text/javascript" src="https://api.ipify.org?format=jsonp&callback=getip"></script>
+
 </html>

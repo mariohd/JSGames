@@ -123,7 +123,6 @@ Player.prototype = {
 				animacao.novoSprite(player1);
 				colisor.novoSprite(player1);
 		    } else {
-		    	liberado = true;
 		    	gameOver();
 		    }
         	updateVidas();

@@ -2,11 +2,13 @@
 var imagens, sons, started = false, pontuacao = 0;
 var canvas = document.getElementById("game-canvas");
 var context = canvas.getContext("2d");
-var animacao, colisor, stage1, teclado, player1, clock, barrier;
+var animacao, colisor, stage1, teclado, player1, clock, barrier, tabelaRanking,
+	ranking;
 var totalMidia = 0, carregadas = 0;
 var volumeBar = document.getElementById('song-volume');
-var liberado = false;
+var liberado = false, digitando = false;
 var loadingComplete = false;
+var ip;
 
 function carregarAssets() {
    imagens = {
@@ -57,6 +59,9 @@ function carregarAssets() {
       
       sons[i] = snd;
    }
+
+   ranking = new RankingOnline();
+   ranking.listar();
 };
 
 function carregando() {
@@ -97,9 +102,6 @@ function iniciarObjetos() {
 	teclado = new Teclado(document);
 	player1 = new Player(context, teclado, imagens.player);
     clock = new ClockCounter();
-	teclado.disparou(ESPACO, function() {
-		player1.atirar();
-	});
 }
 
 function iniciar() {
@@ -113,7 +115,9 @@ function iniciar() {
 	sons.in_game.loop = true;
 	sons.in_game.play();
 	clock.startCronometer();
-
+	teclado.disparou(ESPACO, function() {
+		player1.atirar();
+	});
 	animacao.ligar();
 };
 carregarAssets();
@@ -126,13 +130,17 @@ function gameOver() {
 	sons.gameOver.volume = .7;
 	sons.escudo.currentTime = 0.0;	
 	sons.gameOver.play();
+	atualizarPontuacao();
     context.save()
 	drawText("GAME OVER", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
 	drawText(pontuacao + " pontos", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");
 	drawText("Pressione enter para reiniciar", { x: canvas.width/2, y: canvas.height/1.3}, "23px Guardians");
 	context.restore();
+	liberado = true;
 	clock.running = false;
-}
+	setTimeout(function () {
+			preencherRanking();
+	}, 1000);}
 
 function vitoria() {
 	animacao.desligar();
@@ -140,10 +148,7 @@ function vitoria() {
 	sons.vitoria.loop = true;
 	sons.vitoria.currentTime = 0.0;	
 	sons.vitoria.play();
-	pontuacao += player1.vidas * 500;
-	pontuacao += player1.escudo? 500 : 0;
-	pontuacao += player1.upgraded? 500 : 0;
-	pontuacao += clock.totalSec * 10;
+	atualizarPontuacao();
     context.save()
 	drawText("Parabens!", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
 	drawText(pontuacao + " pontos", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");
@@ -152,7 +157,17 @@ function vitoria() {
 	clock.running = false;
 	venceu = true;
 	liberado = true;
+	setTimeout(function () {
+			preencherRanking();
+	}, 1000);
 }
+
+function atualizarPontuacao() {
+	pontuacao += player1.vidas * 500;
+	pontuacao += player1.escudo? 500 : 0;
+	pontuacao += player1.upgraded? 500 : 0;
+	pontuacao += clock.totalSec * 10;
+} 
 
 document.onkeydown = function (key) {
 	if (!loadingComplete) return;
@@ -179,12 +194,46 @@ document.onkeydown = function (key) {
 			}
 			break;
 		case ESPACO:
+			if (digitando) return;
 		case SETA_ESQUERDA:
 		case SETA_DIREITA:
 		case SETA_ACIMA:
 		case SETA_ABAIXO:
 			key.preventDefault();
 	}
+};
+
+function preencherRanking() {
+	digitando = true;
+	swal({   title: "Ranking",   
+		text: "Você fez " + pontuacao + " pontos! \nRegistre sua pontuação online, identifique-se:",   
+		type: "input",   
+		showCancelButton: true,   
+		closeOnConfirm: false,   
+		animation: "slide-from-top",   
+		inputPlaceholder: "Nome",
+	    closeOnCancel: false },
+		function(inputValue) {   
+			if (inputValue === false) {
+				swal("Cancelado", "Sua pontuação não foi salva!", "error");
+				return false;
+			}
+			if (inputValue === "") {     
+				swal.showInputError("Para submeter é preciso informar o nome!");     
+				return false;
+			}   
+			digitando = false;
+			ranking.enviar(inputValue);
+		});
+};
+
+function adicionarNoRanking(jogador) {
+	tabelaRanking = tabelaRanking || document.getElementById("azureRanking").tBodies[0];	
+	var row = tabelaRanking.insertRow(tabelaRanking.rows.length);
+	row.insertCell(0).innerText = jogador.posicao;
+	row.insertCell(1).innerText = jogador.nome;
+	row.insertCell(2).innerText = jogador.pontos;
+	row.insertCell(3).innerText = jogador.data;
 };
 
 volumeBar.addEventListener('input', function () {
@@ -210,4 +259,11 @@ function pad(num) {
 function chanceRandomica(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+function getip(json) {
+	ranking = new RankingOnline();
+	ranking.listar();
+	ranking.ip(json);
+	ranking.connected();
+} 
 

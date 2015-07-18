@@ -17,7 +17,6 @@ function Chefe(context, imagem, escala) {
   	this.life = 20;
 	var self = this;
 	this.sprite.fimDoCiclo2 = function () {
-		alert(1);
 	};
 };
 
