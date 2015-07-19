@@ -14,7 +14,7 @@ function Chefe(context, imagem, escala) {
   	this.irParaDireita = true;
   	this.irParaEsquerda = false;
   	this.descendo = true;
-  	this.life = 20;
+  	this.life = 2;
 	var self = this;
 	this.sprite.fimDoCiclo2 = function () {
 	};
@@ -111,13 +111,36 @@ Chefe.prototype = {
   		}
   	},
 
+  	destruir: function () {
+  		animacao.excluirSprite(this);
+        colisor.excluirSprite(this);
+
+        var exp1 = new Explosao(this.context, imagens.explosao,
+                                 this.position.x + 50, this.position.y + 50, 1);
+
+        var exp2 = new Explosao(this.context, imagens.explosao,
+                                 this.position.x + 150, this.position.y, 1);
+
+        var exp3 = new Explosao(this.context, imagens.explosao,
+                                 this.position.x, this.position.y + 100, 1);
+
+        animacao.novoSprite(exp1);
+        animacao.novoSprite(exp2);
+        animacao.novoSprite(exp3);
+
+        exp3.fimDaExplosao = function () {
+        	pontuacao += 1000;
+  			currentStage.proximaFase();
+        }; 
+  	},
+
   	damage: function () {
   		this.life--;
   		sons.boss_hit.currentTime = 0.0;
    		sons.boss_hit.volume = 0.1;
   		sons.boss_hit.play();
   		if (this.life <= 0 ){
-  			vitoria();
+  			this.destruir();
   		}
   	}
 };

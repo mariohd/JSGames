@@ -9,6 +9,7 @@ var volumeBar = document.getElementById('song-volume');
 var liberado = false, digitando = false;
 var venceu = false;
 var loadingComplete = false;
+var currentStage;
 var ip;
 
 function carregarAssets() {
@@ -18,6 +19,7 @@ function carregarAssets() {
 	player: 'ship_sprite.png', 
 	enemy1: 'enemy_sprite.png',
 	stage1: 'background/orionNebula.jpg',
+	stage2: 'background/azureStar.jpg',
 	explosao: 'explosion.png',
 	tiro: 'bullet.png',
 	tiroInimigo: 'enemy_bullet.png',
@@ -100,7 +102,9 @@ function drawText(string, location, font) {
 function iniciarObjetos() {
 	animacao = new Animacao(context);
 	colisor = new Colisor();
-	stage1 = new Stage(context, imagens.stage1, colisor);
+	stage2 = new Stage(context, imagens.stage2);
+	stage1 = new Stage(context, imagens.stage1, stage2);
+	currentStage = stage1;
 	teclado = new Teclado(document);
 	player1 = new Player(context, teclado, imagens.player);
     clock = new ClockCounter();
@@ -108,7 +112,7 @@ function iniciarObjetos() {
 
 function iniciar() {
 	started = true;
-	animacao.novoSprite(stage1);
+	animacao.fase = stage1;
 	animacao.novoSprite(player1);
 	colisor.novoSprite(player1);
 	animacao.novoProcessamento(colisor);
@@ -148,7 +152,7 @@ function vitoria() {
 	sons.vitoria.play();
 	atualizarPontuacao();
     context.save()
-	drawText("Congratulations!", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
+	drawText("Well Done!", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
 	drawText(pontuacao + " points", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");
 	drawText("Press enter to restart", { x: canvas.width/2, y: canvas.height/1.3}, "23px Guardians");
 	context.restore();

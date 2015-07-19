@@ -155,10 +155,14 @@ Player.prototype = {
 
 	initialConfig: function () {
 		this.vidas = 3;
-		this.position = { x : this.maxPosition.x/2 , y: this.maxPosition.y };
 		this.upgraded = false;
 		this.morto = false;
 		this.escudo = false;
+		this.restartFase();
+	},
+
+	restartFase: function () {
+		this.position = { x : this.maxPosition.x/2 , y: this.maxPosition.y };
 	},
 
 	imortal: function () {
