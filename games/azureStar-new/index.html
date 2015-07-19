@@ -166,5 +166,12 @@
 	<script src="escudo.js"></script>
 	<script src="clockTimer.js"></script>
 	<script type="text/javascript" src="http://www.telize.com/geoip?callback=getip"></script>
+	<script>
+		var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+		if (!is_chrome) {
+
+			swal("Chrome not detected", "This game works better with Google Chrome, \nwe kindly ask you to use it.", "warning");
+		}
+	</script>
 
 </html>
