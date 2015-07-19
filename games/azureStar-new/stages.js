@@ -1,12 +1,12 @@
-function Stage(context, imagem, colisor) {
+function Stage(context, imagem, proxima) {
   this.speed = .6;
   this.imagem = imagem;
   this.context = context;
   this.currentHeight = this.imagem.height - this.context.canvas.height;
   this.intervalo = 1000;
   this.ultimoTempo = null;
-  colisor = colisor;
   this.gerouChefe = false;
+  this.proxima = proxima;
 };
 
 Stage.prototype = { 
@@ -15,7 +15,7 @@ Stage.prototype = {
       this.currentHeight -= this.speed;
       this.gerarInimigos();
     } else { 
-      if (!this.gerouChefe) {
+       if (!this.gerouChefe) {
         this.gerarChefe();
       }
     }
@@ -48,5 +48,14 @@ Stage.prototype = {
     this.currentHeight = this.imagem.height - this.context.canvas.height;
     this.ultimoTempo = null;
     this.gerouChefe = false;
+  },
+
+  proximaFase: function () {
+    if (animacao.fase.proxima) {
+      player1.restartFase();
+      animacao.fase = this.proxima;
+    } else {
+      vitoria();
+    }
   }
 }

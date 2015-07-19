@@ -7,6 +7,7 @@ function Animacao(context) {
    this.processamentosExcluir = [];
    this.ultimoCiclo = 0;
    this.decorrido = 0;
+   this.fase = null;
 }
 Animacao.prototype = {
    novoSprite: function(sprite) {
@@ -28,6 +29,9 @@ Animacao.prototype = {
       var agora = new Date().getTime();
       if (this.ultimoCiclo == 0) this.ultimoCiclo = agora;
       this.decorrido = agora - this.ultimoCiclo;
+      
+      this.fase.atualizar();
+      this.fase.desenhar();
 
       // Atualizamos o estado dos sprites
       for (var i in this.sprites)

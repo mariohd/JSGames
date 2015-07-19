@@ -1,4 +1,4 @@
-function Explosao(context, imagem, x, y) {
+function Explosao(context, imagem, x, y, escala) {
    this.context = context;
    this.imagem = imagem;
    this.spritesheet = new Spritesheet(context, imagem, 9, 9);
@@ -7,6 +7,7 @@ function Explosao(context, imagem, x, y) {
    this.x = x;
    this.y = y;
    this.animando = false;
+   this.escala = escala || 1;
    
    var explosao = this;
    this.fimDaExplosao = null;
@@ -24,7 +25,7 @@ Explosao.prototype = {
       
    },
    desenhar: function() {
-      this.spritesheet.desenhar({x: this.x, y: this.y});
+      this.spritesheet.desenhar({x: this.x, y: this.y}, this.escala);
       this.spritesheet.proximoQuadro();
    }
 }
