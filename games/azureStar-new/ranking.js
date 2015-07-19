@@ -45,7 +45,7 @@ RankingOnline.prototype = {
 	connected: function () {
 		var Conexao = Parse.Object.extend('Conexao');
 		var conexao = new Conexao();
-		conexao.save({ip: this.ipAddress}); 
+		conexao.save({ip: this.ipAddress, country: this.country}); 
 	},
 
 	ip:  function (json	){
