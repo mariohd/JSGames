@@ -116,9 +116,6 @@ function iniciar() {
 	sons.in_game.loop = true;
 	sons.in_game.play();
 	clock.startCronometer();
-	teclado.disparou(ESPACO, function() {
-		player1.atirar();
-	});
 	animacao.ligar();
 };
 carregarAssets();

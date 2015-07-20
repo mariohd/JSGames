@@ -14,6 +14,11 @@ function Player(context, teclado, imagem) {
 	this.vidas = 3;
 	this.ultimaMorte = +new Date();
 	this.escudo = false;
+	this.controleDeTiros = true;
+	this.velocidadeDeTiro = 300;
+	this.intervaloDeTiros = setInterval(function () {
+		player1.controleDeTiros = true;
+	}, this.velocidadeDeTiro);
 };
 
 Player.prototype = {
@@ -29,6 +34,9 @@ Player.prototype = {
 		}
 		if (this.teclado.pressionada(SETA_ESQUERDA) || this.teclado.pressionada(A)) {
 			if (this.limitesDeX(this.position.x - this.velocidade)) this.position.x -= this.velocidade;
+		}
+		if (this.teclado.pressionada(ESPACO) && this.controleDeTiros) {
+			this.atirar();
 		}
 	},
 	desenhar: function () {
@@ -46,6 +54,7 @@ Player.prototype = {
 
 	atirar: function () {
 		if (! this.morto ) {
+			this.controleDeTiros = false;
 			var t = new Tiro(this.context, this);
 			animacao.novoSprite(t);
 			colisor.novoSprite(t);
@@ -132,6 +141,16 @@ Player.prototype = {
 	pontuar: function (pts) {
 		pontuacao += pts;
 		updatePontuacao();
+	},
+
+	aumentarVelocidadeDeTiro: function () {
+		if (this.velocidadeDeTiro > 200 ) {
+			this.velocidadeDeTiro -= 20;
+			clearInterval(this.intervaloDeTiros);
+			this.intervaloDeTiros = setInterval(function () {
+				player1.controleDeTiros = true;
+			}, this.velocidadeDeTiro);
+		}
 	},
 
 	initialConfig: function () {
