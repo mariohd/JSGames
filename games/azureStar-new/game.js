@@ -215,15 +215,16 @@ function preencherRanking() {
 		function(inputValue) {   
 			if (inputValue === false) {
 				swal("Cancelled", "You score wasn`t saved!", "error");
+				digitando = false;
 				liberado = true;
 				return false;
 			}
 			if (inputValue === "") {     
 				swal.showInputError("To submit your score, you must provide a name!");     
 				return false;
-			}   
-			digitando = false;
+			} 
 			liberado = true;
+			digitando = false;
 			ranking.enviar(inputValue);
 		});
 };
