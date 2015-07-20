@@ -2,40 +2,42 @@
 <meta charset="UTF-8">
 <head>
 	<title>Azure Star v1.2</title>
-	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="plugins/sweetalert/sweetalert.min.js"></script>
 	<script src="https://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
-	<script src="sweetalert/sweetalert.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="sweetalert/sweetalert.css">
+	<script src="plugins/dataTables/jquery.dataTables.min.js"></script>
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="plugins/dataTables/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="plugins/sweetalert/sweetalert.css">
 </head>
 	<style>
 
 		table {
-			margin: 0 auto 0 auto;
-			font-family: Guardians;
-			color: #D30035;	
-    		text-align: center;
-	    	text-shadow: 1px 1px black;
-    	    border-collapse: collapse; 
-
+			margin: 0 auto 0 auto !important;
+			font-family: Guardians !important;
+			color: #D30035 !important ;	
+    		text-align: center!important;
+	    	text-shadow: 1px 1px black !important;
+    	    border-collapse: collapse !important; 
 		}
 
 		table th, td {	
-			width: 200px;
+			width: 200px !important;
 		}
 
 		table th {
-    		font-size: 20px;
+    		font-size: 20px !important;
     	}
 
     	table td {
-    		font-size: 15px;
-			word-wrap: break-word;
-			word-break: break-all;
-			padding: 5px;
+    		font-size: 15px !important;
+			word-wrap: break-word !important;
+			word-break: break-all !important;
+			padding: 5px !important;
     	}
 
     	table tr {
-    		border-bottom: 1px solid silver;
+    		border-bottom: 1px solid silver !important;
     	}
 
 		@font-face {
@@ -124,20 +126,22 @@
 			</div>
 		</div>
 		<span class="guardians"><h2>Ranking</h2></span>
-		<table id="azureRanking">
-			<thead>
-				<th>pos.</th>
-				<th>Player</th>
-				<th>Pts.</th>
-				<th>Date</th>
-				<th>Country</th>
-			</thead>
-			<tbody>
-				<tr>
-					<td colspan="5">Carregando ... </td>
-				</tr>
-			</tbody>
-		</table>
+		<div style="width: 80%; margin: 0 auto;">
+			<table id="azureRanking">
+				<thead>
+					<th>pos.</th>
+					<th>Player</th>
+					<th>Pts.</th>
+					<th>Date</th>
+					<th>Country</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="5">Carregando ... </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		<span class="guardians"><h2>How to play</h2></span>
 		<img src="img/comandos.png">
 		<span class="guardians"><h2>Credits</h2></span>

@@ -14,7 +14,7 @@ function Chefe(context, imagem, escala) {
   	this.irParaDireita = true;
   	this.irParaEsquerda = false;
   	this.descendo = true;
-  	this.life = 2;
+  	this.life = 25;
 	var self = this;
 	this.sprite.fimDoCiclo2 = function () {
 	};
@@ -130,6 +130,7 @@ Chefe.prototype = {
 
         exp3.fimDaExplosao = function () {
         	pontuacao += 1000;
+			updatePontuacao();
   			currentStage.proximaFase();
         }; 
   	},
