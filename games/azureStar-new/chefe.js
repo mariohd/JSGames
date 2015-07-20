@@ -14,7 +14,11 @@ function Chefe(context, imagem, escala) {
   	this.irParaDireita = true;
   	this.irParaEsquerda = false;
   	this.descendo = true;
+<<<<<<< HEAD
   	this.life = 25;
+=======
+  	this.life = 2;
+>>>>>>> 3e7a61ed96c863f1242f759d0736cce838e17da6
 	var self = this;
 	this.sprite.fimDoCiclo2 = function () {
 	};

@@ -13,8 +13,8 @@ Stage.prototype = {
   atualizar: function () {
     if (this.currentHeight >= this.speed) {
       this.currentHeight -= this.speed;
-      //this.gerarInimigos();
-    //} else { 
+      this.gerarInimigos();
+    } else { 
        if (!this.gerouChefe) {
         this.gerarChefe();
       }
