@@ -137,7 +137,6 @@ function gameOver() {
 	drawText(pontuacao + " points", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");
 	drawText("Press enter to restart", { x: canvas.width/2, y: canvas.height/1.3}, "23px Guardians");
 	context.restore();
-	liberado = true;
 	clock.running = false;
 	setTimeout(function () {
 			preencherRanking();
@@ -157,7 +156,6 @@ function vitoria() {
 	context.restore();
 	clock.running = false;
 	venceu = true;
-	liberado = true;
 	setTimeout(function () {
 			preencherRanking();
 	}, 1000);
@@ -217,6 +215,7 @@ function preencherRanking() {
 		function(inputValue) {   
 			if (inputValue === false) {
 				swal("Cancelled", "You score wasn`t saved!", "error");
+				liberado = true;
 				return false;
 			}
 			if (inputValue === "") {     
@@ -224,6 +223,7 @@ function preencherRanking() {
 				return false;
 			}   
 			digitando = false;
+			liberado = true;
 			ranking.enviar(inputValue);
 		});
 };
