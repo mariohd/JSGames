@@ -48,7 +48,8 @@ function carregarAssets() {
 	fimEscudo: 'end_shield.mp3',
 	escudo: 'shield.mp3',
 	escudoAtingido: 'shield_hit.mp3',
-	vitoria: 'victory.mp3'
+	vitoria: 'victory.mp3',
+	boss_hit: 'boss_hit.mp3'
    };
    
    for (var i in sons) {
