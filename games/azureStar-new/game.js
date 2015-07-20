@@ -61,8 +61,8 @@ function carregarAssets() {
       sons[i] = snd;
    }
 
-   ranking = new RankingOnline();
-   ranking.listar();
+   //ranking = new RankingOnline();
+   //ranking.listar();
 };
 
 function carregando() {
@@ -207,12 +207,13 @@ function preencherRanking() {
 	swal({   title: "Ranking",   
 		text: "You did " + pontuacao + " points! \nInform your name to record your score:",   
 		type: "input",   
-		showCancelButton: true,   
-		closeOnConfirm: false,   
-		animation: "slide-from-top",   
+		showCancelButton: true,
+		closeOnConfirm: false,
+		animation: "slide-from-top",
+		allowEscapeKey: false,
 		inputPlaceholder: "Name",
 	    closeOnCancel: false },
-		function(inputValue) {   
+		function(inputValue) { 
 			if (inputValue === false) {
 				swal("Cancelled", "You score wasn`t saved!", "error");
 				digitando = false;
@@ -227,6 +228,11 @@ function preencherRanking() {
 			digitando = false;
 			ranking.enviar(inputValue);
 		});
+	var inputs = document.getElementsByTagName('input');
+	for (var i in inputs) {
+		if (inputs[i].type === 'text')
+			inputs[i].focus();
+	}
 };
 
 function adicionarNoRanking(jogador) {
