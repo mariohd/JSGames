@@ -15,6 +15,7 @@ var ip;
 function carregarAssets() {
    imagens = {
    	boss1: 'boss1-min.png',
+   	boss2: 'rariax.png',
    	espaco: 'background/loading.jpg',
 	player: 'ship_sprite.png', 
 	enemy1: 'enemy_sprite.png',
@@ -102,8 +103,8 @@ function drawText(string, location, font) {
 function iniciarObjetos() {
 	animacao = new Animacao(context);
 	colisor = new Colisor();
-	stage2 = new Stage(context, imagens.stage2);
-	stage1 = new Stage(context, imagens.stage1, stage2);
+	stage2 = new Stage(context, imagens.stage2, new Rariax(), null);
+	stage1 = new Stage(context, imagens.stage1, new Gygas(), null, stage2);
 	currentStage = stage1;
 	teclado = new Teclado(document);
 	player1 = new Player(context, teclado, imagens.player);

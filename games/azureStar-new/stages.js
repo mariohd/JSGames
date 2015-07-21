@@ -1,4 +1,4 @@
-function Stage(context, imagem, proxima) {
+function Stage(context, imagem, chefe, inimigo, proxima) {
   this.speed = .6;
   this.imagem = imagem;
   this.context = context;
@@ -7,6 +7,8 @@ function Stage(context, imagem, proxima) {
   this.ultimoTempo = null;
   this.gerouChefe = false;
   this.proxima = proxima;
+  this.chefe = chefe;
+  this.inimigo = inimigo;
 };
 
 Stage.prototype = { 
@@ -38,9 +40,8 @@ Stage.prototype = {
   },
 
   gerarChefe: function () {
-    var chefe = new Chefe(this.context, imagens.boss1, 1.6);
-    animacao.novoSprite(chefe);
-    colisor.novoSprite(chefe);
+    animacao.novoSprite(this.chefe);
+    colisor.novoSprite(this.chefe);
     this.gerouChefe = true;
   },
 

@@ -1,8 +1,8 @@
-function TiroInimigo(context, nave, x, y) {
+function TiroInimigo(context, nave, x, y, escala) {
    this.context = context;
    this.nave = nave;
    this.imagem = imagens.tiroInimigo;
-   this.escala = .9;
+   this.escala = escala || .9;
    this.sprite = new Spritesheet(this.context, this.imagem, 1, 1);
    this.largura = this.imagem.width;
    this.altura = this.imagem.height;
@@ -30,7 +30,7 @@ TiroInimigo.prototype = {
    retangulosColisao: function() {
       var rets = 
       [ 
-         {x: this.x, y: this.y, largura: this.imagem.width/this.escala, altura: -this.imagem.height/this.escala},
+         {x: this.x, y: this.y + (this.imagem.height/this.escala)/4, largura: this.imagem.width/this.escala, altura: -this.imagem.height/this.escala},
       ];
       
       if ( colisor.desenharQuadrados() ) {
