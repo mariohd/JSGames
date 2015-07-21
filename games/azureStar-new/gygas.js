@@ -12,7 +12,7 @@ function Gygas() {
   	this.irParaDireita = true;
   	this.irParaEsquerda = false;
   	this.descendo = true;
-  	this.life = 5;
+  	this.life = 30;
 }
 
 Gygas.prototype = Object.create(Chefe.prototype);
@@ -23,14 +23,14 @@ Gygas.prototype.retangulosColisao = function() {
 		{x: this.position.x + 100, y: this.position.y + 10, largura: (this.imagem.width/this.sprite.numColunas)/this.escala - 200, altura: (((this.imagem.height)/this.escala) - 20) + .2 * (this.sprite.numColunas - this.sprite.coluna)} , //centro
 		{x: this.position.x + 75, y: this.position.y + 180, largura: 25, altura: 40 + .8 * (this.sprite.numColunas - this.sprite.coluna) }, // boca esquerda
 		{x: this.position.x + 165, y: this.position.y + 180, largura: 25, altura: 40 + .8 * (this.sprite.numColunas - this.sprite.coluna) }, //boca direta
-			{x: this.position.x + 65, y: this.position.y + 30, largura: 35, altura: 130 }, //lateral superior da esquerda
-			{x: this.position.x + 165, y: this.position.y + 30, largura: 35, altura: 130 }, //lateral superior da direita
-			{x: (this.position.x) + (2 * (this.sprite.coluna)), y: this.position.y + 60, largura: 70, altura: 20 }, // asa esquerda top
-			{x: (this.position.x) + (1 * (this.sprite.coluna)), y: this.position.y + 90, largura: 30, altura: 20 }, // asa esquerda mid
-			{x: (this.position.x) + 30 + (1 * (this.sprite.coluna)), y: this.position.y + 120, largura: 20, altura: 30 }, // asa esquerda bottom
+		{x: this.position.x + 65, y: this.position.y + 30, largura: 35, altura: 130 }, //lateral superior da esquerda
+		{x: this.position.x + 165, y: this.position.y + 30, largura: 35, altura: 130 }, //lateral superior da direita
+		{x: (this.position.x) + (2 * (this.sprite.coluna)), y: this.position.y + 60, largura: 70, altura: 20 }, // asa esquerda top
+		{x: (this.position.x) + (1 * (this.sprite.coluna)), y: this.position.y + 90, largura: 30, altura: 20 }, // asa esquerda mid
+		{x: (this.position.x) + 30 + (1 * (this.sprite.coluna)), y: this.position.y + 120, largura: 20, altura: 30 }, // asa esquerda bottom
 		{x: (this.position.x) + 200 - (2 * (this.sprite.coluna)), y: this.position.y + 60, largura: 70, altura: 20 }, // asa direita top
-			{x: (this.position.x) + 230 - (1 * (this.sprite.coluna)), y: this.position.y + 90, largura: 30, altura: 20 }, // asa direita mid
-			{x: (this.position.x) + 210 - (1 * (this.sprite.coluna)), y: this.position.y + 120, largura: 20, altura: 30 } // asa direita bottom
+		{x: (this.position.x) + 230 - (1 * (this.sprite.coluna)), y: this.position.y + 90, largura: 30, altura: 20 }, // asa direita mid
+		{x: (this.position.x) + 210 - (1 * (this.sprite.coluna)), y: this.position.y + 120, largura: 20, altura: 30 } // asa direita bottom
 	  ];
 	  
 	  if ( colisor.desenharQuadrados() ) {

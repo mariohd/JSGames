@@ -9,7 +9,6 @@ var volumeBar = document.getElementById('song-volume');
 var liberado = false, digitando = false;
 var venceu = false;
 var loadingComplete = false;
-var currentStage;
 var ip;
 
 function carregarAssets() {
@@ -106,7 +105,6 @@ function iniciarObjetos() {
 	colisor = new Colisor();
 	stage2 = new Stage(context, imagens.stage2, new Rariax(), imagens.enemy2);
 	stage1 = new Stage(context, imagens.stage1, new Gygas(), imagens.enemy1, stage2);
-	currentStage = stage1;
 	teclado = new Teclado(document);
 	player1 = new Player(context, teclado, imagens.player);
     clock = new ClockCounter();

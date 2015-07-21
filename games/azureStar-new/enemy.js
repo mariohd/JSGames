@@ -86,10 +86,7 @@ Enemy.prototype = {
       // Estes valores vão sendo ajustados aos poucos
       var rets = 
       [ 
-        {x: this.position.x + 18, y: this.position.y, largura: this.imagem.width/this.sprite.numColunas/this.escala/2, altura: this.imagem.height/this.escala},
-        {x: this.position.x, y: this.position.y + 18, largura: 18, altura: (this.imagem.height/this.escala)/2},
-        {x: this.position.x + 54, y: this.position.y + 18, largura: 18, altura: (this.imagem.height/this.escala)/2},
-
+        {x: this.position.x, y: this.position.y, largura: this.imagem.width/this.sprite.numColunas/this.escala, altura: this.imagem.height/this.escala},
       ];
       
       // Desenhando os retângulos para visualização
