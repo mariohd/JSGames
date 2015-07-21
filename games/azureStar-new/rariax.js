@@ -7,12 +7,13 @@ function Rariax() {
 	this.maxPosition = { x : 670, y: 650 };
   	this.minPosition = { x : 0, y: 0 };
 	this.position = {x: Math.random() * this.maxPosition.x , y: -300 };
-  	this.velocidade = 5;
+  	this.velocidade = 7;
   	this.irParaDireita = true;
   	this.irParaEsquerda = false;
   	this.descendo = true;
-  	this.life = 40;
+  	this.life = 50;
   	this.intervaloDeTiro = 500;
+  	this.pontuacao = 1500;
 }
 
 Rariax.prototype = Object.create(Chefe.prototype);
@@ -76,7 +77,7 @@ Rariax.prototype.atualizar = function () {
 						this.irParaDireita = false;
 					}
 				}
-				if (this.life < 15)
+				if (this.life < 25)
 					this.estocada = chanceRandomica(0,50) == 15;
 			}
 		}

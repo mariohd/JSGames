@@ -13,6 +13,7 @@ function Gygas() {
   	this.irParaEsquerda = false;
   	this.descendo = true;
   	this.life = 30;
+  	this.pontuacao = 1000;
 }
 
 Gygas.prototype = Object.create(Chefe.prototype);

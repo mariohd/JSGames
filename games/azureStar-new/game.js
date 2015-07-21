@@ -20,7 +20,7 @@ function carregarAssets() {
 	enemy1: 'enemy_sprite.png',
 	enemy2: 'enemy_sprite2.png',
 	stage1: 'background/orionNebula.jpg',
-	stage2: 'background/azureStar.jpg',
+	stage2: 'background/witchBroomNebula.jpg',
 	explosao: 'explosion.png',
 	tiro: 'bullet.png',
 	tiroInimigo: 'enemy_bullet.png',
@@ -64,9 +64,9 @@ function carregarAssets() {
       
       sons[i] = snd;
    }
-
-   //ranking = new RankingOnline();
-   //ranking.listar();
+   
+   	ranking = new RankingOnline();
+	ranking.listar();
 };
 
 function carregando() {
@@ -168,6 +168,7 @@ function atualizarPontuacao() {
 	pontuacao += player1.escudo? 500 : 0;
 	pontuacao += player1.upgraded? 500 : 0;
 	pontuacao += clock.totalSec * 10;
+	updatePontuacao();
 } 
 
 document.onkeydown = function (key) {
@@ -272,9 +273,9 @@ function chanceRandomica(min, max) {
 }
 
 function getip(json) {
-	ranking = new RankingOnline();
-	ranking.listar();
-	ranking.ip(json);
-	ranking.connected();
+	if (ranking) {
+		ranking.ip(json);
+		ranking.connected();
+	}
 } 
 

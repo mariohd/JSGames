@@ -58,6 +58,9 @@ Tiro.prototype = {
          colisor.excluirSprite(this);
       }
       if (outro instanceof Chefe) {
+         var exp1 = new Explosao(this.context, imagens.explosao,
+                               this.x, this.y, 4, sons.boss_hit);
+         animacao.novoSprite(exp1);
          outro.damage();
          animacao.excluirSprite(this);
          colisor.excluirSprite(this);
