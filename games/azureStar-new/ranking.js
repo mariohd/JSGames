@@ -35,7 +35,7 @@ RankingOnline.prototype = {
 		      	pais: object.get('pais')
 		      });
 		    }
-   			$('#azureRanking').DataTable({searching: false, lengthChange: false});
+			$('#azureRanking').DataTable({retrieve: true, searching: false, lengthChange: false});
 		  },
 		  error: function(error) {
 		    alert("Error: " + error.code + " " + error.message);
