@@ -14,6 +14,8 @@ function Player(context, teclado, imagem) {
 	this.vidas = 3;
 	this.ultimaMorte = +new Date();
 	this.escudo = false;
+	this.controleDeTiros = true;
+	this.velocidadeDeTiro = 300;
 };
 
 Player.prototype = {
@@ -29,6 +31,9 @@ Player.prototype = {
 		}
 		if (this.teclado.pressionada(SETA_ESQUERDA) || this.teclado.pressionada(A)) {
 			if (this.limitesDeX(this.position.x - this.velocidade)) this.position.x -= this.velocidade;
+		}
+		if (this.teclado.pressionada(ESPACO) && this.controleDeTiros) {
+			this.atirar();
 		}
 	},
 	desenhar: function () {
@@ -46,6 +51,12 @@ Player.prototype = {
 
 	atirar: function () {
 		if (! this.morto ) {
+			if (!this.intervaloDeTiros) {
+				this.intervaloDeTiros = setInterval(function () {
+					player1.controleDeTiros = true;
+				}, this.velocidadeDeTiro);
+			}
+			this.controleDeTiros = false;
 			var t = new Tiro(this.context, this);
 			animacao.novoSprite(t);
 			colisor.novoSprite(t);
@@ -134,12 +145,26 @@ Player.prototype = {
 		updatePontuacao();
 	},
 
+	aumentarVelocidadeDeTiro: function () {
+		if (this.velocidadeDeTiro > 200 ) {
+			this.velocidadeDeTiro -= 20;
+			clearInterval(this.intervaloDeTiros);
+			this.intervaloDeTiros = setInterval(function () {
+				player1.controleDeTiros = true;
+			}, this.velocidadeDeTiro);
+		}
+	},
+
 	initialConfig: function () {
 		this.vidas = 3;
-		this.position = { x : this.maxPosition.x/2 , y: this.maxPosition.y };
 		this.upgraded = false;
 		this.morto = false;
 		this.escudo = false;
+		this.restartFase();
+	},
+
+	restartFase: function () {
+		this.position = { x : this.maxPosition.x/2 , y: this.maxPosition.y };
 	},
 
 	imortal: function () {
