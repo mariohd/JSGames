@@ -14,10 +14,13 @@ var ip;
 function carregarAssets() {
    imagens = {
    	boss1: 'boss1-min.png',
+   	boss2: 'rariax.png',
    	espaco: 'background/loading.jpg',
 	player: 'ship_sprite.png', 
 	enemy1: 'enemy_sprite.png',
+	enemy2: 'enemy_sprite2.png',
 	stage1: 'background/orionNebula.jpg',
+	stage2: 'background/witchBroomNebula.jpg',
 	explosao: 'explosion.png',
 	tiro: 'bullet.png',
 	tiroInimigo: 'enemy_bullet.png',
@@ -61,9 +64,9 @@ function carregarAssets() {
       
       sons[i] = snd;
    }
-
-   //ranking = new RankingOnline();
-   //ranking.listar();
+   
+   	ranking = new RankingOnline();
+	ranking.listar();
 };
 
 function carregando() {
@@ -100,7 +103,8 @@ function drawText(string, location, font) {
 function iniciarObjetos() {
 	animacao = new Animacao(context);
 	colisor = new Colisor();
-	stage1 = new Stage(context, imagens.stage1, colisor);
+	stage2 = new Stage(context, imagens.stage2, new Rariax(), imagens.enemy2);
+	stage1 = new Stage(context, imagens.stage1, new Gygas(), imagens.enemy1, stage2);
 	teclado = new Teclado(document);
 	player1 = new Player(context, teclado, imagens.player);
     clock = new ClockCounter();
@@ -108,7 +112,7 @@ function iniciarObjetos() {
 
 function iniciar() {
 	started = true;
-	animacao.novoSprite(stage1);
+	animacao.fase = stage1;
 	animacao.novoSprite(player1);
 	colisor.novoSprite(player1);
 	animacao.novoProcessamento(colisor);
@@ -148,7 +152,7 @@ function vitoria() {
 	sons.vitoria.play();
 	atualizarPontuacao();
     context.save()
-	drawText("Congratulations!", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
+	drawText("Well Done!", { x: canvas.width/2, y: canvas.height/3}, "70px Guardians");
 	drawText(pontuacao + " points", { x: canvas.width/2, y: canvas.height/1.8}, "70px Guardians");
 	drawText("Press enter to restart", { x: canvas.width/2, y: canvas.height/1.3}, "23px Guardians");
 	context.restore();
@@ -164,6 +168,7 @@ function atualizarPontuacao() {
 	pontuacao += player1.escudo? 500 : 0;
 	pontuacao += player1.upgraded? 500 : 0;
 	pontuacao += clock.totalSec * 10;
+	updatePontuacao();
 } 
 
 document.onkeydown = function (key) {
@@ -268,9 +273,9 @@ function chanceRandomica(min, max) {
 }
 
 function getip(json) {
-	ranking = new RankingOnline();
-	ranking.listar();
-	ranking.ip(json);
-	ranking.connected();
+	if (ranking) {
+		ranking.ip(json);
+		ranking.connected();
+	}
 } 
 

@@ -1,12 +1,14 @@
-function Stage(context, imagem, colisor) {
+function Stage(context, imagem, chefe, inimigo, proxima) {
   this.speed = .6;
   this.imagem = imagem;
   this.context = context;
   this.currentHeight = this.imagem.height - this.context.canvas.height;
   this.intervalo = 1000;
   this.ultimoTempo = null;
-  colisor = colisor;
   this.gerouChefe = false;
+  this.proxima = proxima;
+  this.chefe = chefe;
+  this.inimigo = inimigo;
 };
 
 Stage.prototype = { 
@@ -15,7 +17,7 @@ Stage.prototype = {
       this.currentHeight -= this.speed;
       this.gerarInimigos();
     } else { 
-      if (!this.gerouChefe) {
+       if (!this.gerouChefe) {
         this.gerarChefe();
       }
     }
@@ -31,16 +33,15 @@ Stage.prototype = {
     if (! this.ultimoTempo) this.ultimoTempo = agora; 
     if (agora - this.ultimoTempo < this.intervalo) return;
 
-    var enemy = new Enemy(this.context, imagens.enemy1, 4);
+    var enemy = new Enemy(this.context, this.inimigo, 4);
     animacao.novoSprite(enemy);
     colisor.novoSprite(enemy);
     this.ultimoTempo = agora;
   },
 
   gerarChefe: function () {
-    var chefe = new Chefe(this.context, imagens.boss1, 1.6);
-    animacao.novoSprite(chefe);
-    colisor.novoSprite(chefe);
+    animacao.novoSprite(this.chefe);
+    colisor.novoSprite(this.chefe);
     this.gerouChefe = true;
   },
 
@@ -48,5 +49,14 @@ Stage.prototype = {
     this.currentHeight = this.imagem.height - this.context.canvas.height;
     this.ultimoTempo = null;
     this.gerouChefe = false;
+  },
+
+  proximaFase: function () {
+    if (animacao.fase.proxima) {
+      player1.restartFase();
+      animacao.fase = this.proxima;
+    } else {
+      vitoria();
+    }
   }
 }

@@ -1,4 +1,4 @@
-function Explosao(context, imagem, x, y) {
+function Explosao(context, imagem, x, y, escala, som) {
    this.context = context;
    this.imagem = imagem;
    this.spritesheet = new Spritesheet(context, imagem, 9, 9);
@@ -7,6 +7,7 @@ function Explosao(context, imagem, x, y) {
    this.x = x;
    this.y = y;
    this.animando = false;
+   this.escala = escala || 1;
    
    var explosao = this;
    this.fimDaExplosao = null;
@@ -14,17 +15,22 @@ function Explosao(context, imagem, x, y) {
       animacao.excluirSprite(explosao);
       if (explosao.fimDaExplosao) explosao.fimDaExplosao();
    }
-
-   sons.explosao.volume = 0.05;
-   sons.explosao.currentTime = 0.0;
-   sons.explosao.play();
+   if(som) {
+      som.volume = 0.1;
+      som.currentTime = 0.0;
+      som.play();
+   } else {
+      sons.explosao.volume = 0.05;
+      sons.explosao.currentTime = 0.0;
+      sons.explosao.play();
+   }
 }
 Explosao.prototype = {
    atualizar: function() {
       
    },
    desenhar: function() {
-      this.spritesheet.desenhar({x: this.x, y: this.y});
+      this.spritesheet.desenhar({x: this.x, y: this.y}, this.escala);
       this.spritesheet.proximoQuadro();
    }
 }

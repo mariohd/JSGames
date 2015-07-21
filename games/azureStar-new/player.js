@@ -16,9 +16,6 @@ function Player(context, teclado, imagem) {
 	this.escudo = false;
 	this.controleDeTiros = true;
 	this.velocidadeDeTiro = 300;
-	this.intervaloDeTiros = setInterval(function () {
-		player1.controleDeTiros = true;
-	}, this.velocidadeDeTiro);
 };
 
 Player.prototype = {
@@ -54,6 +51,11 @@ Player.prototype = {
 
 	atirar: function () {
 		if (! this.morto ) {
+			if (!this.intervaloDeTiros) {
+				this.intervaloDeTiros = setInterval(function () {
+					player1.controleDeTiros = true;
+				}, this.velocidadeDeTiro);
+			}
 			this.controleDeTiros = false;
 			var t = new Tiro(this.context, this);
 			animacao.novoSprite(t);
@@ -155,10 +157,14 @@ Player.prototype = {
 
 	initialConfig: function () {
 		this.vidas = 3;
-		this.position = { x : this.maxPosition.x/2 , y: this.maxPosition.y };
 		this.upgraded = false;
 		this.morto = false;
 		this.escudo = false;
+		this.restartFase();
+	},
+
+	restartFase: function () {
+		this.position = { x : this.maxPosition.x/2 , y: this.maxPosition.y };
 	},
 
 	imortal: function () {

@@ -42,7 +42,7 @@ function Enemy(context, imagem, escala) {
   this.sprite = new Spritesheet(context, this.imagem, 1, 4);
   this.sprite.intervalo = 180;
   this.maxPosition = { x : 930, y: 520 };
-  this.minPosition = { x : 0, y: 0 };
+  this.minPosition = { x : 0, y: -100 };
   this.position = { x : Math.random() * (this.maxPosition.x - 50) + 50, y:  this.minPosition.y };
   this.goToLeft = Math.random().toFixed() == 0 ? false : true;
   this.goToRight = !this.goToLeft;
@@ -86,9 +86,8 @@ Enemy.prototype = {
       // Estes valores vão sendo ajustados aos poucos
       var rets = 
       [ 
-        {x: this.position.x + 18, y: this.position.y, largura: this.imagem.width/this.sprite.numColunas/this.escala/2, altura: this.imagem.height/this.escala},
-        {x: this.position.x, y: this.position.y + 18, largura: 18, altura: (this.imagem.height/this.escala)/2},
-        {x: this.position.x + 54, y: this.position.y + 18, largura: 18, altura: (this.imagem.height/this.escala)/2},
+        {x: this.position.x + this.imagem.width/this.sprite.numColunas/this.escala/4, y: this.position.y, largura: this.imagem.width/this.sprite.numColunas/this.escala/2, altura: this.imagem.height/this.escala},
+        {x: this.position.x, y: this.position.y, largura: this.imagem.width/this.sprite.numColunas/this.escala, altura: this.imagem.height/this.escala/2},
 
       ];
       
