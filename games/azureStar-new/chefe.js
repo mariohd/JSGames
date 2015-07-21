@@ -47,7 +47,7 @@ Chefe.prototype = {
   	damage: function () {
   		this.life--;
   		sons.boss_hit.currentTime = 0.0;
-   		sons.boss_hit.volume = 0.1;
+   		sons.boss_hit.volume = 0.08;
   		sons.boss_hit.play();
   		if (this.life <= 0 ){
   			this.destruir();

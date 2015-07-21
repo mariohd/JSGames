@@ -33,7 +33,7 @@ Stage.prototype = {
     if (! this.ultimoTempo) this.ultimoTempo = agora; 
     if (agora - this.ultimoTempo < this.intervalo) return;
 
-    var enemy = new Enemy(this.context, imagens.enemy1, 4);
+    var enemy = new Enemy(this.context, this.inimigo, 4);
     animacao.novoSprite(enemy);
     colisor.novoSprite(enemy);
     this.ultimoTempo = agora;

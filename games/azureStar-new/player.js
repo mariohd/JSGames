@@ -16,9 +16,6 @@ function Player(context, teclado, imagem) {
 	this.escudo = false;
 	this.controleDeTiros = true;
 	this.velocidadeDeTiro = 300;
-	this.intervaloDeTiros = setInterval(function () {
-		player1.controleDeTiros = true;
-	}, this.velocidadeDeTiro);
 };
 
 Player.prototype = {
@@ -54,6 +51,11 @@ Player.prototype = {
 
 	atirar: function () {
 		if (! this.morto ) {
+			if (!this.intervaloDeTiros) {
+				this.intervaloDeTiros = setInterval(function () {
+					player1.controleDeTiros = true;
+				}, this.velocidadeDeTiro);
+			}
 			this.controleDeTiros = false;
 			var t = new Tiro(this.context, this);
 			animacao.novoSprite(t);

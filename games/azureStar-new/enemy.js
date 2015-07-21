@@ -42,7 +42,7 @@ function Enemy(context, imagem, escala) {
   this.sprite = new Spritesheet(context, this.imagem, 1, 4);
   this.sprite.intervalo = 180;
   this.maxPosition = { x : 930, y: 520 };
-  this.minPosition = { x : 0, y: 0 };
+  this.minPosition = { x : 0, y: -100 };
   this.position = { x : Math.random() * (this.maxPosition.x - 50) + 50, y:  this.minPosition.y };
   this.goToLeft = Math.random().toFixed() == 0 ? false : true;
   this.goToRight = !this.goToLeft;

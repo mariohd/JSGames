@@ -19,6 +19,7 @@ function carregarAssets() {
    	espaco: 'background/loading.jpg',
 	player: 'ship_sprite.png', 
 	enemy1: 'enemy_sprite.png',
+	enemy2: 'enemy_sprite2.png',
 	stage1: 'background/orionNebula.jpg',
 	stage2: 'background/azureStar.jpg',
 	explosao: 'explosion.png',
@@ -103,8 +104,8 @@ function drawText(string, location, font) {
 function iniciarObjetos() {
 	animacao = new Animacao(context);
 	colisor = new Colisor();
-	stage2 = new Stage(context, imagens.stage2, new Rariax(), null);
-	stage1 = new Stage(context, imagens.stage1, new Gygas(), null, stage2);
+	stage2 = new Stage(context, imagens.stage2, new Rariax(), imagens.enemy2);
+	stage1 = new Stage(context, imagens.stage1, new Gygas(), imagens.enemy1, stage2);
 	currentStage = stage1;
 	teclado = new Teclado(document);
 	player1 = new Player(context, teclado, imagens.player);
