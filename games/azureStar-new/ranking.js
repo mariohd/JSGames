@@ -3,6 +3,7 @@ function RankingOnline() {
 	this.ipAddress = "unknown";
 	this.country = "World";
 	this.duplicity = true;
+	this.dataTable;
 }
 
 RankingOnline.prototype = {
@@ -23,9 +24,13 @@ RankingOnline.prototype = {
 		var Score = Parse.Object.extend("Score");
 		var query = new Parse.Query(Score);
 		query.descending("pontuacao");
+		query.limit(30);
 		query.find({
 		  success: function(results) {
 		  	var table = document.getElementById("azureRanking").tBodies[0];
+			if (this.dataTable) {
+				this.dataTable.destroy();
+			}
 		  	while(table.rows.length > 0) {
 			  table.deleteRow(0);
 			}
@@ -39,7 +44,7 @@ RankingOnline.prototype = {
 		      	pais: object.get('pais')
 		      });
 		    }
-			$('#azureRanking').DataTable({retrieve: true, searching: false, lengthChange: false});
+			this.dataTable = $('#azureRanking').DataTable({lengthChange: false});
 		  },
 		  error: function(error) {
 		    alert("Error: " + error.code + " " + error.message);
