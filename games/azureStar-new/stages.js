@@ -40,8 +40,9 @@ Stage.prototype = {
   },
 
   gerarChefe: function () {
-    animacao.novoSprite(this.chefe);
-    colisor.novoSprite(this.chefe);
+    var c = new this.chefe();
+    animacao.novoSprite(c);
+    colisor.novoSprite(c);
     this.gerouChefe = true;
   },
 

@@ -38,7 +38,7 @@ Chefe.prototype = {
       animacao.novoSprite(exp3);
 
       exp3.fimDaExplosao = function () {
-      	pontuacao += animacao.fase.chefe.pontuacao;
+      	pontuacao += animacao.fase.chefe.prototype.pontuacao();
         updatePontuacao();
         animacao.fase.proximaFase();
       }; 
