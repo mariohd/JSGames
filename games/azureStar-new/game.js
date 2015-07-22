@@ -103,8 +103,8 @@ function drawText(string, location, font) {
 function iniciarObjetos() {
 	animacao = new Animacao(context);
 	colisor = new Colisor();
-	stage2 = new Stage(context, imagens.stage2, new Rariax(), imagens.enemy2);
-	stage1 = new Stage(context, imagens.stage1, new Gygas(), imagens.enemy1, stage2);
+	stage2 = new Stage(context, imagens.stage2, Rariax, imagens.enemy2);
+	stage1 = new Stage(context, imagens.stage1, Gygas, imagens.enemy1, stage2);
 	teclado = new Teclado(document);
 	player1 = new Player(context, teclado, imagens.player);
     clock = new ClockCounter();

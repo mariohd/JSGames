@@ -12,8 +12,7 @@ function Gygas() {
   	this.irParaDireita = true;
   	this.irParaEsquerda = false;
   	this.descendo = true;
-  	this.life = 30;
-  	this.pontuacao = 1000;
+  	this.life = 3;
 }
 
 Gygas.prototype = Object.create(Chefe.prototype);
@@ -89,3 +88,7 @@ Gygas.prototype.atualizar = function () {
 			}
 		}
 	};
+
+Gygas.prototype.pontuacao = function () {
+	return 1000;
+};
