@@ -6,7 +6,7 @@ var animacao, colisor, stage1, teclado, player1, clock, barrier, tabelaRanking,
 	ranking;
 var totalMidia = 0, carregadas = 0;
 var volumeBar = document.getElementById('song-volume');
-var liberado = false, digitando = false;
+var liberado = false, digitando = false, executouInput = false;
 var venceu = false;
 var loadingComplete = false;
 var ip;
@@ -141,7 +141,7 @@ function gameOver() {
 	context.restore();
 	clock.running = false;
 	setTimeout(function () {
-			preencherRanking();
+		preencherRanking();
 	}, 1000);}
 
 function vitoria() {
@@ -159,7 +159,7 @@ function vitoria() {
 	clock.running = false;
 	venceu = true;
 	setTimeout(function () {
-			preencherRanking();
+		preencherRanking();
 	}, 1000);
 }
 
@@ -218,6 +218,7 @@ function preencherRanking() {
 		inputPlaceholder: "Name",
 	    closeOnCancel: false },
 		function(inputValue) { 
+			executouInput = true;
 			if (inputValue === false) {
 				swal("Cancelled", "You score wasn`t saved!", "error");
 				digitando = false;
@@ -237,6 +238,14 @@ function preencherRanking() {
 		if (inputs[i].type === 'text')
 			inputs[i].focus();
 	}
+
+	setTimeout(function () {
+		if (!executouInput) {
+			digitando = false;
+			liberado = true;
+			executouInput = false;
+		}
+	}, 4000);
 };
 
 function adicionarNoRanking(jogador) {
