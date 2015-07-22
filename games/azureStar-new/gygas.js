@@ -12,7 +12,7 @@ function Gygas() {
   	this.irParaDireita = true;
   	this.irParaEsquerda = false;
   	this.descendo = true;
-  	this.life = 3;
+  	this.life = 30;
 }
 
 Gygas.prototype = Object.create(Chefe.prototype);

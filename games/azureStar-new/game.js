@@ -184,7 +184,8 @@ document.onkeydown = function (key) {
 					pontuacao = 0;
 					player1.initialConfig();
 					stage1.initialConfig();
-					animacao.novoSprite(stage1);
+					stage2.initialConfig();
+					animacao.fase = stage1;
 					animacao.novoSprite(player1);
 					colisor.novoSprite(player1);
 					updateVidas();
