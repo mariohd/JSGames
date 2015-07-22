@@ -2,17 +2,21 @@ function RankingOnline() {
 	Parse.initialize("L2h9j8kembYZqb5zFNrlw3yV2R7dgxVgeb0s5jq4", "ZjngB69wiAeqYygsEukF45ahWfa5tF9XtcLWcZBj");
 	this.ipAddress = "unknown";
 	this.country = "World";
+	this.duplicity = true;
 }
 
 RankingOnline.prototype = {
 
 	enviar: function (nome) {
-		var Score = Parse.Object.extend("Score");
-		var score = new Score();
-		score.save({pontuacao: pontuacao, jogador: nome, pais: this.country}).then(function(object) {
-			swal("Thanks " + nome + "!", "Your score was saved in our ranking!", "success"); 
-		});
-		this.listar();
+		if (this.duplicity) {
+			var Score = Parse.Object.extend("Score");
+			var score = new Score();
+			score.save({pontuacao: pontuacao, jogador: nome, pais: this.country}).then(function(object) {
+				swal("Thanks " + nome + "!", "Your score was saved in our ranking!", "success");
+			});
+			this.listar();
+			this.avoidDuplicity();
+		}
 	}, 
 
 	listar: function () {
@@ -44,13 +48,32 @@ RankingOnline.prototype = {
 	},
 
 	connected: function () {
-		var Conexao = Parse.Object.extend('Conexao');
-		var conexao = new Conexao();
-		conexao.save({ip: this.ipAddress, country: this.country}); 
+		if (this.duplicity) {
+			var Conexao = Parse.Object.extend('Conexao');
+			var conexao = new Conexao();
+			conexao.save({ip: this.ipAddress, country: this.country});
+			this.avoidDuplicity();
+		}
 	},
 
 	ip:  function (json	){
 		this.ipAddress = json.ip || this.ip;
 		this.country = json.country || this.country;
+	},
+
+	bugReport: function (bug) {
+		if (this.duplicity) {
+			var BugReport = Parse.Object.extend('BugReport');
+			var bugReport = new BugReport();
+			bugReport.save({bug: bug, country: this.country});
+			this.avoidDuplicity();
+		}
+	},
+
+	avoidDuplicity: function () {
+		this.duplicity = false;
+		setTimeout(function () {
+			ranking.duplicity = true;
+		}, 3000);
 	}
 };
