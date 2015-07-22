@@ -103,8 +103,8 @@ function drawText(string, location, font) {
 function iniciarObjetos() {
 	animacao = new Animacao(context);
 	colisor = new Colisor();
-	stage2 = new Stage(context, imagens.stage2, new Rariax(), imagens.enemy2);
-	stage1 = new Stage(context, imagens.stage1, new Gygas(), imagens.enemy1, stage2);
+	stage2 = new Stage(context, imagens.stage2, Rariax, imagens.enemy2);
+	stage1 = new Stage(context, imagens.stage1, Gygas, imagens.enemy1, stage2);
 	teclado = new Teclado(document);
 	player1 = new Player(context, teclado, imagens.player);
     clock = new ClockCounter();
@@ -141,7 +141,7 @@ function gameOver() {
 	context.restore();
 	clock.running = false;
 	setTimeout(function () {
-			preencherRanking();
+		preencherRanking();
 	}, 1000);}
 
 function vitoria() {
@@ -159,7 +159,7 @@ function vitoria() {
 	clock.running = false;
 	venceu = true;
 	setTimeout(function () {
-			preencherRanking();
+		preencherRanking();
 	}, 1000);
 }
 
@@ -175,6 +175,7 @@ document.onkeydown = function (key) {
 	if (!loadingComplete) return;
 	switch (key.which) {
 		case ENTER:
+			if (digitando) {key.preventDefault(); return;};
 			if (!started)
 				iniciar();
 			else {
@@ -184,7 +185,8 @@ document.onkeydown = function (key) {
 					pontuacao = 0;
 					player1.initialConfig();
 					stage1.initialConfig();
-					animacao.novoSprite(stage1);
+					stage2.initialConfig();
+					animacao.fase = stage1;
 					animacao.novoSprite(player1);
 					colisor.novoSprite(player1);
 					updateVidas();
@@ -231,10 +233,13 @@ function preencherRanking() {
 			digitando = false;
 			ranking.enviar(inputValue);
 		});
-	var inputs = document.getElementsByTagName('input');
+
+	var inputs = document.getElementsByTagName('fieldset')[0].getElementsByTagName('input');
 	for (var i in inputs) {
-		if (inputs[i].type === 'text')
+		if (inputs[i].type === 'text') {
 			inputs[i].focus();
+			inputs[i].maxLength = 12;
+		}
 	}
 };
 
@@ -277,5 +282,31 @@ function getip(json) {
 		ranking.ip(json);
 		ranking.connected();
 	}
-} 
+}
 
+document.getElementById('bug-report').addEventListener('click', function () {
+	digitando = true;
+	swal({   title: "Bug Report",
+		text: "Did you find a bug? =(<br>We will fix it for you!<br>" +
+			"<textarea id='bug-description' rows='4' cols='50' maxlength='80'></textarea>",
+		showCancelButton: true,
+		html: true,
+		closeOnConfirm: false,
+		animation: "slide-from-top",
+		allowEscapeKey: false,
+		inputPlaceholder: "What causes the bug?",
+	    closeOnCancel: true },
+		function(inputValue) {
+			if (inputValue === false) {
+				digitando = false;
+				return false;
+			}
+			var bugDescription = document.getElementById('bug-description').value;
+			if (bugDescription === "") {
+				swal.showInputError("You must provide a description of what happened! &nbsp");
+				return false;
+			}
+			ranking.bugReport(bugDescription);
+			digitando = false;
+		});
+});
