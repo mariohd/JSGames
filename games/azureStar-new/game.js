@@ -194,7 +194,7 @@ document.onkeydown = function (key) {
 					liberado = false;
 					clock.startCronometer();
 				}
-				key.preventDefault();
+				if (digitando) key.preventDefault();
 			}
 			break;
 		case ESPACO:
