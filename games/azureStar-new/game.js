@@ -6,7 +6,7 @@ var animacao, colisor, stage1, teclado, player1, clock, barrier, tabelaRanking,
 	ranking;
 var totalMidia = 0, carregadas = 0;
 var volumeBar = document.getElementById('song-volume');
-var liberado = false, digitando = false, executouInput = false;
+var liberado = false, digitando = false;
 var venceu = false;
 var loadingComplete = false;
 var ip;
@@ -194,6 +194,7 @@ document.onkeydown = function (key) {
 					liberado = false;
 					clock.startCronometer();
 				}
+				key.preventDefault();
 			}
 			break;
 		case ESPACO:
@@ -218,7 +219,6 @@ function preencherRanking() {
 		inputPlaceholder: "Name",
 	    closeOnCancel: false },
 		function(inputValue) { 
-			executouInput = true;
 			if (inputValue === false) {
 				swal("Cancelled", "You score wasn`t saved!", "error");
 				digitando = false;
@@ -241,14 +241,6 @@ function preencherRanking() {
 			inputs[i].maxLength = 12;
 		}
 	}
-
-	setTimeout(function () {
-		if (!executouInput) {
-			digitando = false;
-			liberado = true;
-			executouInput = false;
-		}
-	}, 4000);
 };
 
 function adicionarNoRanking(jogador) {
