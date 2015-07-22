@@ -65,7 +65,9 @@ RankingOnline.prototype = {
 		if (this.duplicity) {
 			var BugReport = Parse.Object.extend('BugReport');
 			var bugReport = new BugReport();
-			bugReport.save({bug: bug, country: this.country});
+			bugReport.save({bug: bug, country: this.country}).then(function(object) {
+				swal("Thanks for your support!", "We will fix the game for you =)", "success");
+			});
 			this.avoidDuplicity();
 		}
 	},

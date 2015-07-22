@@ -175,6 +175,7 @@ document.onkeydown = function (key) {
 	if (!loadingComplete) return;
 	switch (key.which) {
 		case ENTER:
+			if (digitando) {key.preventDefault(); return;};
 			if (!started)
 				iniciar();
 			else {
@@ -194,7 +195,6 @@ document.onkeydown = function (key) {
 					liberado = false;
 					clock.startCronometer();
 				}
-				if (digitando) key.preventDefault();
 			}
 			break;
 		case ESPACO:
@@ -282,5 +282,31 @@ function getip(json) {
 		ranking.ip(json);
 		ranking.connected();
 	}
-} 
+}
 
+document.getElementById('bug-report').addEventListener('click', function () {
+	digitando = true;
+	swal({   title: "Bug Report",
+		text: "Did you find a bug? =(<br>We will fix it for you!<br>" +
+			"<textarea id='bug-description' rows='4' cols='50' maxlength='80'></textarea>",
+		showCancelButton: true,
+		html: true,
+		closeOnConfirm: false,
+		animation: "slide-from-top",
+		allowEscapeKey: false,
+		inputPlaceholder: "What causes the bug?",
+	    closeOnCancel: true },
+		function(inputValue) {
+			if (inputValue === false) {
+				digitando = false;
+				return false;
+			}
+			var bugDescription = document.getElementById('bug-description').value;
+			if (bugDescription === "") {
+				swal.showInputError("You must provide a description of what happened! &nbsp");
+				return false;
+			}
+			ranking.bugReport(bugDescription);
+			digitando = false;
+		});
+});
