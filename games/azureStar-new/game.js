@@ -233,10 +233,13 @@ function preencherRanking() {
 			digitando = false;
 			ranking.enviar(inputValue);
 		});
-	var inputs = document.getElementsByTagName('input');
+
+	var inputs = document.getElementsByTagName('fieldset')[0].getElementsByTagName('input');
 	for (var i in inputs) {
-		if (inputs[i].type === 'text')
+		if (inputs[i].type === 'text') {
 			inputs[i].focus();
+			inputs[i].maxLength = 12;
+		}
 	}
 
 	setTimeout(function () {
