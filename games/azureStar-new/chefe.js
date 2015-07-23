@@ -49,5 +49,9 @@ Chefe.prototype = {
   		if (this.life <= 0 ){
   			this.destruir();
   		}
-  	}
+  	},
+
+    largura: function () {
+      return (this.imagem.width/this.sprite.numColunas)/this.escala;
+    }
 };

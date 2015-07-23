@@ -15,12 +15,18 @@ function carregarAssets() {
    imagens = {
    	boss1: 'boss1-min.png',
    	boss2: 'rariax.png',
+	boss3_1: 'demilich_1.png',
+	boss3_2: 'demilich_2.png',
+	boss3_3: 'demilich_3.png',
+	tiro_boss_3: 'especial_chefe_3.png',
    	espaco: 'background/loading.jpg',
 	player: 'ship_sprite.png', 
 	enemy1: 'enemy_sprite.png',
 	enemy2: 'enemy_sprite2.png',
 	stage1: 'background/orionNebula.jpg',
 	stage2: 'background/witchBroomNebula.jpg',
+	stage3: 'background/eagleNebula.jpg',
+	stage4: 'background/azureStar.jpg',
 	explosao: 'explosion.png',
 	tiro: 'bullet.png',
 	tiroInimigo: 'enemy_bullet.png',
@@ -103,7 +109,8 @@ function drawText(string, location, font) {
 function iniciarObjetos() {
 	animacao = new Animacao(context);
 	colisor = new Colisor();
-	stage2 = new Stage(context, imagens.stage2, Rariax, imagens.enemy2);
+	stage3 = new Stage(context, imagens.stage3, Demilich, imagens.enemy2);
+	stage2 = new Stage(context, imagens.stage2, Rariax, imagens.enemy2, stage3);
 	stage1 = new Stage(context, imagens.stage1, Gygas, imagens.enemy1, stage2);
 	teclado = new Teclado(document);
 	player1 = new Player(context, teclado, imagens.player);
