@@ -295,7 +295,7 @@ document.getElementById('bug-report').addEventListener('click', function () {
 	digitando = true;
 	swal({   title: "Bug Report",
 		text: "Did you find a bug? =(<br>We will fix it for you!<br>" +
-			"<textarea id='bug-description' rows='4' cols='50' maxlength='80'></textarea>",
+			"<textarea id='bug-description' rows='4' cols='50' maxlength='200'></textarea>",
 		showCancelButton: true,
 		html: true,
 		closeOnConfirm: false,
