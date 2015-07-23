@@ -77,7 +77,7 @@ Rariax.prototype.atualizar = function () {
 					}
 				}
 				if (this.life < 25)
-					this.estocada = chanceRandomica(0,50) == 15;
+					this.estocada = chanceRandomica(0,100) == 15;
 			}
 		}
 	};
@@ -93,10 +93,6 @@ Rariax.prototype.atirar = function () {
 
     this.ultimoTempo = agora;
 };
-
-Rariax.prototype.largura = function () {
-    return (this.imagem.width/this.sprite.numColunas)/this.escala;
-  };
 
 Rariax.prototype.pontuacao = function () {
 	return 1500;
