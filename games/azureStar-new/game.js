@@ -2,7 +2,7 @@
 var imagens, sons, started = false, pontuacao = 0;
 var canvas = document.getElementById("game-canvas");
 var context = canvas.getContext("2d");
-var animacao, colisor, stage1, teclado, player1, clock, barrier, tabelaRanking,
+var animacao, colisor, stage1, teclado, player1, player2, clock, tabelaRanking,
 	ranking;
 var totalMidia = 0, carregadas = 0;
 var volumeBar = document.getElementById('song-volume');

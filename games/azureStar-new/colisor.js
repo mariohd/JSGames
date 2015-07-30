@@ -107,6 +107,6 @@ Colisor.prototype = {
    },
 
    desenharQuadrados: function () {
-      return false;
+      return true;
    }
 }

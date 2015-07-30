@@ -16,9 +16,9 @@ Cannons.prototype.tocarSom = function () {
 	sons.upgrade.currentTime = 0.0;
 };
 
-Cannons.prototype.acao = function () {
-	if (! player1.upgraded) {
+Cannons.prototype.acao = function (quem) {
+	if (! quem.upgraded) {
 		this.tocarSom();
-  		player1.upgrade();
+  		quem.upgrade();
   	}
 };

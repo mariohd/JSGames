@@ -16,6 +16,7 @@ function Player(context, teclado, imagem) {
 	this.escudo = false;
 	this.controleDeTiros = true;
 	this.velocidadeDeTiro = 300;
+	this.barrier;
 };
 
 Player.prototype = {
@@ -51,10 +52,11 @@ Player.prototype = {
 
 	atirar: function () {
 		if (! this.morto ) {
+			var nave = this;
 			if (!this.intervaloDeTiros) {
-				this.intervaloDeTiros = setInterval(function () {
-					player1.controleDeTiros = true;
-				}, this.velocidadeDeTiro);
+				nave.intervaloDeTiros = setInterval(function () {
+					nave.controleDeTiros = true;
+				}, nave.velocidadeDeTiro);
 			}
 			this.controleDeTiros = false;
 			var t = new Tiro(this.context, this);
@@ -116,23 +118,23 @@ Player.prototype = {
 	},
 
 	matarJogador: function () {
-		player1.morto = true;
+		this.morto = true;
         animacao.excluirSprite(this);
         colisor.excluirSprite(this);
-        if (barrier) barrier.destruir();
+        if (this.barrier) this.barrier.destruir();
 		var exp1 = new Explosao(this.context, imagens.explosao,
-                                 this.position.x, this.position.y);
+                                 this.position.x, this.position.y, null, null ,this);
         animacao.novoSprite(exp1);
-        exp1.fimDaExplosao = function() {
-        	player1.morto = true;
-		    if (player1.vidas) {
-		    	player1.ultimaMorte = new Date().getTime();
-				player1.position = { x : player1.maxPosition.x/2 , y: player1.maxPosition.y };
-				player1.vidas--;
-				player1.upgraded = false;
-				player1.morto = false;
-				animacao.novoSprite(player1);
-				colisor.novoSprite(player1);
+        exp1.fimDaExplosao = function(quem) {
+        	quem.morto = true;
+		    if (quem.vidas) {
+		    	quem.ultimaMorte = new Date().getTime();
+				quem.position = { x : quem.maxPosition.x/2 , y: quem.maxPosition.y };
+				quem.vidas--;
+				quem.upgraded = false;
+				quem.morto = false;
+				animacao.novoSprite(quem);
+				colisor.novoSprite(quem);
 		    } else {
 		    	gameOver();
 		    }
@@ -149,9 +151,10 @@ Player.prototype = {
 		if (this.velocidadeDeTiro > 200 ) {
 			this.velocidadeDeTiro -= 20;
 			clearInterval(this.intervaloDeTiros);
+			var nave = this;
 			this.intervaloDeTiros = setInterval(function () {
-				player1.controleDeTiros = true;
-			}, this.velocidadeDeTiro);
+				nave.controleDeTiros = true;
+			}, nave.velocidadeDeTiro);
 		}
 	},
 
