@@ -1,0 +1,78 @@
+<html >
+<meta charset="UTF-8">
+<head>
+	<title>Robin Moody!</title>
+	<link rel="shortcut icon" href="imagens/arrow.png" type="image/x-icon" />
+	<meta name="viewport" content="width=600, initial-scale=0.2">
+	<style type="text/css">
+		@font-face {
+			font-family: 'PiecesOfEight';
+			src: url(PiecesOfEight.ttf);
+		}
+
+		body {
+			font-family: 'PiecesOfEight';
+		}
+		
+		canvas, canvas:focus  {
+			border: 1px dashed black;
+	    	outline: 0;
+	    	background: url(imagens/background-1.jpg);
+			background-repeat: no-repeat;
+    		background-position: bottom;
+			padding-left: 0;
+		    padding-right: 0;
+		    margin-left: auto;
+		    margin-right: auto;
+    		display: block;
+		}
+
+		.moody {
+			float: left;
+			vertical-align: middle;
+			margin: 0 auto 0 auto;
+		}
+
+		.orcs {
+			float: left;
+			vertical-align: bottom;
+			margin: 420 auto 0 auto;
+		}
+		.credits {
+			float: right;
+			margin-right: 5%; 
+		}
+		.project {
+			margin-left: 5%; 
+		}
+		a {
+			font-size: 1.2em;
+		}
+	</style>
+</head>
+	<body>
+		<div>
+			<a class="project" target="_blank" href="http://mariohd.github.io/JSGames/">JsGames Project</a>
+			<a class="credits" target="_blank" href="https://github.com/mariohd">Developed By Mario HD</a>
+			<canvas id="game-canvas" width="1200" height="562" class="zero" tabindex="1">
+				Your browser does not support HTML5 Canvas. 
+			</canvas> 
+		</div>
+		<script>
+		(function () {
+			var	canvas1 = document.getElementById('game-canvas');
+			canvas1.width = window.innerWidth * .90;
+			canvas1.height = window.innerHeight * .90;
+			canvas1.style.backgroundSize = canvas1.width + "px " + " " + canvas1.height + "px";
+		})();
+		</script>
+		<script type="text/javascript" src="mobilecheck.js"></script>
+		<script type="text/javascript" src="player.js"></script>
+		<script type="text/javascript" src="enemy.js"></script>
+		<script type="text/javascript" src="spritesheet.js"></script>
+		<script type="text/javascript" src="teclado.js"></script>
+		<script type="text/javascript" src="flecha.js"></script>
+		<script type="text/javascript" src="colisor.js"></script>
+		<script type="text/javascript" src="game.js"></script>
+	</body>
+</html>
