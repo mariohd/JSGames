@@ -55,6 +55,7 @@ Stage.prototype = {
   proximaFase: function () {
     if (animacao.fase.proxima) {
       player1.restartFase();
+      if (player2) player2.restartFase();
       animacao.fase = this.proxima;
     } else {
       vitoria();

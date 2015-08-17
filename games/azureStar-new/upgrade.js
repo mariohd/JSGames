@@ -38,7 +38,7 @@ Upgrade.prototype = {
 	},
 	colidiuCom: function (outro) {
 		if (outro instanceof Player) {
-			this.acao();
+			this.acao(outro);
 			outro.pontuar(200);
 			animacao.excluirSprite(this);
 			colisor.excluirSprite(this);

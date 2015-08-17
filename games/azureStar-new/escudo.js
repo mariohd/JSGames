@@ -16,18 +16,18 @@ Escudo.prototype.tocarSom = function () {
 	sons.escudo.currentTime = 0.0;
 };
 
-Escudo.prototype.acao = function () {
-	if (!player1.escudo || barrier && barrier.hp == 1 ) {
-		if (barrier) barrier.destruir();
-		player1.escudo = true;
+Escudo.prototype.acao = function (quem) {
+	if (!quem.escudo || quem.barrier && quem.barrier.hp == 1 ) {
+		if (quem.barrier) quem.barrier.destruir();
+		quem.escudo = true;
 		this.tocarSom(); 
-		barrier = new Barreira(this.context, imagens.barreira, player1.position);
-		animacao.novoSprite(barrier);
-		colisor.novoSprite(barrier);
+		quem.barrier = new Barreira(this.context, imagens.barreira, quem.position, quem);
+		animacao.novoSprite(quem.barrier);
+		colisor.novoSprite(quem.barrier);
 	}
 }
 
-function Barreira(context, imagem, position) {
+function Barreira(context, imagem, position, dono) {
 	this.context = context;
 	this.imagem = imagem;
 	this.sprite = new Spritesheet(this.context, this.imagem, 4, 5);
@@ -37,11 +37,12 @@ function Barreira(context, imagem, position) {
 	this.sprite.intervalo = 50;
 	this.sprite.multiLine = true;
   	this.hp = 2;
+  	this.dono = dono;
 }
 
 Barreira.prototype = {
 	atualizar: function() {
-	  this.position = {x: player1.position.x + this.offsetPosition.x, y: player1.position.y + this.offsetPosition.y}
+	  this.position = {x: this.dono.position.x + this.offsetPosition.x, y: this.dono.position.y + this.offsetPosition.y}
 	},
 	desenhar: function() {
 	  this.sprite.desenhar(this.position, this.escala);
@@ -70,8 +71,8 @@ Barreira.prototype = {
 	destruir: function () {
 		animacao.excluirSprite(this);
 		colisor.excluirSprite(this);
-		player1.escudo = false;
-		barrier = undefined;
+		this.dono.escudo = false;
+		this.dono.barrier = undefined;
 	},
 
 	retangulosColisao: function() {

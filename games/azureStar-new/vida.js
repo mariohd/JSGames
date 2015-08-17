@@ -17,8 +17,8 @@ Vida.prototype.tocarSom = function () {
 
 };
 
-Vida.prototype.acao = function () {
+Vida.prototype.acao = function (quem) {
 	this.tocarSom();
-	player1.vidas ++ ;
+	quem.vidas ++ ;
     updateVidas();
 }

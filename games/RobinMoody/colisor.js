@@ -106,7 +106,5 @@ Colisor.prototype = {
       this.sprites = novoArray;
    },
 
-   desenharQuadrados: function () {
-      return true;
-   }
+   desenharQuadrados: false
 }

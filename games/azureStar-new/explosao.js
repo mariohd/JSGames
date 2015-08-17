@@ -1,4 +1,4 @@
-function Explosao(context, imagem, x, y, escala, som) {
+function Explosao(context, imagem, x, y, escala, som, quemExplodiu) {
    this.context = context;
    this.imagem = imagem;
    this.spritesheet = new Spritesheet(context, imagem, 9, 9);
@@ -8,12 +8,13 @@ function Explosao(context, imagem, x, y, escala, som) {
    this.y = y;
    this.animando = false;
    this.escala = escala || 1;
+   this.quemExplodiu = quemExplodiu;
    
    var explosao = this;
    this.fimDaExplosao = null;
    this.spritesheet.fimDoCiclo = function() {
       animacao.excluirSprite(explosao);
-      if (explosao.fimDaExplosao) explosao.fimDaExplosao();
+      if (explosao.fimDaExplosao) explosao.fimDaExplosao(explosao.quemExplodiu);
    }
    if(som) {
       som.volume = 0.1;
