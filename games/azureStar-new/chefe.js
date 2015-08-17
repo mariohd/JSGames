@@ -38,7 +38,7 @@ Chefe.prototype = {
       animacao.novoSprite(exp3);
 
       exp3.fimDaExplosao = function () {
-      	pontuacao += animacao.fase.chefe.pontuacao;
+      	pontuacao += animacao.fase.chefe.prototype.pontuacao();
         updatePontuacao();
         animacao.fase.proximaFase();
       }; 
@@ -49,5 +49,9 @@ Chefe.prototype = {
   		if (this.life <= 0 ){
   			this.destruir();
   		}
-  	}
+  	},
+
+    largura: function () {
+      return (this.imagem.width/this.sprite.numColunas)/this.escala;
+    }
 };

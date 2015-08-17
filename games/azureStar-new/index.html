@@ -107,6 +107,77 @@
 			display: inline-block;
 		}
 
+		.link {
+			position: relative;
+			display: inline-block;
+			outline: none;
+			color: #435A6B;
+			text-decoration: none;
+			text-transform: uppercase;
+			font-weight: 400;
+			text-shadow: 0 0 1px rgba(255,255,255,0.3);
+		}
+
+		.link::before {
+			margin-right: 10px;
+			content: '[';
+			-webkit-transform: translateX(20px);
+			-moz-transform: translateX(20px);
+			transform: translateX(20px);
+		}
+
+		.link::after {
+			margin-left: 10px;
+			content: ']';
+			-webkit-transform: translateX(-20px);
+			-moz-transform: translateX(-20px);
+			transform: translateX(-20px);
+		}
+
+		.link:hover::before,
+		.link:hover::after,
+		.link:focus::before,
+		.link:focus::after {
+			opacity: 1;
+			-webkit-transform: translateX(0px);
+			-moz-transform: translateX(0px);
+			transform: translateX(0px);
+		}
+
+		.link::before,
+		.link::after {
+			display: inline-block;
+			opacity: 0;
+			-webkit-transition: -webkit-transform 0.3s, opacity 0.2s;
+			-moz-transition: -moz-transform 0.3s, opacity 0.2s;
+			transition: transform 0.3s, opacity 0.2s;
+		}
+
+		.bug-report {
+			float: right;
+			margin-top: -25px;
+		}
+
+		.sweet-alert textarea {
+		    width: 90%;
+		    box-sizing: border-box;
+		    border-radius: 3px;
+		    border: 1px solid #d7d7d7;
+		    margin-top: 10px;
+		    font-size: 18px;
+		    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.06);
+		    padding: 0 12px;
+		    -webkit-transition: all 0.3s;
+		    transition: all 0.3s;
+		    resize:none;
+		}
+
+	    .sweet-alert textarea:focus {
+	      outline: none;
+	      box-shadow: 0px 0px 3px #c4e6f5;
+	      border: 1px solid #b4dbed;
+		}
+
 	</style>
 	<body>
 		<div id="canvas-container">	
@@ -124,6 +195,7 @@
 				<img src="img/som.png" height="32" width="32">
 				<input type="range" id="song-volume" value="30">
 			</div>
+			<a id="bug-report" class="link bug-report" href="#" >Report a bug</a>
 		</div>
 		<span class="guardians"><h2>Ranking</h2></span>
 		<div style="width: 80%; margin: 0 auto;">
@@ -170,6 +242,8 @@
 	<script src="clockTimer.js"></script>
 	<script src="gygas.js"></script>
 	<script src="rariax.js"></script>
+	<script src="demilich.js"></script>
+
 	<script src="game.js"></script>
 	<script type="text/javascript" src="https://www.telize.com/geoip?callback=getip"></script>
 	<script>
