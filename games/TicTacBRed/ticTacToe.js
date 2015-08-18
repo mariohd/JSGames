@@ -1,0 +1,144 @@
+(function () {
+	"use strict"
+
+	let canvas = document.querySelector('#game-canvas');
+	let context = canvas.getContext('2d');
+
+	let altura = canvas.height, 
+		largura = canvas.width;
+
+	let alturaLinha = altura * 1/3, 
+		larguraColuna = largura * 1/3;
+
+	const X = {
+		simbolo: 'X',
+		valor: 1,
+		cor: 'blue'
+	};
+
+	const O = {
+		simbolo: 'O',
+		valor: -1,
+		cor: 'red'
+	};
+
+	let letra = X,
+		jogadas = 9,
+		tabuleiro = [[0,0,0], 
+					 [0,0,0], 
+					 [0,0,0]];
+
+	function linha(x1, y1, x2, y2) {
+		context.save();
+		context.moveTo(x1, y1);
+		context.lineTo(x2, y2);
+		context.strokeLine = 2;
+		context.save();
+	};
+
+	function linhasDotabuleiro() {
+		linha(larguraColuna, 0, larguraColuna, altura);			// Linha vertical 1
+		linha(larguraColuna * 2, 0, larguraColuna * 2, altura); // Linha vertical 2
+		linha(0, alturaLinha, largura, alturaLinha);			// Linha horizontal 1
+		linha(0, alturaLinha * 2, largura, alturaLinha * 2);	// Linha horizontal 2
+
+		context.stroke();
+	};
+
+	function detectarColuna(x1) {
+		if (larguraColuna >= x1)							// ( 200 >= x1 ) -> Primeira coluna
+			return 0;
+		if (x1 > larguraColuna && larguraColuna * 2 > x1)  	// ( x1 > 200 && 400 >= x1) -> Segunda coluna
+			return 1; 
+		if (x1 >= larguraColuna * 2)						// ( x1 > 400 ) -> Terceira coluna
+			return 2;
+	};
+
+	function detectarLinha(y1) {
+		if (alturaLinha >= y1)							// ( 200 >= y1 ) -> Primeira linha
+			return 0;
+		if (y1 > alturaLinha && alturaLinha * 2 > y1)	// ( x1 > 200 && 400 >= x1) -> Segunda linha
+			return 1;
+		if(y1 >= alturaLinha * 2)						// ( x1 > 400 ) -> Terceira linha
+			return 2;
+	};
+
+	function clicks() {
+		canvas.addEventListener('click', function (evt) {
+			verificarClick(evt.offsetX, evt.offsetY);
+		});
+
+		canvas.addEventListener('touchstart', function(evt) {
+			event.preventDefault();
+			verificarClick(evt.touches[0].clientX - canvas.offsetLeft, evt.touches[0].clientY - canvas.offsetTop);
+		});
+	};
+
+	function verificarClick(x1, y1) {
+		let linha = detectarLinha(y1), 
+			coluna = detectarColuna(x1);
+		if (tabuleiro[linha][coluna] != 0) return;	//Não permitir a mesma casa 2 vezes
+
+		context.fillStyle = letra.cor;
+		tabuleiro[linha][coluna] = letra.valor;
+		context.fillText(letra.simbolo, coluna * larguraColuna, ( linha+1 ) * alturaLinha);
+
+		if (verificarVitoria(letra, linha, coluna)) {
+			alert(letra.simbolo + " venceu!");
+			reiniciar();
+			return;
+		}
+
+		jogadas -= 1;
+		if (jogadas == 0) {
+			alert("Velha!");
+			reiniciar();
+			return;
+		}
+
+		letra = (letra === X ? O : X );
+	};
+
+	function verificarVitoria(letra, linha, coluna) {
+		return verificarVitoriaPorLinha(letra, linha) || 
+				verificarVitoriaPorColuna(letra, coluna) ||
+				verificarVitoriaDiagonais(letra);
+	};
+
+	function verificarVitoriaPorLinha(letra, linha) {
+		return tabuleiro[linha][0] + tabuleiro[linha][1] + tabuleiro[linha][2] === letra.valor * 3;
+	};
+
+	function verificarVitoriaPorColuna(letra, coluna) {
+		return tabuleiro[0][coluna] + tabuleiro[1][coluna] + tabuleiro[2][coluna] === letra.valor * 3;
+	}
+
+	function verificarVitoriaDiagonais(letra) {
+		return tabuleiro[0][0] + tabuleiro[1][1] + tabuleiro[2][2] === letra.valor * 3 ||
+			   tabuleiro[0][2] + tabuleiro[1][1] + tabuleiro[2][0] === letra.valor * 3;
+	};
+ 
+	function desenhar() {
+		linhasDotabuleiro();
+	};
+
+	function inicio() {
+		context.font = alturaLinha/2 + larguraColuna/2 + "px Times New Roman";
+		context.strokeStyle = "#7F7F7F";
+		context.fillStyle = "#404040";
+		desenhar();
+		clicks();
+	}
+
+	function reiniciar() {
+		context.clearRect(0,0, canvas.width, canvas.height);
+		tabuleiro = [[0,0,0], 
+					 [0,0,0], 
+					 [0,0,0]];
+		jogadas = 9;
+		desenhar();
+	};
+
+	inicio();
+
+}());
