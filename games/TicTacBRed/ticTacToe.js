@@ -127,8 +127,17 @@
 	}
 
 	function verificarVitoriaDiagonais(letra) {
-		return tabuleiro[0][0] + tabuleiro[1][1] + tabuleiro[2][2] === letra.valor * 3 ||
-			   tabuleiro[0][2] + tabuleiro[1][1] + tabuleiro[2][0] === letra.valor * 3;
+		let diagonalPrincipal = tabuleiro[0][0] + tabuleiro[1][1] + tabuleiro[2][2] === letra.valor * 3;
+		let diagonalSecundaria = tabuleiro[0][2] + tabuleiro[1][1] + tabuleiro[2][0] === letra.valor * 3;
+		if (diagonalPrincipal) {
+			linha(0, 0, largura, altura, 5);
+		}
+
+		if (diagonalSecundaria) {
+			linha(largura, 0, 0, altura, 5);
+		}
+
+		return diagonalPrincipal || diagonalSecundaria;
 	};
  
 	function desenhar() {
