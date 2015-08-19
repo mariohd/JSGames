@@ -9,6 +9,7 @@
 
 	let alturaLinha = altura * 1/3, 
 		larguraColuna = largura * 1/3;
+	let bloquear = false;
 
 	const X = {
 		simbolo: 'X',
@@ -28,12 +29,12 @@
 					 [0,0,0], 
 					 [0,0,0]];
 
-	function linha(x1, y1, x2, y2) {
-		context.save();
+	function linha(x1, y1, x2, y2, larguraLinha) {
+		context.beginPath();
 		context.moveTo(x1, y1);
 		context.lineTo(x2, y2);
-		context.strokeLine = 2;
-		context.save();
+		context.lineWidth = larguraLinha || 1;
+		context.stroke();
 	};
 
 	function linhasDotabuleiro() {
@@ -41,8 +42,6 @@
 		linha(larguraColuna * 2, 0, larguraColuna * 2, altura); // Linha vertical 2
 		linha(0, alturaLinha, largura, alturaLinha);			// Linha horizontal 1
 		linha(0, alturaLinha * 2, largura, alturaLinha * 2);	// Linha horizontal 2
-
-		context.stroke();
 	};
 
 	function detectarColuna(x1) {
@@ -77,22 +76,25 @@
 	function verificarClick(x1, y1) {
 		let linha = detectarLinha(y1), 
 			coluna = detectarColuna(x1);
-		if (tabuleiro[linha][coluna] != 0) return;	//Não permitir a mesma casa 2 vezes
+		if (tabuleiro[linha][coluna] != 0 || bloquear) return;	//Não permitir a mesma casa 2 vezes
 
 		context.fillStyle = letra.cor;
 		tabuleiro[linha][coluna] = letra.valor;
 		context.fillText(letra.simbolo, coluna * larguraColuna, ( linha+1 ) * alturaLinha);
 
 		if (verificarVitoria(letra, linha, coluna)) {
-			alert(letra.simbolo + " venceu!");
-			reiniciar();
+			bloquear = true;
+			setTimeout(function () {
+				reiniciar();
+			}, 3000);
 			return;
 		}
 
 		jogadas -= 1;
 		if (jogadas == 0) {
-			alert("Velha!");
-			reiniciar();
+			setTimeout(function () {
+				reiniciar();
+			}, 3000);
 			return;
 		}
 
@@ -105,12 +107,23 @@
 				verificarVitoriaDiagonais(letra);
 	};
 
-	function verificarVitoriaPorLinha(letra, linha) {
-		return tabuleiro[linha][0] + tabuleiro[linha][1] + tabuleiro[linha][2] === letra.valor * 3;
+	function verificarVitoriaPorLinha(letra, line) {
+		let venceu = tabuleiro[line][0] + tabuleiro[line][1] + tabuleiro[line][2] === letra.valor * 3;
+		if (venceu) {
+			let linhaY = ((line+1 ) * alturaLinha) - alturaLinha/2;
+			linha(0, linhaY, largura, linhaY, 5);
+		}
+		return venceu;
 	};
 
 	function verificarVitoriaPorColuna(letra, coluna) {
-		return tabuleiro[0][coluna] + tabuleiro[1][coluna] + tabuleiro[2][coluna] === letra.valor * 3;
+		let venceu = tabuleiro[0][coluna] + tabuleiro[1][coluna] + tabuleiro[2][coluna] === letra.valor * 3;
+		if (venceu) {
+			let linhaX = (coluna * larguraColuna) + larguraColuna/2;
+			linha(linhaX, 0, linhaX, altura, 5);
+		}
+		return venceu;
+
 	}
 
 	function verificarVitoriaDiagonais(letra) {
@@ -136,6 +149,7 @@
 					 [0,0,0], 
 					 [0,0,0]];
 		jogadas = 9;
+		bloquear = false;
 		desenhar();
 	};
 
