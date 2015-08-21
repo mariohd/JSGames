@@ -1,28 +1,62 @@
 var caminhos = {
 	direita: {
 		position: function (context, enemy) {
-			return {x: -enemy.spritesheet.tamanho.largura , y: context.canvas.height - enemy.spritesheet.tamanho.altura }
+			return {x: -enemy.spritesheet.tamanho.largura , y: context.canvas.height/2 - enemy.spritesheet.tamanho.altura/2  }
 		},
 		atualizar: function (enemy) {
-			if (! enemy.atacando) enemy.position.x += 1.5;
+			if (! enemy.atacando) enemy.position.x += 1;
 		},
 		direcao: comandos.movimentos.DIREITA,
 		ataque: comandos.ataques.lanca.DIREITA
 	},
 	esquerda: {
 		position: function (context, enemy) {
-			return {x: context.canvas.width , y: context.canvas.height - enemy.spritesheet.tamanho.altura }
+			return {x: context.canvas.width , y: context.canvas.height/2 - enemy.spritesheet.tamanho.altura/2 }
 		},
 		atualizar: function (enemy) {
-			if (! enemy.atacando) enemy.position.x -= 1.5;
+			if (! enemy.atacando) enemy.position.x -= 1;
 		},
 		direcao: comandos.movimentos.ESQUERDA,
 		ataque: comandos.ataques.lanca.ESQUERDA
+	},
+	topo: {
+		position: function (context, enemy) {
+			return {x: context.canvas.width/2 - enemy.spritesheet.tamanho.largura/2, y: 0 }
+		},
+		atualizar: function (enemy) {
+			if (! enemy.atacando) enemy.position.y += 1;
+		},
+		direcao: comandos.movimentos.FRENTE,
+		ataque: comandos.ataques.lanca.FRENTE
+	},
+	baixo: {
+		position: function (context, enemy) {
+			return {x: context.canvas.width/2 - enemy.spritesheet.tamanho.largura/2, y: context.canvas.height }
+		},
+		atualizar: function (enemy) {
+			if (! enemy.atacando) enemy.position.y -= 1;
+		},
+		direcao: comandos.movimentos.COSTAS,
+		ataque: comandos.ataques.lanca.COSTAS
+	},
+
+	sortear: function () {
+		var c = randomChancesBetween(0, 3);
+		switch (c) {
+			case 0: 
+				return this.topo;
+			case 1: 
+				return this.esquerda;
+			case 2: 
+				return this.baixo;
+			case 3: 
+				return this.direita;
+		}
 	}
 };
 
 function Enemy (context, imagem) {
-	this.caminho = Math.random() > .5 ? caminhos.esquerda : caminhos.direita;
+	this.caminho = caminhos.sortear();
 	this.direcao = this.caminho.direcao;
 	this.spritesheet = new Spritesheet(context, imagem, 21, 13, 9);
 	this.spritesheet.linha = this.direcao;

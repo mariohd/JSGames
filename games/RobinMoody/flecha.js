@@ -1,8 +1,9 @@
-function Flecha(context, imagem, position, direcao) {
-	this.direcao = direcao;
+function Flecha(context, imagem, position, velocidade, eixo) {
+	this.velocidade = velocidade;
 	this.spritesheet = new Spritesheet(context, imagem, 1, 1, 1);
 	this.position = position;
 	this.context = context;
+	this.eixo = eixo;
 }
 
 Flecha.prototype = {
@@ -12,7 +13,11 @@ Flecha.prototype = {
 	},
 
 	atualizar: function () {
-		this.position.x += this.direcao;
+		if (this.eixo == 'x') {
+			this.position.x += this.velocidade;
+		} else {
+			this.position.y += this.velocidade;
+		}
 	},
 	retangulosColisao: function() {
       var rets = 

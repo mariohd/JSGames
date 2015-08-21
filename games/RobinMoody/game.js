@@ -3,10 +3,12 @@
 	var context = canvas.getContext('2d');
 	var assets = {
 		imagens : {
-			player: 'robinMoody2.png',
-			orc: 'orc.png',
-			flecha: 'arrow_shot.png',
-			flecha2: 'arrow_shot2.png',
+			player: 'robinMoody.png',
+			skeleton: 'skeleton.png',
+			flechasCima: 'arrow_up.png',
+			flechasBaixo: 'arrow_down.png',
+			flechasEsquerda: 'arrow_left.png',
+			flechasDireita: 'arrow_right.png',
 			hud: 'robinMoody-face.png'
 		},
 		sons: {},
@@ -15,10 +17,23 @@
 	var colisor = new Colisor();
 	context.assets = assets;
 	context.colisor = colisor;	
+	context.shadowOff = function () {
+		this.shadowBlur = 0;
+		this.shadowOffsetX = 0;
+		this.shadowOffsetY = 0;
+	};
 	var ultimoInimigo = new Date();
 	var pausa = false, comecou = false, gameName = "Robin\nMoody!";
 	var teclado = new Teclado(document), start = 2000;
-	var p;
+	var player;
+
+	function canvasConfig() {
+      context.shadowColor = 'rgba(68, 68, 68, 0.55)';
+      context.shadowBlur = 3;
+      context.shadowOffsetX = 10;
+      context.shadowOffsetY = 3;
+	};
+
 
 	function load() {
 		var totalMidia = 0, carregadas = 0;
@@ -57,6 +72,7 @@
 	function iniciar(evento) {
 		if (! comecou) {
 			comecou = true;
+			canvasConfig();
 			startGame();
 			loop();
 			document.removeEventListener("touchstart", iniciar, false);
@@ -155,7 +171,7 @@
         if (agora - ultimoInimigo < start) return;
 		if (start > 1000 ) start -= 50;
         ultimoInimigo = agora;
-		var enemy = new Enemy(context, assets.imagens.orc);
+		var enemy = new Enemy(context, assets.imagens.skeleton);
 		assets.sprites.push(enemy);
 		colisor.sprites.push(enemy);
 	}
