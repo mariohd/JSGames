@@ -87,6 +87,8 @@ Player.prototype = {
 
 				}
 				var f = new Flecha(this.context, imagem, position, velocidade, eixo);
+				this.context.assets.sons.atirar.currentTime = 0.0;
+				this.context.assets.sons.atirar.play();
 				this.context.assets.sprites.push(f);
 				this.context.colisor.sprites.push(f);
 			}.bind(this));

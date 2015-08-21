@@ -11,7 +11,10 @@
 			flechasDireita: 'arrow_right.png',
 			hud: 'robinMoody-face.png'
 		},
-		sons: {},
+		sons: {
+			atirar: 'disparo.mp3',
+			dano: 'dano.mp3'
+		},
 		sprites: []
 	};
 	var colisor = new Colisor();
@@ -45,6 +48,16 @@
 		  totalMidia++;
 		  assets.imagens[i] = img;
 		}
+
+		for (var i in assets.sons) {
+	      var snd = new Audio();
+	      snd.src = 'sons/' + assets.sons[i];
+	      snd.addEventListener('loadeddata', loadingGame, false);
+	      snd.load();
+	      totalMidia++;
+	      
+	      assets.sons[i] = snd;
+	   }
 
 		function loadingGame() {
 			context.save();

@@ -40,6 +40,9 @@ Flecha.prototype = {
 
   	colidiuCom: function(outro) {
 		if (outro instanceof Enemy) {
+			this.context.assets.sons.dano.volume = 0.1;
+			this.context.assets.sons.dano.currentTime = 0.0;
+			this.context.assets.sons.dano.play();
 			outro.morrer();
 			this.excluir = true;
 		}
