@@ -23,7 +23,8 @@ function Player(context, imagem) {
 	this.direcao = comandos.ataques.arco.FRENTE;
 	this.spritesheet = new Spritesheet(context, imagem, 21, 13, 13);
 	this.spritesheet.linha = this.direcao;
-	this.spritesheet.intervalo = 75;
+	this.velocidadeNormal = 50;
+	this.spritesheet.intervalo = this.velocidadeNormal;
 	this.position = {x: context.canvas.width/2 - this.spritesheet.tamanho.largura/2 , y: context.canvas.height/2 - this.spritesheet.tamanho.altura/2 };
 	this.atirando = false;
 	this.context = context;
@@ -114,7 +115,7 @@ Player.prototype = {
 		if ( this.hastePower) {
 			if (+new Date() > this.hastePower) this.hastePower = undefined;
 		} else {
-			this.spritesheet.intervalo = 75;
+			this.spritesheet.intervalo = this.velocidadeNormal;
 		}
 	},
 
