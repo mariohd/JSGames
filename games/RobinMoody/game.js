@@ -104,6 +104,7 @@
 		} else {
 			pausa = ! pausa;
 			if (! pausa) {
+				assets.sons.theme.play();
 				loop();
 			} else {
 				jogoPausado();
@@ -162,6 +163,7 @@
 
 	function jogoPausado() {
 		drawText("paused", {x: canvas.width/2, y: canvas.height/2});
+		assets.sons.theme.pause();
 	};
 
 	function drawText(string, location, font) {
