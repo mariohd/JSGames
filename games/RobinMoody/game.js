@@ -9,13 +9,17 @@
 			flechasBaixo: 'arrow_down.png',
 			flechasEsquerda: 'arrow_left.png',
 			flechasDireita: 'arrow_right.png',
-			hud: 'robinMoody-face.png'
+			hud: 'robinMoody-face.png',
+			healMagic: 'heal_magic.png',
+			hasteMagic: 'haste_magic.png'
+
 		},
 		sons: {
 			atirar: 'disparo.mp3',
 			dano: 'dano.mp3',
 			haste: 'haste.mp3',
-			speedMagic: 'haste-magic.mp3'
+			hasteMagic: 'haste-magic.mp3',
+			healMagic: 'heal.mp3'
 
 		},
 		sprites: []
@@ -138,7 +142,13 @@
 			e.preventDefault();
 		});
 
-		teclado.disparou(W, function (e) {
+		teclado.disparou(NUM1, function (e) {
+			if (pausa) return;
+			p.heal();
+			e.preventDefault();
+		});
+
+		teclado.disparou(NUM2, function (e) {
 			if (pausa) return;
 			p.haste();
 			e.preventDefault();

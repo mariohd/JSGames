@@ -45,7 +45,7 @@ Player.prototype = {
 		this.context.fillStyle = "rgba(200, 15, 15, 0.9)";
 		this.context.fillRect(this.context.canvas.width/10, this.context.canvas.height/10,  (this.hp/100) * this.context.canvas.width/3 , 25);
 		this.context.strokeRect(this.context.canvas.width/10, this.context.canvas.height/10,  this.context.canvas.width/3 , 25);
-		
+
 		this.context.fillStyle = "rgba(15, 15, 200, 0.7)";
 		this.context.fillRect(this.context.canvas.width/10, this.context.canvas.height/10 + 25,  (this.mana/100) * this.context.canvas.width/3 , 25);
 		this.context.strokeRect(this.context.canvas.width/10, this.context.canvas.height/10 + 25,  this.context.canvas.width/3 , 25);
@@ -106,9 +106,16 @@ Player.prototype = {
 			this.mana = 100;
 		}
 
-		if (100 > this.mana ) {
-			this.mana += .02;
-		} 
+		if (100 > this.mana) this.mana += .02;
+		if (this.potion) { 
+			if (100 > this.hp) this.hp += 1;
+			this.potion--;
+		}
+		if ( this.hastePower) {
+			if (+new Date() > this.hastePower) this.hastePower = undefined;
+		} else {
+			this.spritesheet.intervalo = 75;
+		}
 	},
 
 	atirar: function () {
@@ -141,12 +148,19 @@ Player.prototype = {
 
    	haste: function () {
    		if (this.mana >= 75) {
-   			this.context.assets.sons.haste.currentTime = 0.0;
-			this.context.assets.sons.haste.play();
-			this.context.assets.sons.speedMagic.currentTime = 0.0;
-			this.context.assets.sons.speedMagic.play();
+   			this.hastePower = +new Date() + 10000;
+   			this.context.assets.sprites.push(new Magic(this.context, this.context.assets.imagens.hasteMagic, {linhas: 6, colunas: 5} , this.context.assets.sons.hasteMagic, this.position, 120));
 	   		this.spritesheet.intervalo = this.spritesheet.intervalo/2;
 	   		this.mana -= 75;
    		}
+   	},
+
+   	heal: function () {
+   		if (this.mana >= 50) {
+   			this.context.assets.sprites.push(new Magic(this.context, this.context.assets.imagens.healMagic, {linhas: 4, colunas: 5} , this.context.assets.sons.healMagic, this.position));
+			this.potion = 50;
+	   		this.mana -= 50;
+   		}
    	}
+
 };

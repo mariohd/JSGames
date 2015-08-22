@@ -9,6 +9,7 @@ var A = 65;
 var S = 83;
 var D = 68;
 var ENTER = 13;
+var NUM1 = 49, NUM2 = 50, NUM3 = 51, NUM4 = 52;
 
 function Teclado(elemento) {
    this.elemento = elemento;

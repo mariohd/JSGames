@@ -30,9 +30,13 @@ Spritesheet.prototype = {
       }
       else {
          this.coluna = 0;
+         if (this.multiline && this.numLinhas > this.linha) {
+            this.linha++;
+         } else {
+             // Avisar que acabou um ciclo!
+            if (this.fimDoCiclo) this.fimDoCiclo();
+         } 
          
-         // Avisar que acabou um ciclo!
-         if (this.fimDoCiclo) this.fimDoCiclo();
       }
 
       // Guardar hora da última mudança
