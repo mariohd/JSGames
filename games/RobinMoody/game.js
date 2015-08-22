@@ -11,16 +11,17 @@
 			flechasDireita: 'arrow_right.png',
 			hud: 'robinMoody-face.png',
 			healMagic: 'heal_magic.png',
-			hasteMagic: 'haste_magic.png'
-
+			hasteMagic: 'haste_magic.png',
+			fireball: 'fireball.png',
+			heal: 'heal.png',
+			haste: 'haste.png'
 		},
 		sons: {
+			theme: 'mainTheme.ogg',
 			atirar: 'disparo.mp3',
 			dano: 'dano.mp3',
-			haste: 'haste.mp3',
 			hasteMagic: 'haste-magic.mp3',
 			healMagic: 'heal.mp3'
-
 		},
 		sprites: []
 	};
@@ -95,6 +96,9 @@
 			canvasConfig();
 			startGame();
 			loop();
+			assets.sons.theme.volume = .2;
+			assets.sons.theme.loop = true;
+			assets.sons.theme.play();
 			document.removeEventListener("touchstart", iniciar, false);
 			document.addEventListener("touchstart", mobileVersion.bind(evento), false);
 		} else {

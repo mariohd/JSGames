@@ -23,7 +23,7 @@ function Player(context, imagem) {
 	this.direcao = comandos.ataques.arco.FRENTE;
 	this.spritesheet = new Spritesheet(context, imagem, 21, 13, 13);
 	this.spritesheet.linha = this.direcao;
-	this.velocidadeNormal = 50;
+	this.velocidadeNormal = 70;
 	this.spritesheet.intervalo = this.velocidadeNormal;
 	this.position = {x: context.canvas.width/2 - this.spritesheet.tamanho.largura/2 , y: context.canvas.height/2 - this.spritesheet.tamanho.altura/2 };
 	this.atirando = false;
@@ -44,12 +44,12 @@ Player.prototype = {
 		this.context.save();
 		this.context.shadowOff();
 		this.context.fillStyle = "rgba(200, 15, 15, 0.9)";
-		this.context.fillRect(this.context.canvas.width/10, this.context.canvas.height/10,  (this.hp/100) * this.context.canvas.width/3 , 25);
-		this.context.strokeRect(this.context.canvas.width/10, this.context.canvas.height/10,  this.context.canvas.width/3 , 25);
+		this.context.fillRect(this.context.canvas.width/9, this.context.canvas.height/13,  (this.hp/100) * this.context.canvas.width/3 , 25);
+		this.context.strokeRect(this.context.canvas.width/9, this.context.canvas.height/13,  this.context.canvas.width/3 , 25);
 
 		this.context.fillStyle = "rgba(15, 15, 200, 0.7)";
-		this.context.fillRect(this.context.canvas.width/10, this.context.canvas.height/10 + 25,  (this.mana/100) * this.context.canvas.width/3 , 25);
-		this.context.strokeRect(this.context.canvas.width/10, this.context.canvas.height/10 + 25,  this.context.canvas.width/3 , 25);
+		this.context.fillRect(this.context.canvas.width/9, this.context.canvas.height/13 + 25,  (this.mana/100) * this.context.canvas.width/3 , 25);
+		this.context.strokeRect(this.context.canvas.width/9, this.context.canvas.height/13 + 25,  this.context.canvas.width/3 , 25);
 
 		this.context.drawImage(this.context.assets.imagens.hud, 30, 20, this.context.assets.imagens.hud.width/2, this.context.assets.imagens.hud.height/2);
 
@@ -58,6 +58,23 @@ Player.prototype = {
 		this.context.fillText("x" + this.vidas, this.context.assets.imagens.hud.width/2 - 30, this.context.assets.imagens.hud.height/2 + 20);
 		this.context.strokeText("x" + this.vidas, this.context.assets.imagens.hud.width/2 - 30, this.context.assets.imagens.hud.height/2 + 20);
 
+		if ( 50 > this.mana) {
+			this.context.globalAlpha=.5;
+		}
+		this.context.drawImage(this.context.assets.imagens.heal, this.context.canvas.width/9, this.context.canvas.height/6, this.context.assets.imagens.heal.height/1.3, this.context.assets.imagens.heal.height/1.3);
+		this.context.globalAlpha=1;
+
+		if (this.hastePower || 60 > this.mana ) {
+			this.context.globalAlpha=.5;
+		}
+		this.context.drawImage(this.context.assets.imagens.haste, this.context.canvas.width/9 + (this.context.assets.imagens.heal.width/1.3) * 1.1 , this.context.canvas.height/6, this.context.assets.imagens.haste.height/1.3, this.context.assets.imagens.haste.height/1.3);
+		this.context.globalAlpha=1;
+
+		if (this.hastePower || 70 > this.mana ) {
+			this.context.globalAlpha=.5;
+		}
+		this.context.drawImage(this.context.assets.imagens.fireball, this.context.canvas.width/9 + (this.context.assets.imagens.heal.width/1.3) * 2.175, this.context.canvas.height/6, this.context.assets.imagens.fireball.height/1.3, this.context.assets.imagens.fireball.height/1.3);
+		this.context.globalAlpha=1;
 		this.context.restore();
 	},
 
@@ -148,11 +165,11 @@ Player.prototype = {
    	},
 
    	haste: function () {
-   		if (this.mana >= 75) {
+   		if ( this.mana >= 60) {
    			this.hastePower = +new Date() + 10000;
    			this.context.assets.sprites.push(new Magic(this.context, this.context.assets.imagens.hasteMagic, {linhas: 6, colunas: 5} , this.context.assets.sons.hasteMagic, this.position, 120));
 	   		this.spritesheet.intervalo = this.spritesheet.intervalo/2;
-	   		this.mana -= 75;
+	   		this.mana -= 60;
    		}
    	},
 
