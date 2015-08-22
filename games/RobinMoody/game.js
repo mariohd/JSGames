@@ -13,7 +13,10 @@
 		},
 		sons: {
 			atirar: 'disparo.mp3',
-			dano: 'dano.mp3'
+			dano: 'dano.mp3',
+			haste: 'haste.mp3',
+			speedMagic: 'haste-magic.mp3'
+
 		},
 		sprites: []
 	};
@@ -31,7 +34,7 @@
 	var player;
 
 	function canvasConfig() {
-      context.shadowColor = 'rgba(68, 68, 68, 0.55)';
+      //context.shadowColor = 'rgba(68, 68, 68, 0.55)';
       context.shadowBlur = 3;
       context.shadowOffsetX = 10;
       context.shadowOffsetY = 3;
@@ -135,6 +138,12 @@
 			e.preventDefault();
 		});
 
+		teclado.disparou(W, function (e) {
+			if (pausa) return;
+			p.haste();
+			e.preventDefault();
+		});
+
 	};
 
 	function jogoPausado() {
@@ -167,9 +176,11 @@
          	}
          	var novos = [], colisores = [];
          	for (var sprite of assets.sprites) {
-				if (! sprite.excluir) {
+				if (! sprite.excluir ) {
 					novos.push(sprite);
 					colisores.push(sprite);
+				} else {
+					delete sprite;
 				}
          	}
          	assets.sprites = novos;

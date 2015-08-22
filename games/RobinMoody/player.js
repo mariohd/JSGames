@@ -29,6 +29,7 @@ function Player(context, imagem) {
 	this.context = context;
 	this.hp = 100;
 	this.vidas = 3;
+	this.mana = 100;
 	this.mobile = mobilecheck();
 };
 
@@ -41,15 +42,21 @@ Player.prototype = {
 	hud: function () {
 		this.context.save();
 		this.context.shadowOff();
-		this.context.drawImage(this.context.assets.imagens.hud, 20, 20);
-		this.context.font ='80px PiecesOfEight';
-		this.context.fillStyle = "green";
-		if (50 >= this.hp) this.context.fillStyle = "gold";
-		if (25 >= this.hp) this.context.fillStyle = "red";
-		this.context.strokeStyle = "black";
-	    this.context.textAlign = 'center';
-		this.context.fillText(this.hp + "", 100, 260);
-		this.context.strokeText(this.hp+ "", 100, 260);
+		this.context.fillStyle = "rgba(200, 15, 15, 0.9)";
+		this.context.fillRect(this.context.canvas.width/10, this.context.canvas.height/10,  (this.hp/100) * this.context.canvas.width/3 , 25);
+		this.context.strokeRect(this.context.canvas.width/10, this.context.canvas.height/10,  this.context.canvas.width/3 , 25);
+		
+		this.context.fillStyle = "rgba(15, 15, 200, 0.7)";
+		this.context.fillRect(this.context.canvas.width/10, this.context.canvas.height/10 + 25,  (this.mana/100) * this.context.canvas.width/3 , 25);
+		this.context.strokeRect(this.context.canvas.width/10, this.context.canvas.height/10 + 25,  this.context.canvas.width/3 , 25);
+
+		this.context.drawImage(this.context.assets.imagens.hud, 30, 20, this.context.assets.imagens.hud.width/2, this.context.assets.imagens.hud.height/2);
+
+		this.context.fillStyle = "gold";
+		this.context.font ='50px PiecesOfEight';
+		this.context.fillText("x" + this.vidas, this.context.assets.imagens.hud.width/2 - 30, this.context.assets.imagens.hud.height/2 + 20);
+		this.context.strokeText("x" + this.vidas, this.context.assets.imagens.hud.width/2 - 30, this.context.assets.imagens.hud.height/2 + 20);
+
 		this.context.restore();
 	},
 
@@ -93,6 +100,15 @@ Player.prototype = {
 				this.context.colisor.sprites.push(f);
 			}.bind(this));
 		}
+		if (0 >= this.hp) {
+			this.vidas -- ;
+			this.hp = 100;
+			this.mana = 100;
+		}
+
+		if (100 > this.mana ) {
+			this.mana += .02;
+		} 
 	},
 
 	atirar: function () {
@@ -121,5 +137,16 @@ Player.prototype = {
   	},
 
   	colidiuCom: function(outro) {
-   }
+   	},
+
+   	haste: function () {
+   		if (this.mana >= 75) {
+   			this.context.assets.sons.haste.currentTime = 0.0;
+			this.context.assets.sons.haste.play();
+			this.context.assets.sons.speedMagic.currentTime = 0.0;
+			this.context.assets.sons.speedMagic.play();
+	   		this.spritesheet.intervalo = this.spritesheet.intervalo/2;
+	   		this.mana -= 75;
+   		}
+   	}
 };

@@ -99,6 +99,7 @@ Enemy.prototype = {
       	if (! this.atacando ) {
       		this.atacando = true;
 	      	this.spritesheet.intervalo = 150;
+	      	this.spritesheet.coluna = 0;
 			this.spritesheet.usar = 6;
 	      	this.direcao = this.caminho.ataque;
 	      	this.spritesheet.fimDoCiclo = function () {
