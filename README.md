@@ -17,7 +17,9 @@ List of Games
 =======
 * MiniRacer
 * Maze Escape
-* Azure Star (working on it!)
+* Azure Star
+* TicTacBred
+* Robin Moody (Working on it!)
 
 Help and Learning
 =======
