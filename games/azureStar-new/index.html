@@ -58,6 +58,9 @@
 		    background: -o-linear-gradient(top, lightgray , white); /* For Opera 11.1 to 12.0 */
 		    background: -moz-linear-gradient(top, lightgray , white); /* For Firefox 3.6 to 15 */
 		    background: linear-gradient(to bottom, lightgray , white); /* Standard syntax (must be last) */
+		}
+
+		.body-replacement {
 		    text-align: center;
 		}
 
@@ -178,50 +181,67 @@
 	      border: 1px solid #b4dbed;
 		}
 
+		.credits {
+			float: right;
+			margin-right: 5%; 
+		}
+		.project {
+			margin-left: 5%; 
+		}
+		a {
+			font-size: 1.2em;
+		    text-align: left !important;
+		}
 	</style>
 	<body>
-		<div id="canvas-container">	
-			<div class="hud">
-	    		<span id="lifeCounter" class="lifes guardians">
-	    			<img src="img/ship.png" width="32" height="32"> x <span id="counter">3</span>
-	    		</span>
-			    <span id="scoreCounter" class="scoreCounter guardians">0000000</span>
-			    <span id="timeCounter" class="time guardians">00:00</span>
-			</div>
-			<canvas id="game-canvas" width="1000" height="600" tabindex="1">
-				Your browser does not support HTML5 Canvas. 
-			</canvas>
-			<div class="volume">
-				<img src="img/som.png" height="32" width="32">
-				<input type="range" id="song-volume" value="30">
-			</div>
-			<a id="bug-report" class="link bug-report" href="#" >Report a bug</a>
+		<div>
+			<a class="project" target="_blank" href="http://mariohd.github.io/JSGames/">JsGames Project</a>
+			<a class="credits" target="_blank" href="https://github.com/mariohd">Developed By Mario HD</a>
 		</div>
-		<span class="guardians"><h2>Ranking</h2></span>
-		<div style="width: 80%; margin: 0 auto;">
-			<table id="azureRanking">
-				<thead>
-					<th>pos.</th>
-					<th>Player</th>
-					<th>Pts.</th>
-					<th>Date</th>
-					<th>Country</th>
-				</thead>
-				<tbody>
-					<tr>
-						<td colspan="5">Carregando ... </td>
-					</tr>
-				</tbody>
-			</table>
+		<div class="body-replacement">
+			<div id="canvas-container">	
+				<div class="hud">
+		    		<span id="lifeCounter" class="lifes guardians">
+		    			<img src="img/ship.png" width="32" height="32"> x <span id="counter">3</span>
+		    		</span>
+				    <span id="scoreCounter" class="scoreCounter guardians">0000000</span>
+				    <span id="timeCounter" class="time guardians">00:00</span>
+				</div>
+				<canvas id="game-canvas" width="1000" height="600" tabindex="1">
+					Your browser does not support HTML5 Canvas. 
+				</canvas>
+				<div class="volume">
+					<img src="img/som.png" height="32" width="32">
+					<input type="range" id="song-volume" value="30">
+				</div>
+				<a id="bug-report" class="link bug-report" href="#" >Report a bug</a>
+			</div>
+			<span class="guardians"><h2>Ranking</h2></span>
+			<div style="width: 80%; margin: 0 auto;">
+				<table id="azureRanking">
+					<thead>
+						<th>pos.</th>
+						<th>Player</th>
+						<th>Pts.</th>
+						<th>Date</th>
+						<th>Country</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="5">Carregando ... </td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<span class="guardians"><h2>How to play</h2></span>
+			<img src="img/comandos.png">
+			<span class="guardians"><h2>Credits</h2></span>
+			<footer>
+				Loading-Track Name: "Dragon Warrior"<br>
+				Composed by: Marcus Dellicompagni <br>
+				Website: www.PoundSound.co.uk <br>
+			</footer>
 		</div>
-		<span class="guardians"><h2>How to play</h2></span>
-		<img src="img/comandos.png">
-		<span class="guardians"><h2>Credits</h2></span>
-		<footer>
-			Loading-Track Name: "Dragon Warrior"<br>
-			Composed by: Marcus Dellicompagni <br>
-			Website: www.PoundSound.co.uk <br>
-		</footer>
 	</body>
 	<script src="ranking.js"></script>
 	<script src="animacao.js"></script>
