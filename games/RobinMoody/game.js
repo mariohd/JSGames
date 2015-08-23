@@ -35,13 +35,18 @@
 	};
 	var ultimoInimigo = new Date();
 	var pausa = false, comecou = false, gameName = "Robin\nMoody!";
-	var teclado = new Teclado(document), start = 2000;
-	var player;
+	var teclado = new Teclado(document), start = 2000, player;
+
+	var remoteData = new RemoteData(
+		"pgKpGopbcKDtDIU2GpDaPxcUNae97i2HXSH8SyeG", 
+		"1UJYXBiViW1bx8F7Ds8Cdn5AVQ8BGNpl2Kz9eLPo");
+
+	var lastRun = new Date().getTime();
 
 	function canvasConfig() {
-      //context.shadowColor = 'rgba(68, 68, 68, 0.55)';
-      context.shadowBlur = 3;
-      context.shadowOffsetX = 10;
+      context.shadowColor = 'rgba(68, 68, 68, 0.55)';
+      context.shadowBlur = 5;
+      context.shadowOffsetX = 8;
       context.shadowOffsetY = 3;
 	};
 
@@ -185,6 +190,9 @@
 		requestAnimationFrame(function() {
 			if (pausa) return;
 			context.clearRect(0,0,canvas.width,canvas.height);
+
+			fpsCounter();
+
          	colisor.processar();
 			for (var sprite of assets.sprites) {
 				sprite.atualizar();
@@ -204,6 +212,15 @@
 			generateEnemies();
 			loop();
       	});
+	};
+
+	function fpsCounter() {
+		context.save();
+		context.shadowOff();
+		var delta = (new Date().getTime() - lastRun)/1000;
+        lastRun = new Date().getTime();
+        context.fillText((1/delta).toPrecision(3) + " fps", canvas.width - 40, 20);
+        context.restore();
 	};
 
 	function generateEnemies() {

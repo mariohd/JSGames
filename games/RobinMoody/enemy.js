@@ -21,7 +21,7 @@ var caminhos = {
 	},
 	topo: {
 		position: function (context, enemy) {
-			return {x: context.canvas.width/2 - enemy.spritesheet.tamanho.largura/2, y: 0 }
+			return {x: context.canvas.width/2 - enemy.spritesheet.tamanho.largura/2, y: 0 - enemy.spritesheet.tamanho.altura }
 		},
 		atualizar: function (enemy) {
 			if (! enemy.atacando) enemy.position.y += 1;
@@ -60,7 +60,7 @@ function Enemy (context, imagem) {
 	this.direcao = this.caminho.direcao;
 	this.spritesheet = new Spritesheet(context, imagem, 21, 13, 9);
 	this.spritesheet.linha = this.direcao;
-	this.spritesheet.intervalo = 75;
+	this.spritesheet.intervalo = 70;
 	this.position = this.caminho.position(context, this);
 	this.context = context;
 }

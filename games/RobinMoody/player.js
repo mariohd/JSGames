@@ -75,6 +75,7 @@ Player.prototype = {
 		}
 		this.context.drawImage(this.context.assets.imagens.fireball, this.context.canvas.width/9 + (this.context.assets.imagens.heal.width/1.3) * 2.175, this.context.canvas.height/6, this.context.assets.imagens.fireball.height/1.3, this.context.assets.imagens.fireball.height/1.3);
 		this.context.globalAlpha=1;
+
 		this.context.restore();
 	},
 
