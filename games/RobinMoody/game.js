@@ -14,7 +14,8 @@
 			hasteMagic: 'haste_magic.png',
 			fireball: 'fireball.png',
 			heal: 'heal.png',
-			haste: 'haste.png'
+			haste: 'haste.png',
+			skeleton_kit: 'skeleton-kit.png'
 		},
 		sons: {
 			theme: 'mainTheme.ogg',
@@ -33,6 +34,8 @@
 		this.shadowOffsetX = 0;
 		this.shadowOffsetY = 0;
 	};
+	context.gameOver = false;
+
 	var ultimoInimigo = new Date();
 	var pausa = false, comecou = false, gameName = "Robin\nMoody!";
 	var teclado = new Teclado(document), start = 2000, player;
@@ -54,14 +57,6 @@
 	function load() {
 		var totalMidia = 0, carregadas = 0;
 
-		for (var i in assets.imagens) {
-		  var img = new Image();
-		  img.src = 'imagens/' + assets.imagens[i];
-		  img.onload = loadingGame;
-		  totalMidia++;
-		  assets.imagens[i] = img;
-		}
-
 		for (var i in assets.sons) {
 	      var snd = new Audio();
 	      snd.src = 'sons/' + assets.sons[i];
@@ -70,7 +65,15 @@
 	      totalMidia++;
 	      
 	      assets.sons[i] = snd;
-	   }
+		}
+
+		for (var i in assets.imagens) {
+		  var img = new Image();
+		  img.src = 'imagens/' + assets.imagens[i];
+		  img.onload = loadingGame;
+		  totalMidia++;
+		  assets.imagens[i] = img;
+		}
 
 		function loadingGame() {
 			context.save();
@@ -107,60 +110,71 @@
 			document.removeEventListener("touchstart", iniciar, false);
 			document.addEventListener("touchstart", mobileVersion.bind(evento), false);
 		} else {
-			pausa = ! pausa;
-			if (! pausa) {
-				assets.sons.theme.play();
+			if (context.gameOver) {
+				assets.sprites = assets.sprites.filter(function (f) {
+					return f instanceof Player;
+				});
+				player.hp = 100;
+				player.mana = 100;
+				player.vidas = 3;
+				context.gameOver = false;
 				loop();
 			} else {
-				jogoPausado();
+				pausa = ! pausa;
+				if (! pausa) {
+					assets.sons.theme.play();
+					loop();
+				} else {
+					jogoPausado();
+				}
 			}
 		}
 	};
 
 	function mobileVersion(evento) {
-		evento.touches[0].pageX > window.innerWidth/2 ? p.direcao = comandos.ataques.arco.DIREITA : p.direcao = comandos.ataques.arco.ESQUERDA;							
+		evento.touches[0].pageX > window.innerWidth/2 ? player.direcao = comandos.ataques.arco.DIREITA : player.direcao = comandos.ataques.arco.ESQUERDA;
 	};
 
 	function startGame() {
-		p = new Player(context, assets.imagens.player);
-		assets.sprites.push(p);
+		player = new Player(context, assets.imagens.player);
+		assets.sprites.push(player);
 		generateEnemies();
 
 		teclado.disparou(SETA_ESQUERDA, function () {
-			if (pausa) return;
-			p.direcao = comandos.ataques.arco.ESQUERDA;
+			if (pausa || context.gameOver) return;
+			player.direcao = comandos.ataques.arco.ESQUERDA;
 		});
 
 		teclado.disparou(SETA_ACIMA, function () {
-			if (pausa) return;
-			p.direcao = comandos.ataques.arco.COSTAS;
+			if (pausa || context.gameOver) return;
+			player.direcao = comandos.ataques.arco.COSTAS;
 		});
 
 		teclado.disparou(SETA_ABAIXO, function () {
-			if (pausa) return;
-			p.direcao = comandos.ataques.arco.FRENTE;
+			if (pausa || context.gameOver) return;
+			player.direcao = comandos.ataques.arco.FRENTE;
 		});
 
 		teclado.disparou(SETA_DIREITA, function () {
-			if (pausa) return;
-			p.direcao = comandos.ataques.arco.DIREITA;
+			if (pausa || context.gameOver) return;
+			player.direcao = comandos.ataques.arco.DIREITA;
 		});
 
 		teclado.disparou(ESPACO, function (e) {
-			if (pausa) return;
-			p.atirar();
+			if (pausa || context.gameOver) return;
+			player.atirar();
 			e.preventDefault();
 		});
 
 		teclado.disparou(NUM1, function (e) {
-			if (pausa) return;
-			p.heal();
+			if (pausa || context.gameOver) return;
+			player.heal();
 			e.preventDefault();
 		});
 
 		teclado.disparou(NUM2, function (e) {
-			if (pausa) return;
-			p.haste();
+			if (pausa || context.gameOver) return;
+			player.haste();
 			e.preventDefault();
 		});
 
@@ -170,6 +184,13 @@
 		drawText("paused", {x: canvas.width/2, y: canvas.height/2});
 		assets.sons.theme.pause();
 	};
+
+	function gameOver() {
+		context.drawImage(assets.imagens.skeleton_kit, canvas.width/2 - assets.imagens.skeleton_kit.width/2, canvas.height/1.8 - assets.imagens.skeleton_kit.height * 3/4 );
+		drawText("Game Over", {x: canvas.width/2, y: canvas.height * 3/8});
+		drawText("You added a new enemy skeleton!", {x: canvas.width/2, y: canvas.height * 5/8}, '4em PiecesOfEight');
+		drawText("Press Enter to restart", {x: canvas.width/2, y: canvas.height * 7/8}, '4em PiecesOfEight');
+	}
 
 	function drawText(string, location, font) {
 		var lines = string.split("\n");
@@ -189,6 +210,11 @@
 	function loop() {
 		requestAnimationFrame(function() {
 			if (pausa) return;
+			if (context.gameOver) {
+				gameOver();
+				return;
+			}
+
 			context.clearRect(0,0,canvas.width,canvas.height);
 
 			fpsCounter();

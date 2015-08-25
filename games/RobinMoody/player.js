@@ -120,9 +120,8 @@ Player.prototype = {
 			}.bind(this));
 		}
 		if (0 >= this.hp) {
-			this.vidas -- ;
-			this.hp = 100;
-			this.mana = 100;
+			this.hp = 0;
+			this.morreu();
 		}
 
 		if (100 > this.mana) this.mana += .02;
@@ -179,7 +178,22 @@ Player.prototype = {
    			this.context.assets.sprites.push(new Magic(this.context, this.context.assets.imagens.healMagic, {linhas: 4, colunas: 5} , this.context.assets.sons.healMagic, this.position));
 			this.potion = 50;
 	   		this.mana -= 50;
-   		}
+		}
+	},
+
+	morreu: function () {
+		if (this.vidas > 0) {
+			this.context.assets.sprites.map(function (f) {
+				if(f instanceof Enemy) {
+					f.morrer();
+				}
+			});
+			this.hp = 100;
+			this.mana = 100;
+			this.vidas -- ;
+		} else {
+			this.context.gameOver = true;
+		}
    	}
 
 };
