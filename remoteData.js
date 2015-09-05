@@ -8,7 +8,7 @@ function RemoteData(appKey, jsKey) {
 RemoteData.defaults = {
 	options: {
 		success: function() {},
-		error: function() {
+		error: function(error) {
 			console.log("Error: ", error.code, error.message);
 		}
 	}
@@ -18,8 +18,8 @@ RemoteData.prototype = {
 	get: function (from, options) {
 		options = this._extend(RemoteData.defaults.options, options);
 		var Table = Parse.Object.extend(from);
-		var table = new Table();
-		table.find({
+		var query = new Parse.Query(Table);
+		query.find({
 			success: options.success,
 			error: options.error
 		});

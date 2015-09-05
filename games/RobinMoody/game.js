@@ -15,7 +15,8 @@
 			fireball: 'fireball.png',
 			heal: 'heal.png',
 			haste: 'haste.png',
-			skeleton_kit: 'skeleton-kit.png'
+			skeleton_kit: 'skeleton-kit.png',
+			skull: 'skull.png'
 		},
 		sons: {
 			theme: 'mainTheme.ogg',
@@ -44,6 +45,9 @@
 		"pgKpGopbcKDtDIU2GpDaPxcUNae97i2HXSH8SyeG", 
 		"1UJYXBiViW1bx8F7Ds8Cdn5AVQ8BGNpl2Kz9eLPo");
 
+	context.skulls = Number.POSITIVE_INFINITY;
+	context.deadSkulls = 0;
+
 	var lastRun = new Date().getTime();
 
 	function canvasConfig() {
@@ -55,7 +59,7 @@
 
 
 	function load() {
-		var totalMidia = 0, carregadas = 0;
+		var totalMidia = 1, carregadas = 0;
 
 		for (var i in assets.sons) {
 	      var snd = new Audio();
@@ -74,6 +78,13 @@
 		  totalMidia++;
 		  assets.imagens[i] = img;
 		}
+
+		remoteData.robinMoody.getSkulls(function (value) {
+			context.skulls = value.get('amount');
+			context.releasedSkulls = value.get('amount');
+			loadingGame();
+			context.skullsObject = value;
+		});
 
 		function loadingGame() {
 			context.save();
@@ -117,6 +128,9 @@
 				player.hp = 100;
 				player.mana = 100;
 				player.vidas = 3;
+				context.skulls++;
+				context.deadSkulls = 0;
+				context.releasedSkulls = context.skulls;
 				context.gameOver = false;
 				loop();
 			} else {
@@ -186,11 +200,18 @@
 	};
 
 	function gameOver() {
+		remoteData.robinMoody.addNewSkull(context.skullsObject);
 		context.drawImage(assets.imagens.skeleton_kit, canvas.width/2 - assets.imagens.skeleton_kit.width/2, canvas.height/1.8 - assets.imagens.skeleton_kit.height * 3/4 );
 		drawText("Game Over", {x: canvas.width/2, y: canvas.height * 3/8});
 		drawText("You added a new enemy skeleton!", {x: canvas.width/2, y: canvas.height * 5/8}, '4em PiecesOfEight');
 		drawText("Press Enter to restart", {x: canvas.width/2, y: canvas.height * 7/8}, '4em PiecesOfEight');
-	}
+	};
+
+	function victory() {
+		context.drawImage(assets.imagens.skeleton_kit, canvas.width/2 - assets.imagens.skeleton_kit.width/2, canvas.height/1.8 - assets.imagens.skeleton_kit.height * 3/4 );
+		drawText("Victory!", {x: canvas.width/2, y: canvas.height * 3/8});
+		drawText("Press Enter to restart", {x: canvas.width/2, y: canvas.height * 7/8}, '4em PiecesOfEight');
+	};
 
 	function drawText(string, location, font) {
 		var lines = string.split("\n");
@@ -215,7 +236,16 @@
 				return;
 			}
 
+			if (context.deadSkulls == context.skulls) {
+				skullsCounter();
+				victory();
+				context.gameOver = true;
+				return;
+			}
+
 			context.clearRect(0,0,canvas.width,canvas.height);
+
+			skullsCounter();
 
 			fpsCounter();
 
@@ -253,12 +283,21 @@
 		var agora = new Date();
         if (agora - ultimoInimigo < start) return;
 		if (start > 1000 ) start -= 50;
+		if (! context.releasedSkulls) return;
+		context.releasedSkulls --;
         ultimoInimigo = agora;
 		var enemy = new Enemy(context, assets.imagens.skeleton);
 		assets.sprites.push(enemy);
 		colisor.sprites.push(enemy);
-	}
+	};
+
+	function skullsCounter() {
+		context.save();
+		context.shadowOff();
+		context.clearRect(canvas.width - 200, 50, canvas.width - 90, (assets.imagens.skull.height) + 40 );
+		context.drawImage(assets.imagens.skull, canvas.width - 200, 50);
+		drawText('x ' + (context.skulls - context.deadSkulls), { x: canvas.width - 90, y: (assets.imagens.skull.height) + 40 }, '50px PiecesOfEight');
+		context.restore();
+	};
 	load();
-
-
 })(document);

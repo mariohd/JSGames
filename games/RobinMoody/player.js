@@ -29,7 +29,7 @@ function Player(context, imagem) {
 	this.atirando = false;
 	this.context = context;
 	this.hp = 100;
-	this.vidas = 3;
+	this.vidas = 2;
 	this.mana = 100;
 	this.mobile = mobilecheck();
 };
@@ -70,7 +70,7 @@ Player.prototype = {
 		this.context.drawImage(this.context.assets.imagens.haste, this.context.canvas.width/9 + (this.context.assets.imagens.heal.width/1.3) * 1.1 , this.context.canvas.height/6, this.context.assets.imagens.haste.height/1.3, this.context.assets.imagens.haste.height/1.3);
 		this.context.globalAlpha=1;
 
-		if (this.hastePower || 70 > this.mana ) {
+		if (true || 70 > this.mana ) {
 			this.context.globalAlpha=.5;
 		}
 		this.context.drawImage(this.context.assets.imagens.fireball, this.context.canvas.width/9 + (this.context.assets.imagens.heal.width/1.3) * 2.175, this.context.canvas.height/6, this.context.assets.imagens.fireball.height/1.3, this.context.assets.imagens.fireball.height/1.3);
