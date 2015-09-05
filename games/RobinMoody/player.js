@@ -29,7 +29,7 @@ function Player(context, imagem) {
 	this.atirando = false;
 	this.context = context;
 	this.hp = 100;
-	this.vidas = 3;
+	this.vidas = 2;
 	this.mana = 100;
 	this.mobile = mobilecheck();
 };

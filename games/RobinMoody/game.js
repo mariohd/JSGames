@@ -80,9 +80,10 @@
 		}
 
 		remoteData.robinMoody.getSkulls(function (value) {
-			context.skulls = value;
-			context.releasedSkulls = value;
+			context.skulls = value.get('amount');
+			context.releasedSkulls = value.get('amount');
 			loadingGame();
+			context.skullsObject = value;
 		});
 
 		function loadingGame() {
@@ -127,6 +128,7 @@
 				player.hp = 100;
 				player.mana = 100;
 				player.vidas = 3;
+				context.skulls++;
 				context.deadSkulls = 0;
 				context.releasedSkulls = context.skulls;
 				context.gameOver = false;
@@ -198,6 +200,7 @@
 	};
 
 	function gameOver() {
+		remoteData.robinMoody.addNewSkull(context.skullsObject);
 		context.drawImage(assets.imagens.skeleton_kit, canvas.width/2 - assets.imagens.skeleton_kit.width/2, canvas.height/1.8 - assets.imagens.skeleton_kit.height * 3/4 );
 		drawText("Game Over", {x: canvas.width/2, y: canvas.height * 3/8});
 		drawText("You added a new enemy skeleton!", {x: canvas.width/2, y: canvas.height * 5/8}, '4em PiecesOfEight');
