@@ -116,6 +116,7 @@ Enemy.prototype = {
 	this.spritesheet.coluna = 0;
 	this.spritesheet.usar = 6;
 	this.spritesheet.fimDoCiclo = function () {
+		this.context.deadSkulls++;
 		this.excluir = true;
 	}.bind(this);
    }
