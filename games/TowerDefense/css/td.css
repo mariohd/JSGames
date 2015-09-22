@@ -1,0 +1,58 @@
+#td-canvas {
+	background: url(../assets/images/map.png);
+	background-size: cover;
+}
+
+.center {
+	margin: 0 auto;
+	display: block;
+}
+
+#hud {
+	height: 5em;
+	background-color: lightgray;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+
+#hud > * {
+	display: inline-block;
+}
+
+.square {
+	width: 6.5em;
+	height: 100%;
+	text-align: center;
+}
+
+.hero {
+	font-size: 15px;
+	display: inline-block;
+}
+
+.value {
+	font-size: 25px;
+	margin: .5em auto;
+}
+
+.hero > p {
+	margin: 1px 1px;
+}
+
+.grow { 
+	transition: all .15s ease-in-out; 
+}
+
+.grow:hover { 
+	border-left: .2em solid;
+	border-right: .2em solid;
+	border-radius: 1.5em;
+}
+
+.selected {
+	border-left: .2em solid;
+	border-right: .2em solid;
+	border-radius: 1.5em;
+	background-color: rgba(255, 102, 0, 0.38);
+}
