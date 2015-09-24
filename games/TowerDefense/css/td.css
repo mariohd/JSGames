@@ -1,6 +1,6 @@
 #td-canvas {
 	background: url(../assets/images/map.png);
-	background-size: cover;
+	background-size: 100% 100%;
 }
 
 .center {
@@ -55,4 +55,22 @@
 	border-right: .2em solid;
 	border-radius: 1.5em;
 	background-color: rgba(255, 102, 0, 0.38);
+}
+
+.heart {
+	font-size: 25px;
+	color: #B71010;
+}
+
+.attack {
+	font-size: 25px;
+	color: lightgray;
+}
+
+.armor {
+	font-size: 25px;
+}
+
+.skill {
+	font-size: 13px;
 }

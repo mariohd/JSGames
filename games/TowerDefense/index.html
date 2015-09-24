@@ -1,5 +1,6 @@
 <html>
 	<link rel="stylesheet" type="text/css" href="css/td.css">
+	<link href="css/tooltip/tooltip.css" rel="stylesheet" type="text/css" />
 	<body>
 		<div id="game-div" class="center">
 			<canvas id="td-canvas"></canvas>
@@ -13,34 +14,120 @@
 					<p>Battle Points</p>
 				</div>
 				<div class="heroes">
-					<div class="hero square grow">
+					<div id="archer" class="hero square grow">
 						<img src="assets/icons/archer.png">
 						<p class="name">Archer</p>
+						<div style="display: none;">
+							<div id="archer-tooltip">
+							    <div class="column">
+							    	<h1>Archer</h1>            
+							        <span class="heart">&hearts;</span> : 5<br />
+							       	<span class="armor">&#9881;</span> : 5<br /> 
+   							        <span class="attack">&#9876;</span> : 3<br />
+							        <span class="skill">&#9889;</span> : 10% change of<br />double damage <br />
+							    </div>
+							    <div class="column">
+							        <img src="assets/icons/archer.png" style="width:75px;height:75px;" alt="" />  
+							    </div>  
+							</div>
+						</div>
 					</div>
-					<div class="hero square grow">
+					<div id="swordmen" class="hero square grow">
 						<img src="assets/icons/swordmen.png">
 						<p class="name">Swordmen</p>
+						<div style="display: none;">
+							<div id="swordmen-tooltip">
+							    <div class="column">
+							    	<h1>Swordmen</h1>            
+							        <span class="heart">&hearts;</span> : 6<br />
+							       	<span class="armor">&#9881;</span> : 8<br /> 
+   							        <span class="attack">&#9876;</span> : 5<br />
+							        <span class="skill">&#9889;</span> : Attack 10% faster<br />
+							    </div>
+							    <div class="column">
+							        <img src="assets/icons/swordmen.png" style="width:75px;height:75px;" alt="" />  
+							    </div>  
+							</div>
+						</div>
 					</div>
-					<div class="hero square grow">
+					<div id="pikemen" class="hero square grow">
 						<img src="assets/icons/pikemen.png">
 						<p class="name">Pikemen</p>
+						<div style="display: none;">
+							<div id="pikemen-tooltip">
+							    <div class="column">
+							    	<h1>Pikemen</h1>            
+							        <span class="heart">&hearts;</span> : 7<br />
+							       	<span class="armor">&#9881;</span> : 5<br /> 
+   							        <span class="attack">&#9876;</span> : 7<br />
+							        <span class="skill">&#9889;</span> : Defend 10% of attacks<br />
+							    </div>
+							    <div class="column">
+							        <img src="assets/icons/pikemen.png" style="width:75px;height:75px;" alt="" />  
+							    </div>  
+							</div>
+						</div>
 					</div>
-					<div class="hero square grow">
+					<div id="healer" class="hero square grow">
 						<img src="assets/icons/healer.png">
 						<p class="name">Healer</p>
+						<div style="display: none;">
+							<div id="healer-tooltip">
+							    <div class="column">
+							    	<h1>Healer</h1>            
+							        <span class="heart">&hearts;</span> : 4<br />
+							       	<span class="armor">&#9881;</span> : 4<br /> 
+   							        <span class="attack">&#9876;</span> : 3<br />
+							        <span class="skill">&#9889;</span> : Heal nearby allies<br />
+							    </div>
+							    <div class="column">
+							        <img src="assets/icons/healer.png" style="width:75px;height:75px;" alt="" />  
+							    </div>  
+							</div>
+						</div>
 					</div>
-					<div class="hero square grow">
-						<img src="assets/icons/red-priest.png">
-						<p class="name">Red Priest</p>
+					<div id="mage" class="hero square grow">
+						<img src="assets/icons/mage.png">
+						<p class="name">Mage</p>
+						<div style="display: none;">
+							<div id="mage-tooltip">
+							    <div class="column">
+							    	<h1>Mage</h1>            
+							        <span class="heart">&hearts;</span> : 5<br />
+							       	<span class="armor">&#9881;</span> : 4<br /> 
+   							        <span class="attack">&#9876;</span> : 5<br />
+							        <span class="skill">&#9889;</span> : 10% chance of<br />incinerate <br />
+							    </div>
+							    <div class="column">
+							        <img src="assets/icons/mage.png" style="width:75px;height:75px;" alt="" />  
+							    </div>  
+							</div>
+						</div>
 					</div>
-					<div class="hero square grow">
+					<div id="knight" class="hero square grow">
 						<img src="assets/icons/knight.png">
 						<p class="name">Knight</p>
+						<div style="display: none;">
+							<div id="knight-tooltip">
+							    <div class="column">
+							    	<h1>Knight</h1>            
+							        <span class="heart">&hearts;</span> : 10<br />
+							       	<span class="armor">&#9881;</span> : 8<br /> 
+   							        <span class="attack">&#9876;</span> : 9<br />
+							        <span class="skill">&#9889;</span> : Adds +1 to Power </br>
+							        for nearby allies <br />
+							    </div>
+							    <div class="column">
+							        <img src="assets/icons/knight.png" style="width:75px;height:75px;" alt="" />  
+							    </div>  
+							</div>
+						</div>
 					</div>
 				</div> 
 			</div>
 		</div>
 	</body>
+	<script src="js/tooltip/tooltip.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/addons.js"></script>
 	<script type="text/javascript" src="js/game.js"></script>
 </html>

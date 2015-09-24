@@ -6,7 +6,6 @@
 		container = document.getElementById('game-div'),
 		showGrid = false;
 
-
 	function drawBoard() {
 		function drawLine(x1, y1, x2, y2, alpha) {
 			context.save();
@@ -19,10 +18,10 @@
 			context.restore();
 		};
 
-		let parts = 8,
+		let parts = 12,
 			widthPart = canvas.width/parts,
 			heightPart = canvas.height/4;
-		for (let i = 1; i <= parts/2; i++ ) {
+		for (let i = 0; i <= parts/2; i++ ) {
 			drawLine(widthPart * i, 0, widthPart * i, canvas.height);
 		}
 		for (let i = 1; i <= 4; i++ ) {
@@ -48,6 +47,10 @@
 				if (this !== previous)
 				this.className += ' selected';
 			});
+
+			hero.addEventListener("mouseover", function () {
+				tooltip.pop(hero, '#' + hero.id + '-tooltip', {position: 0, smartPosition: false});
+			});
 		}
 
 		canvas.addEventListener("mouseover", function () {
@@ -60,6 +63,14 @@
 		canvas.addEventListener("mouseout", function() {
 			showGrid = false;
 		});
+
+		canvas.addEventListener('click', function(click) {
+			let x = click.offsetX? (click.offsetX): click.pageX - this.offsetLeft,
+				y = click.offsetY? (click.offsetY): click.pageY - this.offsetTop;
+
+			let selected = document.querySelectorAll('.selected.hero')[0];
+			
+		});
 	} 
 
 	function gameLoop() {
@@ -70,6 +81,14 @@
 			}
 			gameLoop();
 		});
+	}
+
+	function insertAHero() {
+		let selected = document.querySelectorAll('.selected.hero')[0],
+			image = new Image();
+			image.src= "assets/icons/archer.png";
+
+		context.drawImage(image, 100, 100);
 	}
 
 
