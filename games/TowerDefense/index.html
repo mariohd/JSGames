@@ -14,7 +14,7 @@
 					<p>Battle Points</p>
 				</div>
 				<div class="heroes">
-					<div id="archer" class="hero square grow">
+					<div id="archer" data-hero="Archer" class="hero square grow">
 						<img src="assets/icons/archer.png">
 						<p class="name">Archer</p>
 						<div style="display: none;">
@@ -32,25 +32,25 @@
 							</div>
 						</div>
 					</div>
-					<div id="swordmen" class="hero square grow">
-						<img src="assets/icons/swordmen.png">
-						<p class="name">Swordmen</p>
+					<div id="swordsman" data-hero="Swordsman" class="hero square grow">
+						<img src="assets/icons/swordsman.png">
+						<p class="name">Swordsman</p>
 						<div style="display: none;">
-							<div id="swordmen-tooltip">
+							<div id="swordsman-tooltip">
 							    <div class="column">
-							    	<h1>Swordmen</h1>            
+							    	<h1>Swordsman</h1>            
 							        <span class="heart">&hearts;</span> : 6<br />
 							       	<span class="armor">&#9881;</span> : 8<br /> 
    							        <span class="attack">&#9876;</span> : 5<br />
 							        <span class="skill">&#9889;</span> : Attack 10% faster<br />
 							    </div>
 							    <div class="column">
-							        <img src="assets/icons/swordmen.png" style="width:75px;height:75px;" alt="" />  
+							        <img src="assets/icons/swordsman.png" style="width:75px;height:75px;" alt="" />  
 							    </div>  
 							</div>
 						</div>
 					</div>
-					<div id="pikemen" class="hero square grow">
+					<div id="pikemen" data-hero="Pikemen" class="hero square grow">
 						<img src="assets/icons/pikemen.png">
 						<p class="name">Pikemen</p>
 						<div style="display: none;">
@@ -68,7 +68,7 @@
 							</div>
 						</div>
 					</div>
-					<div id="healer" class="hero square grow">
+					<div id="healer" data-hero="Healer" class="hero square grow">
 						<img src="assets/icons/healer.png">
 						<p class="name">Healer</p>
 						<div style="display: none;">
@@ -86,7 +86,7 @@
 							</div>
 						</div>
 					</div>
-					<div id="mage" class="hero square grow">
+					<div id="mage" data-hero="Mage" class="hero square grow">
 						<img src="assets/icons/mage.png">
 						<p class="name">Mage</p>
 						<div style="display: none;">
@@ -104,7 +104,7 @@
 							</div>
 						</div>
 					</div>
-					<div id="knight" class="hero square grow">
+					<div id="knight" data-hero="Knight" class="hero square grow">
 						<img src="assets/icons/knight.png">
 						<p class="name">Knight</p>
 						<div style="display: none;">
@@ -129,5 +129,8 @@
 	</body>
 	<script src="js/tooltip/tooltip.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/addons.js"></script>
+	<script type="text/javascript" src="js/spritesheet.js"></script>
+	<script type="text/javascript" src="js/person.js"></script>
+	<script type="text/javascript" src="js/heros.js"></script>
 	<script type="text/javascript" src="js/game.js"></script>
 </html>

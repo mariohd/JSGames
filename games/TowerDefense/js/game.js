@@ -8,7 +8,62 @@
 		hour = new Date().getHours(),
 		minutes = new Date().getMinutes(),
 		alpha = 0,
-		lastTime = new Date();
+		lastTime = new Date(),
+		assets = {
+			images: {
+				Archer: 'archer.png',
+				Swordsman: 'swordsman.png',
+				Pikemen: 'pikemen.png',
+				Healer: 'healer.png',
+				Mage: 'mage.png',
+				Knight: 'knight.png'
+			},
+			sounds: {
+
+			}
+		},
+		armies = {
+			player: new Matrix(4, 6),
+			projectiles: [],
+			enemies: []
+		};
+
+	function load() {
+		var midia = 0, loaded = 0;
+
+		for (var i in assets.sounds) {
+	      var snd = new Audio();
+	      snd.src = 'assets/sounds/' + assets.sons[i];
+	      snd.addEventListener('loadeddata', loadingGame, false);
+	      snd.load();
+	      midia++;
+	      
+	      assets.sounds[i] = snd;
+		}
+
+		for (var i in assets.images) {
+		  var img = new Image();
+		  img.src = 'assets/images/' + assets.images[i];
+		  img.onload = loadingGame;
+		  midia++;
+		  assets.images[i] = img;
+		}
+
+		function loadingGame() {
+			context.save();
+			context.clearRect(0,0, canvas.width, canvas.height);
+			loaded++;
+			var fullSize = context.canvas.width * .9;
+			var actualSize = loaded / midia * fullSize;
+			context.fillStyle = 'rgba(94, 211, 69, .8)';
+			context.fillRect((context.canvas.width - fullSize)/2, context.canvas.height/1.2, actualSize, 30);
+			context.restore();
+
+			if (loaded == midia) {
+				context.clearRect(0,0, canvas.width, canvas.height);
+			}
+		};
+	};
 
 	function drawBoard() {
 		function drawLine(x1, y1, x2, y2, alpha) {
@@ -39,8 +94,8 @@
 		canvas.width = window.innerWidth * .85;
 		canvas.height = window.innerHeight * .85;
 		container.style.width = window.innerWidth * .85;
-
 		let heroes = document.querySelectorAll('.hero');
+		load();
 
 		for (let hero of heroes) {
 			hero.addEventListener('click', function () {
@@ -70,25 +125,28 @@
 
 		canvas.addEventListener('click', function(click) {
 			let x = click.offsetX? (click.offsetX): click.pageX - this.offsetLeft,
-				y = click.offsetY? (click.offsetY): click.pageY - this.offsetTop;
+				y = click.offsetY? (click.offsetY): click.pageY - this.offsetTop,
+				location = {column: parseInt(x / (canvas.width/12)), row: parseInt(y / (canvas.height/4)) };
 
-			let selected = document.querySelectorAll('.selected.hero')[0];
-			
+			let selected = document.querySelectorAll('.selected.hero')[0],
+				heroType = window[selected.getAttribute('data-hero')];
+
+			let position = {
+				x: (canvas.width/12 * location.column) + canvas.width/24,
+				y: (canvas.height/4 * location.row) + canvas.height/8
+			}
+			armies.player[location.row][location.column] = new heroType(context, assets.images[heroType.name], position);
 		});
 	} 
 
 	function gameLoop() {
 		requestAnimationFrame(function () {
 			context.clearRect(0,0,canvas.width, canvas.height);
-			clock();
+
 			daylight();
-			context.save();
-			context.font="2em Arial";
-			context.fillStyle='red';
-			context.strokeStyle="gray";
-			context.fillText(pad(hour, 2) + ":" + pad(minutes, 2), canvas.width - 90, 50);
-			context.strokeText(pad(hour, 2) + ":" + pad(minutes, 2), canvas.width - 90, 50);
-			context.restore();
+			clock();
+			drawArmies();
+
 			if (showGrid) {
 				drawBoard();
 			}
@@ -96,15 +154,20 @@
 		});
 	}
 
+	function drawArmies() {
+
+		armies.player.forEach(function (row) {
+			row.forEach(function (hero) {
+				hero.draw();
+			});
+		});
+	}
+
 	function daylight() {
 		context.save();
 		context.beginPath();
-		context.moveTo(0, 0);
-		context.lineTo(canvas.width, 0);
-		context.lineTo(canvas.width, canvas.height);
-		context.lineTo(0, canvas.height);
-		context.lineTo(0, 0);
-
+		context.rect(0, 0, canvas.width, canvas.height);
+		
 /*
 		context.moveTo(100, 150);
 		context.arc(100, 150, 90, 0, 2 * Math.PI, true);
@@ -129,7 +192,14 @@
 	}
 
 	function clock() {
-		if ( +lastTime + 300 > +new Date() ) return;
+		context.save();
+		context.font="2em Arial";
+		context.fillStyle='red';
+		context.strokeStyle="gray";
+		context.fillText(pad(hour, 2) + ":" + pad(minutes, 2), canvas.width - 90, 50);
+		context.strokeText(pad(hour, 2) + ":" + pad(minutes, 2), canvas.width - 90, 50);
+		context.restore();
+		if ( +lastTime + 30 > +new Date() ) return;
 		lastTime = new Date();
 		minutes++;
 		if (minutes === 60) {
@@ -142,13 +212,14 @@
 		}
 
 		if (hour > 19 || 3 > hour ) {
-			alpha += 0.0035;
+			alpha += 0.002;
+			//alpha += 0.0035; add when tourch is fully functional.
 			if (alpha > 1 ) {
 				alpha = 1;
 			}
 		} else {
 			if (alpha != 0) {
-				alpha -= 0.005;
+				alpha -= 0.0045;
 			}
 			if (alpha < 0 ) {
 				alpha = 0;

@@ -35,3 +35,14 @@ function pad(n, width, z) {
   n = n + '';
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
+
+/**
+* Generates a matrix (ie: 2-D Array) with: 
+* 'n' rows, 
+* 'm' columns, 
+*/
+function Matrix(n, m){
+    return Array.apply(null, new Array(n)).map(function () { 
+      return new Array(m);
+    });
+}
