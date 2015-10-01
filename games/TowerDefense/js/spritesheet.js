@@ -13,7 +13,8 @@ function Spritesheet(context, imagem, linhas, colunas) {
    this.size = {
       width: this.imagem.width / this.numColunas, 
       height: this.imagem.height / this.numLinhas, 
-   }
+   },
+   this.acoes = [];
 } 
 Spritesheet.prototype = { 
    proximoQuadro: function() {
@@ -28,7 +29,8 @@ Spritesheet.prototype = {
          if (agora - this.ultimoTempo < this.intervalo) return;
 
          if (this.coluna < this.numColunas - 1) {
-            this.coluna++; 
+            this.coluna++;
+            if (this.acoes[this.coluna]) this.acoes[this.coluna]();
          }
          else {
             if (this.inverter) {
@@ -74,5 +76,8 @@ Spritesheet.prototype = {
          largura/ (escala? escala : 1), 
          altura / (escala? escala : 1)
       ); 
-   }
+   },
+   acaoIntermediaria: function (coluna, execute) {
+      this.acoes[coluna] = execute;
+   },
 }

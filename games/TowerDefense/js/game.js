@@ -94,9 +94,10 @@
 		canvas.width = window.innerWidth * .85;
 		canvas.height = window.innerHeight * .85;
 		container.style.width = window.innerWidth * .85;
-		let heroes = document.querySelectorAll('.hero');
+		context.projectiles = armies.projectiles;
 		load();
 
+		let heroes = document.querySelectorAll('.hero');
 		for (let hero of heroes) {
 			hero.addEventListener('click', function () {
 				let previous = document.querySelectorAll('.selected.hero')[0];
@@ -143,18 +144,28 @@
 		requestAnimationFrame(function () {
 			context.clearRect(0,0,canvas.width, canvas.height);
 
-			daylight();
-			clock();
 			drawArmies();
 
 			if (showGrid) {
 				drawBoard();
 			}
+
+			daylight();
+			clock();
 			gameLoop();
 		});
 	}
 
 	function drawArmies() {
+		armies.projectiles.clean(undefined);
+
+		armies.projectiles.forEach(function (p, i) {
+			if (! p.erase) {
+				p.draw();
+			} else {
+				armies.projectiles[i] = undefined;
+			}
+		});
 
 		armies.player.forEach(function (row) {
 			row.forEach(function (hero) {

@@ -23,6 +23,7 @@ Person.prototype = {
 	},
 
 	draw: function () {
+		this.sprite.proximoQuadro();
 		this.sprite.desenhar(this.position, this.escala);
 	}
 
