@@ -187,44 +187,42 @@
 	window.addEventListener('resize', resize);
 	window.debugMode = false;
 
-	if (mobilecheck()) {
-			window.addEventListener('deviceorientation', handleOrientation);
+	window.addEventListener('deviceorientation', handleOrientation);
 
-			var shakeEvent = new Shake({threshold: 5});
-		    shakeEvent.start();
+	var shakeEvent = new Shake({threshold: 5});
+    shakeEvent.start();
 
-		    window.addEventListener('shake', function(){
-		        if (gameOver) {
-		        	restart();
-		        }
+    window.addEventListener('shake', function(){
+        if (gameOver) {
+        	restart();
+        }
 
-		    }, false);
+    }, false);
 
-		    if(! ("ondevicemotion" in window) ){
-		    	window.addEventListener('touchstart', function () {
-		    		if (gameOver) {
-		        		restart();
-		        	}	
-		    	});
-			}
-	} else {
-		window.addEventListener('keydown', function (key) {
-			if (! gameOver) {
-				switch(key.keyCode) {
-					case 39:
-						if (lane < 2)
-							lane += 1;
-						break;
-					case 37:
-						if (lane > 0)
-							lane -= 1;
-						break;	
-				}
-			} else {
-				restart();
-			}
-		});
+    if(! ("ondevicemotion" in window) ){
+    	window.addEventListener('touchstart', function () {
+    		if (gameOver) {
+        		restart();
+        	}	
+    	});
 	}
+	
+	window.addEventListener('keydown', function (key) {
+		if (! gameOver) {
+			switch(key.keyCode) {
+				case 39:
+					if (lane < 2)
+						lane += 1;
+					break;
+				case 37:
+					if (lane > 0)
+						lane -= 1;
+					break;	
+			}
+		} else {
+			restart();
+		}
+	});
 
 	setup();
 })();
