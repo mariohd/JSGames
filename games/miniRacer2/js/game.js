@@ -180,9 +180,11 @@
 
 	window.LANDSCAPE = 1;
 	window.PORTRAIT = 0;
-	window.orientation = function () {
-		return window.innerHeight > window.innerWidth? window.PORTRAIT : window.LANDSCAPE;
-	};
+	if (window.orientation === undefined) {
+		window.orientation = function () {
+			return window.innerHeight > window.innerWidth? window.PORTRAIT : window.LANDSCAPE;
+		};
+	}
 	window.addEventListener('resize', resize);
 	window.debugMode = false;
 
