@@ -20,7 +20,7 @@
 	function setup() {
 		canvas.width = parseInt(window.innerWidth * .98);
 		canvas.height = parseInt(window.innerHeight * .98);
-		squareSize = parseInt(window.orientation() === window.LANDSCAPE? canvas.height/15 : canvas.width * 1/10);
+		squareSize = parseInt(window.orientation === window.LANDSCAPE? canvas.height/15 : canvas.width * 1/10);
 		gameLoop();
 	};
 
@@ -180,9 +180,10 @@
 
 	window.LANDSCAPE = 1;
 	window.PORTRAIT = 0;
-	window.orientation = function () {
-		return window.innerHeight > window.innerWidth? window.PORTRAIT : window.LANDSCAPE;
-	};
+	window.orientation = 
+		(function () {
+			return window.innerHeight > window.innerWidth? window.PORTRAIT : window.LANDSCAPE;
+		})();
 	window.addEventListener('resize', resize);
 	window.debugMode = false;
 
