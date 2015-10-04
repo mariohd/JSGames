@@ -1,8 +1,9 @@
-function Spritesheet(context, imagem, linhas, colunas) { 
+function Spritesheet(context, imagem, linhas, colunas, use) { 
    this.context = context; 
    this.imagem = imagem; 
    this.numLinhas = linhas; 
    this.numColunas = colunas; 
+   this.usar = use;
    this.intervalo = 0; 
    this.linha = 0; 
    this.coluna = 0; 
@@ -28,8 +29,8 @@ Spritesheet.prototype = {
          // Já é hora de mudar de coluna? 
          if (agora - this.ultimoTempo < this.intervalo) return;
 
-         if (this.coluna < this.numColunas - 1) {
-            this.coluna++;
+         if (this.coluna < this.usar - 1) {
+            this.coluna++; 
             if (this.acoes[this.coluna]) this.acoes[this.coluna]();
          }
          else {

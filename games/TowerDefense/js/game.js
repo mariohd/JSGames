@@ -149,14 +149,19 @@
 			if (showGrid) {
 				drawBoard();
 			}
-
-			daylight();
-			clock();
+			
 			gameLoop();
 		});
 	}
 
 	function drawArmies() {
+	
+		armies.player.forEach(function (row) {
+			row.forEach(function (hero) {
+				hero.draw();
+			});
+		});
+
 		armies.projectiles.clean(undefined);
 
 		armies.projectiles.forEach(function (p, i) {
@@ -166,78 +171,7 @@
 				armies.projectiles[i] = undefined;
 			}
 		});
-
-		armies.player.forEach(function (row) {
-			row.forEach(function (hero) {
-				hero.draw();
-			});
-		});
 	}
-
-	function daylight() {
-		context.save();
-		context.beginPath();
-		context.rect(0, 0, canvas.width, canvas.height);
-		
-/*
-		context.moveTo(100, 150);
-		context.arc(100, 150, 90, 0, 2 * Math.PI, true);
-
-		context.moveTo(500, 600);
-		context.arc(500, 600, 90, 0, 2 * Math.PI, true);
-*/
-		context.closePath();
-
-		context.globalAlpha = alpha;
-
-		context.fill();
-		context.restore();
-	}
-
-	function insertAHero() {
-		let selected = document.querySelectorAll('.selected.hero')[0],
-			image = new Image();
-			image.src= "assets/icons/archer.png";
-
-		context.drawImage(image, 100, 100);
-	}
-
-	function clock() {
-		context.save();
-		context.font="2em Arial";
-		context.fillStyle='red';
-		context.strokeStyle="gray";
-		context.fillText(pad(hour, 2) + ":" + pad(minutes, 2), canvas.width - 90, 50);
-		context.strokeText(pad(hour, 2) + ":" + pad(minutes, 2), canvas.width - 90, 50);
-		context.restore();
-		if ( +lastTime + 30 > +new Date() ) return;
-		lastTime = new Date();
-		minutes++;
-		if (minutes === 60) {
-			minutes = 0;
-			if (hour === 23) {
-				hour = 0;
-			} else {
-				hour ++;
-			}
-		}
-
-		if (hour > 19 || 3 > hour ) {
-			alpha += 0.002;
-			//alpha += 0.0035; add when tourch is fully functional.
-			if (alpha > 1 ) {
-				alpha = 1;
-			}
-		} else {
-			if (alpha != 0) {
-				alpha -= 0.0045;
-			}
-			if (alpha < 0 ) {
-				alpha = 0;
-			}
-		}
-	}
-
 
 	setup();
 	gameLoop();
