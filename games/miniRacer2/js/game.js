@@ -102,10 +102,12 @@
 		context.closePath();
 	}
 
+	var lastMeasure = +new Date();
 	function handleOrientation (event) {
 		var side = event.gamma,
-			degrees = 50;
-
+			degrees = 75;
+		if (new Date() > +lastMeasure + 100) {
+		lastMeasure = new Date();
 		if (-degrees > side) {
 			lane = 0;
 		} else {
@@ -114,6 +116,7 @@
 			} else {
 				lane = 2;
 			}
+		}
 		}
 	};
 
