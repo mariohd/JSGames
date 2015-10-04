@@ -104,7 +104,7 @@
 
 	function handleOrientation (event) {
 		var side = event.gamma,
-			degrees = 20;
+			degrees = 50;
 
 		if (-degrees > side) {
 			lane = 0;
@@ -189,24 +189,12 @@
 
 	window.addEventListener('deviceorientation', handleOrientation);
 
-	var shakeEvent = new Shake({threshold: 5});
-    shakeEvent.start();
+	window.addEventListener('touchstart', function () {
+		if (gameOver) {
+    		restart();
+    	}	
+	});
 
-    window.addEventListener('shake', function(){
-        if (gameOver) {
-        	restart();
-        }
-
-    }, false);
-
-    if(! ("ondevicemotion" in window) ){
-    	window.addEventListener('touchstart', function () {
-    		if (gameOver) {
-        		restart();
-        	}	
-    	});
-	}
-	
 	window.addEventListener('keydown', function (key) {
 		if (! gameOver) {
 			switch(key.keyCode) {
