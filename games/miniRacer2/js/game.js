@@ -183,6 +183,8 @@
 		lane = 1;
 		defaultSpeed = 10;
 		gameOver = false;
+		lastAcelereted = new Date();
+		lastCar = new Date();
 	}
 
 	function resize () {
