@@ -104,7 +104,7 @@
 
 	var lastMeasure = +new Date();
 	function handleOrientation (event) {
-		var side = eventData.accelerationIncludingGravity.x,
+		var side = event.accelerationIncludingGravity.x,
 			degrees = 2.5;
 		if (new Date() > +lastMeasure + 100) {
 		lastMeasure = new Date();
