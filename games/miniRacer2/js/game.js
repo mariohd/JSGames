@@ -12,10 +12,11 @@
 	    lastAcelereted = new Date(),
 	    gameOver = false,
 	    positions = [1, 2, 0, 2, 2, 0, 0, 1, 0, 
-	    			 2, 0, 1, 0, 0, 1, 2, 2, 1, 
+	    			 2, 0, 1, 1, 0, 1, 0, 2, 1, 
 	    			 0, 1, 1, 0, 1, 0, 2, 0, 1,
 	    			 1, 0, 0, 1, 2, 2, 1, 1, 0],
-	    positionSelected = 0;
+	    positionSelected = 0,
+	    paused = false;
 
 	function setup() {
 		canvas.width = parseInt(window.innerWidth * .98);
@@ -130,13 +131,20 @@
 
 	function draw() {
 		hud();
+		if (window.innerWidth > window.innerHeight ) {
+			context.font = '8em TETRIS';
+			context.textAlign = 'center';
+			context.fillText("Please, turn", canvas.width/2, canvas.height * 1/4);
+			context.fillText("PORTRAIT.", canvas.width/2, canvas.height * 1/2);
+			return;
+		}
 		me(lane);
 		if (! gameOver) {
 			cars.forEach(function (pilot) {
 				car(pilot.lane, pilot.height);
 				pilot.height += defaultSpeed;
 
-				if (pilot.height > canvas.height - 4 * squareSize && pilot.lane === lane) {
+				if (pilot.height > canvas.height - 3 * squareSize && pilot.lane === lane) {
 					gameOver = true;
 				}
 			});
@@ -180,6 +188,7 @@
 	function resize () {
 		setup();
 	}
+
 
 	window.LANDSCAPE = 1;
 	window.PORTRAIT = 0;
