@@ -136,6 +136,8 @@
 			context.textAlign = 'center';
 			context.fillText("Please, turn", canvas.width/2, canvas.height * 1/4);
 			context.fillText("PORTRAIT.", canvas.width/2, canvas.height * 1/2);
+			lastAcelereted = new Date();
+			lastCar = new Date();
 			return;
 		}
 		me(lane);
