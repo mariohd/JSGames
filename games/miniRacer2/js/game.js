@@ -104,8 +104,8 @@
 
 	var lastMeasure = +new Date();
 	function handleOrientation (event) {
-		var side = event.gamma,
-			degrees = 75;
+		var side = eventData.accelerationIncludingGravity.x,
+			degrees = 2.5;
 		if (new Date() > +lastMeasure + 100) {
 		lastMeasure = new Date();
 		if (-degrees > side) {
@@ -183,14 +183,16 @@
 
 	window.LANDSCAPE = 1;
 	window.PORTRAIT = 0;
-	window.orientation = 
-		(function () {
-			return window.innerHeight > window.innerWidth? window.PORTRAIT : window.LANDSCAPE;
-		})();
+	if ( window.orientation === undefined ) {
+		window.orientation =
+			(function () {
+				return window.innerHeight > window.innerWidth? window.PORTRAIT : window.LANDSCAPE;
+			})();
+	}
 	window.addEventListener('resize', resize);
 	window.debugMode = false;
 
-	window.addEventListener('deviceorientation', handleOrientation);
+	window.addEventListener('devicemotion', handleOrientation);
 
 	window.addEventListener('touchstart', function () {
 		if (gameOver) {
