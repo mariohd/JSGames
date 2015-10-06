@@ -109,12 +109,12 @@
 		if (new Date() > +lastMeasure + 100) {
 		lastMeasure = new Date();
 		if (-degrees > side) {
-			lane = 0;
+			lane = 2;
 		} else {
 			if (side > -degrees && side < degrees) {
 				lane = 1;
 			} else {
-				lane = 2;
+				lane = 0;
 			}
 		}
 		}
