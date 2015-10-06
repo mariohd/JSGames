@@ -6,7 +6,7 @@
 	    squareSize = 0,
 	    lane = 1,
 	    cars = [],
-	    gap = 1000,
+	    gap = 2000,
 	    lastCar = new Date(),
 	    defaultSpeed = 10,
 	    lastAcelereted = new Date(),
