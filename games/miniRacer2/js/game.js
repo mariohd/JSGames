@@ -6,16 +6,16 @@
 	    squareSize = 0,
 	    lane = 1,
 	    cars = [],
-	    gap = 2000,
+	    gap = 1200,
 	    lastCar = new Date(),
 	    defaultSpeed = 10,
 	    lastAcelereted = new Date(),
-	    lanes = [0, 1, 1],
-	    combinations = [[0, 1, 1], [2, 0, 2], [2, 0, 0], [1, 0, 1], 
-	    				[2, 0, 2], [0, 0, 2], [0, 1, 0], [2, 0, 2], 
-	    				[0, 0, 1], [2, 2, 1], [1, 1, 2], [2, 1, 2], 
-	    				[1, 2, 1], [0, 1, 1], [0, 2, 2], [1, 0, 2]],
-	    gameOver = false;
+	    gameOver = false,
+	    positions = [1, 2, 0, 2, 2, 0, 0, 1, 0, 
+	    			 2, 0, 1, 0, 0, 1, 2, 2, 1, 
+	    			 0, 1, 1, 0, 1, 0, 2, 0, 1,
+	    			 1, 0, 0, 1, 2, 2, 1, 1, 0],
+	    positionSelected = 0;
 
 	function setup() {
 		canvas.width = parseInt(window.innerWidth * .98);
@@ -144,13 +144,13 @@
 				lastCar = +new Date() + gap;
 
 				cars.push({
-					lane: lanes.shift(),
+					lane: positions[positionSelected],
 					height: - 4 * squareSize,
 				});
 
-				if (lanes.length < 6) {
-					var combination = combinations[Math.floor(Math.random()*combinations.length)];
-					lanes = lanes.concat(combination);
+				positionSelected ++;
+				if (positionSelected >= positions.length) {
+					positionSelected = 0;
 				}
 			}
 
