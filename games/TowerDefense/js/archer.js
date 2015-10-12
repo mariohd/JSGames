@@ -11,7 +11,9 @@ function Archer(context, image, position) {
 	this.arrow = 'assets/images/arrow.png';
 	this.load();
 	this.sprite.acaoIntermediaria(8, function () {
-		this.context.projectiles.push(new Arrow(this.context, this, this.arrow, Object.create(this.position)));
+		let shot = new Arrow(this.context, this, this.arrow, Object.create(this.position));
+		this.context.projectiles.push(shot);
+		this.context.colider.sprites.push(shot);
 	}.bind(this));
 };
 Archer.prototype = Object.create(Person.prototype);
@@ -78,3 +80,5 @@ Mage.prototype.load = function () {
 	fireball.src = this.fireball;
 	this.fireball = fireball;
 };
+
+function Enemy(context, image, position) {}

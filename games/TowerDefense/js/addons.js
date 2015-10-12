@@ -47,12 +47,15 @@ function Matrix(n, m){
     });
 }
 
-Array.prototype.clean = function(deleteValue) {
-  for (var i = 0; i < this.length; i++) {
-    if (this[i] == deleteValue) {         
-      this.splice(i, 1);
-      i--;
+Object.defineProperty(Array.prototype, 'clean', {
+  enumerable: false,
+  value: function (deleteValue) {
+    for (var i = 0; i < this.length; i++) {
+      if (this[i] == deleteValue) {         
+        this.splice(i, 1);
+        i--;
+      }
     }
+    return this;
   }
-  return this;
-};
+});

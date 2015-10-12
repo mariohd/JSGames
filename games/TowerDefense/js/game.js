@@ -26,7 +26,8 @@
 			player: new Matrix(4, 6),
 			projectiles: [],
 			enemies: []
-		};
+		},
+		colider = new Colisor();
 
 	function load() {
 		var midia = 0, loaded = 0;
@@ -95,6 +96,8 @@
 		canvas.height = window.innerHeight * .85;
 		container.style.width = window.innerWidth * .85;
 		context.projectiles = armies.projectiles;
+		context.colider = colider;
+		context.debug = true;
 		load();
 
 		let heroes = document.querySelectorAll('.hero');
@@ -125,18 +128,22 @@
 		});
 
 		canvas.addEventListener('click', function(click) {
-			let x = click.offsetX? (click.offsetX): click.pageX - this.offsetLeft,
+			if (document.querySelectorAll('.selected.hero')[0]) {
+				let x = click.offsetX? (click.offsetX): click.pageX - this.offsetLeft,
 				y = click.offsetY? (click.offsetY): click.pageY - this.offsetTop,
 				location = {column: parseInt(x / (canvas.width/12)), row: parseInt(y / (canvas.height/4)) };
 
-			let selected = document.querySelectorAll('.selected.hero')[0],
-				heroType = window[selected.getAttribute('data-hero')];
+				let selected = document.querySelectorAll('.selected.hero')[0],
+					heroType = window[selected.getAttribute('data-hero')];
 
-			let position = {
-				x: (canvas.width/12 * location.column) + canvas.width/24,
-				y: (canvas.height/4 * location.row) + canvas.height/8
+				let position = {
+					x: (canvas.width/12 * location.column) + canvas.width/24,
+					y: (canvas.height/4 * location.row) + canvas.height/8
+				}
+				let unit = new heroType(context, assets.images[heroType.name], position);;
+				armies.player[location.row][location.column] = unit;
+				colider.sprites.push(unit);
 			}
-			armies.player[location.row][location.column] = new heroType(context, assets.images[heroType.name], position);
 		});
 	} 
 
@@ -149,6 +156,8 @@
 			if (showGrid) {
 				drawBoard();
 			}
+
+			colider.processar();
 			
 			gameLoop();
 		});
@@ -162,8 +171,6 @@
 			});
 		});
 
-		armies.projectiles.clean(undefined);
-
 		armies.projectiles.forEach(function (p, i) {
 			if (! p.erase) {
 				p.draw();
@@ -171,6 +178,9 @@
 				armies.projectiles[i] = undefined;
 			}
 		});
+		
+		armies.projectiles.clean(undefined);
+
 	}
 
 	setup();

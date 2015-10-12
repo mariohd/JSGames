@@ -14,6 +14,30 @@ Projectile.prototype = {
 		if( this.position.x - (3 * this.sprite.size.width)  > this.context.canvas.width ) {
 			this.erase = true;
 		}
+	},
+	retangulosColisao: function() {
+      var rets = 
+      [ 
+        Object.create({x: this.position.x + this.sprite.size.width/4, y: this.position.y, largura: this.sprite.size.width/2, altura: this.sprite.size.height })
+      ];
+      
+      if ( this.context.debug ) {
+	      
+	      for (var i in rets) {
+			this.context.save();
+			this.context.shadowBlur = 0;
+			this.context.shadowOffsetX = 0;
+			this.context.shadowOffsetY = 0;
+			this.context.strokeStyle = 'yellow';
+			this.context.strokeRect(rets[i].x, rets[i].y, rets[i].largura, 
+			        rets[i].altura);
+			this.context.restore();
+	      }    
+	  }
+      return rets;
+  	},
+	colidiuCom: function(outro) {
+
 	}
 };
 
