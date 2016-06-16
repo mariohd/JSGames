@@ -1,0 +1,12 @@
+@font-face {
+	font-family: "Guardians";
+	src: url(../fonts/Guardians.ttf) format("truetype");
+}
+
+body {
+	font-family: Guardians;
+}
+
+canvas {
+	background: url(../images/background.jpg)
+}
