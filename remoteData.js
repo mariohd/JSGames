@@ -1,7 +1,7 @@
 function RemoteData(appKey, jsKey) {
 	Parse.initialize(appKey, jsKey);
 	var script = document.createElement('script');
-	script.src = 'https://www.telize.com/geoip?callback=RemoteData.prototype.saveLocation';
+	script.src = 'https://www.freegeoip.net/json/?callback=RemoteData.prototype.saveLocation';
 	document.body.appendChild(script);
 };
 
@@ -36,8 +36,10 @@ RemoteData.prototype = {
 		this.send("Connections",
 			{ 	
 				ip: json.ip, 
-				country: json.country, 
-				country_code: json.country_code
+				country: json.country_name, 
+				country_code: json.country_code,
+				city: json.city,
+				region_code: json.region_code
 			});
 	},
 
