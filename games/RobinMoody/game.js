@@ -41,12 +41,9 @@
 	var pausa = false, comecou = false, gameName = "Robin\nMoody!";
 	var teclado = new Teclado(document), start = 2000, player;
 
-	var remoteData = new RemoteData(
-		"pgKpGopbcKDtDIU2GpDaPxcUNae97i2HXSH8SyeG", 
-		"1UJYXBiViW1bx8F7Ds8Cdn5AVQ8BGNpl2Kz9eLPo");
-
-	context.skulls = Number.POSITIVE_INFINITY;
+	context.skulls = 100;
 	context.deadSkulls = 0;
+	context.releasedSkulls = 100;
 
 	var lastRun = new Date().getTime();
 
@@ -59,7 +56,7 @@
 
 
 	function load() {
-		var totalMidia = 1, carregadas = 0;
+		var totalMidia = 0, carregadas = 0;
 
 		for (var i in assets.sons) {
 	      var snd = new Audio();
@@ -79,14 +76,8 @@
 		  assets.imagens[i] = img;
 		}
 
-		remoteData.robinMoody.getSkulls(function (value) {
-			context.skulls = value.get('amount');
-			context.releasedSkulls = value.get('amount');
-			loadingGame();
-			context.skullsObject = value;
-		});
-
 		function loadingGame() {
+			console.log(this);
 			context.save();
 			context.clearRect(0,0, canvas.width, canvas.height);
 			carregadas++;
@@ -96,7 +87,6 @@
 			context.fillRect((context.canvas.width - tamanhoTotal)/2, context.canvas.height/1.2, tamanho, 30);
 			drawText(gameName, {x: context.canvas.width/2, y: context.canvas.height/3.5});
 			context.restore();
-
 			if (carregadas == totalMidia) {
 				context.clearRect(0,0, canvas.width, canvas.height);
 				drawText(gameName, {x: context.canvas.width/2, y: context.canvas.height/3.5});
@@ -200,7 +190,6 @@
 	};
 
 	function gameOver() {
-		remoteData.robinMoody.addNewSkull(context.skullsObject);
 		context.drawImage(assets.imagens.skeleton_kit, canvas.width/2 - assets.imagens.skeleton_kit.width/2, canvas.height/1.8 - assets.imagens.skeleton_kit.height * 3/4 );
 		drawText("Game Over", {x: canvas.width/2, y: canvas.height * 3/8});
 		drawText("You added a new enemy skeleton!", {x: canvas.width/2, y: canvas.height * 5/8}, '4em PiecesOfEight');
@@ -280,6 +269,7 @@
 	};
 
 	function generateEnemies() {
+		debugger;
 		var agora = new Date();
         if (agora - ultimoInimigo < start) return;
 		if (start > 1000 ) start -= 50;
