@@ -4,42 +4,12 @@
 	<title>Azure Star v1.2</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="plugins/sweetalert/sweetalert.min.js"></script>
-	<script src="https://www.parsecdn.com/js/parse-1.5.0.min.js"></script>
 	<script src="plugins/dataTables/jquery.dataTables.min.js"></script>
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="plugins/dataTables/jquery.dataTables.min.css">
 	<link rel="stylesheet" type="text/css" href="plugins/sweetalert/sweetalert.css">
 </head>
 	<style>
-
-		table {
-			margin: 0 auto 0 auto !important;
-			font-family: Guardians !important;
-			color: #D30035 !important ;	
-    		text-align: center!important;
-	    	text-shadow: 1px 1px black !important;
-    	    border-collapse: collapse !important; 
-		}
-
-		table th, td {	
-			width: 220px !important;
-		}
-
-		table th {
-    		font-size: 20px !important;
-    	}
-
-    	table td {
-    		font-size: 15px !important;
-			word-wrap: break-word !important;
-			word-break: break-all !important;
-			padding: 5px !important;
-    	}
-
-    	table tr {
-    		border-bottom: 1px solid silver !important;
-    	}
-
 		@font-face {
 			font-family: "Guardians";
 			src: url(fonts/Guardians.ttf) format("truetype");
@@ -214,24 +184,6 @@
 					<img src="img/som.png" height="32" width="32">
 					<input type="range" id="song-volume" value="30">
 				</div>
-				<a id="bug-report" class="link bug-report" href="#" >Report a bug</a>
-			</div>
-			<span class="guardians"><h2>Ranking</h2></span>
-			<div style="width: 80%; margin: 0 auto;">
-				<table id="azureRanking">
-					<thead>
-						<th>pos.</th>
-						<th>Player</th>
-						<th>Pts.</th>
-						<th>Date</th>
-						<th>Country</th>
-					</thead>
-					<tbody>
-						<tr>
-							<td colspan="5">Carregando ... </td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
 			<span class="guardians"><h2>How to play</h2></span>
 			<img src="img/comandos.png">
@@ -265,7 +217,6 @@
 	<script src="demilich.js"></script>
 
 	<script src="game.js"></script>
-	<script type="text/javascript" src="https://www.freegeoip.net/json/?callback=getip"></script>
 	<script>
 		var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 		if (!is_chrome) {

@@ -2,8 +2,7 @@
 var imagens, sons, started = false, pontuacao = 0;
 var canvas = document.getElementById("game-canvas");
 var context = canvas.getContext("2d");
-var animacao, colisor, stage1, teclado, player1, clock, barrier, tabelaRanking,
-	ranking;
+var animacao, colisor, stage1, teclado, player1, clock, barrier;
 var totalMidia = 0, carregadas = 0;
 var volumeBar = document.getElementById('song-volume');
 var liberado = false, digitando = false;
@@ -70,9 +69,7 @@ function carregarAssets() {
       
       sons[i] = snd;
    }
-   
-   	ranking = new RankingOnline();
-	ranking.listar();
+  
 };
 
 function carregando() {
@@ -136,6 +133,7 @@ sons.menu.loop = true;
 sons.menu.play();
 
 function gameOver() {
+	debugger;
 	animacao.desligar();
 	sons.gameOver.volume = .7;
 	sons.escudo.currentTime = 0.0;	
@@ -147,9 +145,8 @@ function gameOver() {
 	drawText("Press enter to restart", { x: canvas.width/2, y: canvas.height/1.3}, "23px Guardians");
 	context.restore();
 	clock.running = false;
-	setTimeout(function () {
-		preencherRanking();
-	}, 1000);}
+	liberado = true;
+}
 
 function vitoria() {
 	animacao.desligar();
@@ -165,9 +162,7 @@ function vitoria() {
 	context.restore();
 	clock.running = false;
 	venceu = true;
-	setTimeout(function () {
-		preencherRanking();
-	}, 1000);
+	liberado = true;
 }
 
 function atualizarPontuacao() {
@@ -182,7 +177,6 @@ document.onkeydown = function (key) {
 	if (!loadingComplete) return;
 	switch (key.which) {
 		case ENTER:
-			if (digitando) {key.preventDefault(); return;};
 			if (!started)
 				iniciar();
 			else {
@@ -214,52 +208,6 @@ document.onkeydown = function (key) {
 	}
 };
 
-function preencherRanking() {
-	digitando = true;
-	swal({   title: "Ranking",   
-		text: "You did " + pontuacao + " points! \nInform your name to record your score:",   
-		type: "input",   
-		showCancelButton: true,
-		closeOnConfirm: false,
-		animation: "slide-from-top",
-		allowEscapeKey: false,
-		inputPlaceholder: "Name",
-	    closeOnCancel: false },
-		function(inputValue) { 
-			if (inputValue === false) {
-				swal("Cancelled", "You score wasn`t saved!", "error");
-				digitando = false;
-				liberado = true;
-				return false;
-			}
-			if (inputValue === "") {     
-				swal.showInputError("To submit your score, you must provide a name!");     
-				return false;
-			} 
-			liberado = true;
-			digitando = false;
-			ranking.enviar(inputValue);
-		});
-
-	var inputs = document.getElementsByTagName('fieldset')[0].getElementsByTagName('input');
-	for (var i in inputs) {
-		if (inputs[i].type === 'text') {
-			inputs[i].focus();
-			inputs[i].maxLength = 12;
-		}
-	}
-};
-
-function adicionarNoRanking(jogador) {
-	tabelaRanking = tabelaRanking || document.getElementById("azureRanking").tBodies[0];	
-	var row = tabelaRanking.insertRow(tabelaRanking.rows.length);
-	row.insertCell(0).innerText = jogador.posicao;
-	row.insertCell(1).innerText = jogador.nome;
-	row.insertCell(2).innerText = jogador.pontos;
-	row.insertCell(3).innerText = jogador.data;
-	row.insertCell(4).innerText = jogador.pais;
-};
-
 volumeBar.addEventListener('input', function () {
 	if (!started) 
 		sons.menu.volume = volumeBar.value/100;
@@ -283,37 +231,3 @@ function pad(num) {
 function chanceRandomica(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-function getip(json) {
-	if (ranking) {
-		ranking.ip(json);
-		ranking.connected();
-	}
-}
-
-document.getElementById('bug-report').addEventListener('click', function () {
-	digitando = true;
-	swal({   title: "Bug Report",
-		text: "Did you find a bug? =(<br>We will fix it for you!<br>" +
-			"<textarea id='bug-description' rows='4' cols='50' maxlength='80'></textarea>",
-		showCancelButton: true,
-		html: true,
-		closeOnConfirm: false,
-		animation: "slide-from-top",
-		allowEscapeKey: false,
-		inputPlaceholder: "What causes the bug?",
-	    closeOnCancel: true },
-		function(inputValue) {
-			if (inputValue === false) {
-				digitando = false;
-				return false;
-			}
-			var bugDescription = document.getElementById('bug-description').value;
-			if (bugDescription === "") {
-				swal.showInputError("You must provide a description of what happened! &nbsp");
-				return false;
-			}
-			ranking.bugReport(bugDescription);
-			digitando = false;
-		});
-});
