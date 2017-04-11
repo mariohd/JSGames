@@ -19,7 +19,7 @@ List of Games
 * Maze Escape
 * Azure Star
 * TicTacBred
-* Robin Moody (Working on it!)
+* Robin Moody
 
 Help and Learning
 =======
